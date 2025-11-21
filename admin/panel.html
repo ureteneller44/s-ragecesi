@@ -427,52 +427,92 @@
         </div>
       </section>
 
-      <!-- RESİM GALERİSİ SEKME -->
+            <!-- RESİM GALERİSİ SEKME -->
       <section id="tab-photos" class="tab-section">
         <div class="section-header">
           <h2>Resim Galerisi</h2>
-          <p>Buradan sahne fotoğraflarını, organizasyon karelerini ve konsept görsellerini yöneteceksiniz.</p>
+          <p>Buradan sahne fotoğraflarını, organizasyon karelerini ve konsept görsellerini yükleyebilirsiniz.</p>
         </div>
 
-        <div class="placeholder-card">
-          <div class="placeholder-title">Resim galerisi yönetimi buraya gelecek.</div>
-          <p>
-            Bu bölümde daha sonra:
-          </p>
-          <ul style="margin-top:4px;margin-left:18px;font-size:0.84rem;opacity:0.9;">
-            <li>Fotoğraf yükleme</li>
-            <li>Mevcut fotoğrafları listeleme</li>
-            <li>Silme / sıralama / öne çıkarma (vitrin) işlemleri</li>
-          </ul>
-          <div class="placeholder-note">
-            Şimdilik sadece sekmelerin çalıştığını test edebilirsiniz. Bir sonraki adımda
-            seninle birlikte resim galerisi dosyalarını ve yükleme mantığını yazacağız.
-          </div>
+        <!-- Yükleme formu -->
+        <div class="form-card">
+          <form id="photoForm" enctype="multipart/form-data">
+            <div class="form-group">
+              <label class="form-label" for="photoFile">Fotoğraf dosyası</label>
+              <input type="file" id="photoFile" name="photo" class="form-input" accept=".jpg,.jpeg,.png,.webp">
+              <div class="small-note">Maksimum 10 MB, sadece JPG / JPEG / PNG / WEBP.</div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="photoTitle">Başlık (isteğe bağlı)</label>
+              <input type="text" id="photoTitle" name="title" class="form-input" placeholder="Örn: Meyhane Programı">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="photoDesc">Açıklama (isteğe bağlı)</label>
+              <textarea id="photoDesc" name="desc" class="form-textarea" placeholder="Örn: İstanbul Mey Gazinosu'nda sıra gecesi."></textarea>
+            </div>
+
+            <button type="submit" class="btn">Fotoğrafı yükle</button>
+            <div id="photoMsg" class="save-alert" style="display:none;"></div>
+          </form>
         </div>
+
+        <!-- Liste alanı -->
+        <div style="margin-top:14px;font-size:0.82rem;opacity:0.8;">
+          Yüklenmiş fotoğraflar:
+        </div>
+
+        <div id="photosList" style="
+          display:grid;
+          grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
+          gap:14px;
+          margin-top:8px;
+        "></div>
       </section>
 
       <!-- VİDEO GALERİSİ SEKME -->
       <section id="tab-videos" class="tab-section">
         <div class="section-header">
           <h2>Video Galerisi</h2>
-          <p>Buradan YouTube linkleri veya video dosyaları ile sahne performans videolarını yöneteceksiniz.</p>
+          <p>Buradan sahne performans videolarını yükleyip yönetebilirsiniz.</p>
         </div>
 
-        <div class="placeholder-card">
-          <div class="placeholder-title">Video galerisi yönetimi buraya gelecek.</div>
-          <p>
-            Bu bölümde daha sonra:
-          </p>
-          <ul style="margin-top:4px;margin-left:18px;font-size:0.84rem;opacity:0.9;">
-            <li>Yeni video ekleme (YouTube linki veya dosya)</li>
-            <li>Mevcut videoları listeleme</li>
-            <li>Silme / sıralama / öne çıkarma işlemleri</li>
-          </ul>
-          <div class="placeholder-note">
-            Şimdilik sekmelere tıklayıp arayüz geçişini test edebilirsin.
-            Bir sonraki aşamada video galerisi için ayrı PHP / JSON yapısını kurarız.
-          </div>
+        <!-- Video yükleme formu (PHP ve JS’yi birazdan yazacağız) -->
+        <div class="form-card">
+          <form id="videoForm" enctype="multipart/form-data">
+            <div class="form-group">
+              <label class="form-label" for="videoFile">Video dosyası</label>
+              <input type="file" id="videoFile" name="video" class="form-input" accept=".mp4,.mov,.mkv,.webm">
+              <div class="small-note">Önerilen format: MP4 • Boyut: makul ölçüde küçük olmalı.</div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="videoTitle">Başlık (isteğe bağlı)</label>
+              <input type="text" id="videoTitle" name="title" class="form-input" placeholder="Örn: Düğün Gecesi">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="videoDesc">Açıklama (isteğe bağlı)</label>
+              <textarea id="videoDesc" name="desc" class="form-textarea" placeholder="Örn: Urfa türküleriyle dolu düğün programı."></textarea>
+            </div>
+
+            <button type="submit" class="btn">Videoyu yükle</button>
+            <div id="videoMsg" class="save-alert" style="display:none;"></div>
+          </form>
         </div>
+
+        <!-- Video liste alanı -->
+        <div style="margin-top:14px;font-size:0.82rem;opacity:0.8;">
+          Yüklenmiş videolar:
+        </div>
+
+        <div id="videosList" style="
+          display:grid;
+          grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+          gap:14px;
+          margin-top:8px;
+        "></div>
       </section>
     </div>
   </div>
