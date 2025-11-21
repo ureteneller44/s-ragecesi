@@ -1335,11 +1335,17 @@
         });
       }
 
-      // Duyuru + Galeriler
-      loadAnnouncement();
-      loadPhotos();
-      loadVideos();
-    });
+      // Duyuru + Galeriler (ilk yükleme)
+loadAnnouncement();
+loadPhotos();
+loadVideos();
+
+// Her 5 saniyede otomatik yenile
+setInterval(function () {
+  loadAnnouncement();
+  loadPhotos();
+  loadVideos();
+}, 5000);
 
      </script>
    <!-- Firebase CDN -->
