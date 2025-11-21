@@ -1,16 +1,14 @@
 [
   {
-    "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=VIDEOKODU1",
+    "type": "file",
+    "src": "uploads/videos/video1.mp4",
     "title": "Meyhane Programı",
-    "desc": "İstanbul Mey Gazinosu'nda canlı sıra gecesi performansı.",
-    "thumb": "uploads/videos/thumb1.jpg"
+    "desc": "İstanbul Mey Gazinosu'nda canlı sıra gecesi performansı."
   },
   {
-    "type": "youtube",
-    "url": "https://www.youtube.com/watch?v=VIDEOKODU2",
+    "type": "file",
+    "src": "uploads/videos/video2.mp4",
     "title": "Düğün Gecesi",
-    "desc": "Urfa türküleriyle dolu unutulmaz düğün programı.",
-    "thumb": "uploads/videos/thumb2.jpg"
+    "desc": "Urfa türküleriyle dolu unutulmaz düğün programı."
   }
 ]
