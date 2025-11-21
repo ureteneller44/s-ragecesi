@@ -25,142 +25,118 @@
       color: inherit;
     }
 
-        /* Üst duyuru bandı – geniş, büyük yazı, sarı-yeşil dalga efekti */
-.announcement-bar {
-  position: relative;
-  width: 100%;
-  padding: 26px 26px; /* PANEL GENİŞLETİLDİ */
-  overflow: hidden;
-  border-bottom: 2px solid rgba(0,0,0,0.6);
+    /* Üst duyuru bandı – geniş, büyük yazı, sarı-yeşil dalga efekti */
+    .announcement-bar {
+      position: relative;
+      width: 100%;
+      padding: 26px 26px;
+      overflow: hidden;
+      border-bottom: 2px solid rgba(0,0,0,0.6);
+      background: linear-gradient(
+        115deg,
+        #65a30d,
+        #a3e635,
+        #facc15,
+        #65a30d,
+        #a3e635
+      );
+      background-size: 400% 400%;
+      animation: flagWave 6s ease-in-out infinite;
+      color: #ffffff;
+      box-shadow: 0 12px 38px rgba(0,0,0,0.7);
+    }
 
-  /* Dalgalanan yeşil-sarı arka plan */
-  background: linear-gradient(
-    115deg,
-    #65a30d,
-    #a3e635,
-    #facc15,
-    #65a30d,
-    #a3e635
-  );
-  background-size: 400% 400%;
-  animation: flagWave 6s ease-in-out infinite;
+    @keyframes flagWave {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-  color: #ffffff; 
-  box-shadow: 0 12px 38px rgba(0,0,0,0.7);
-}
+    /* Havai fişek parlamaları */
+    .announcement-bar::before,
+    .announcement-bar::after {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      opacity: 0.55;
+      background:
+        radial-gradient(circle, #fefce8 0%, #facc15 35%, transparent 60%),
+        radial-gradient(circle at 30% 30%, #bbf7d0 0, transparent 45%),
+        radial-gradient(circle at 70% 70%, #bef264 0, transparent 45%);
+      animation: fireworks 3s infinite ease-out;
+    }
 
-@keyframes flagWave {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+    .announcement-bar::before {
+      top: -110px;
+      left: -40px;
+      animation-delay: 0s;
+    }
 
-/* Havai fişek parlamaları */
-.announcement-bar::before,
-.announcement-bar::after {
-  content: "";
-  position: absolute;
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  opacity: 0.55;
-  background:
-    radial-gradient(circle, #fefce8 0%, #facc15 35%, transparent 60%),
-    radial-gradient(circle at 30% 30%, #bbf7d0 0, transparent 45%),
-    radial-gradient(circle at 70% 70%, #bef264 0, transparent 45%);
-  animation: fireworks 3s infinite ease-out;
-}
+    .announcement-bar::after {
+      top: -120px;
+      right: -40px;
+      animation-delay: 1.4s;
+    }
 
-.announcement-bar::before {
-  top: -110px;
-  left: -40px;
-  animation-delay: 0s;
-}
+    @keyframes fireworks {
+      0% { transform: scale(0.4); opacity: 0; }
+      35% { transform: scale(1); opacity: 0.9; }
+      70% { opacity: 0.4; }
+      100% { transform: scale(1.25); opacity: 0; }
+    }
 
-.announcement-bar::after {
-  top: -120px;
-  right: -40px;
-  animation-delay: 1.4s;
-}
+    .announcement-inner {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 16px;
+      animation: barFadeIn 0.9s ease-out;
+    }
 
-@keyframes fireworks {
-  0% { transform: scale(0.4); opacity: 0; }
-  35% { transform: scale(1); opacity: 0.9; }
-  70% { opacity: 0.4; }
-  100% { transform: scale(1.25); opacity: 0; }
-}
+    /* Üst başlık */
+    .announcement-label {
+      text-transform: uppercase;
+      letter-spacing: 2.2px;
+      font-size: 1rem;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.35);
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 0 14px rgba(255,255,255,0.4);
+    }
 
-.announcement-inner {
-  position: relative;
-  z-index: 5;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 16px;
-  animation: barFadeIn 0.9s ease-out;
-}
+    /* Ana yazı */
+    .announcement-text {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 0 8px rgba(0,0,0,0.8);
+    }
 
-/* Üst başlık */
-.announcement-label {
-  text-transform: uppercase;
-  letter-spacing: 2.2px;
-  font-size: 1rem; /* BÜYÜTÜLDÜ */
-  padding: 7px 14px;
-  border-radius: 999px;
-  background: rgba(0,0,0,0.35);
-  color: #ffffff;
-  border: 1px solid rgba(255,255,255,0.5);
-  box-shadow: 0 0 14px rgba(255,255,255,0.4);
-}
+    .announcement-text strong {
+      color: #ffffff;
+    }
 
-/* Ana yazı */
-.announcement-text {
-  font-size: 1.35rem; /* YAZI BÜYÜTÜLDÜ */
-  font-weight: 700;
-  color: #ffffff;
-  text-shadow: 0 0 8px rgba(0,0,0,0.8);
-}
+    /* Alt küçük bilgi */
+    .announcement-sub {
+      display: block;
+      font-size: 0.95rem;
+      margin-top: 4px;
+      opacity: 0.95;
+      width: 100%;
+    }
 
-.announcement-text strong {
-  color: #ffffff;
-}
-
-/* Mekan etiketi */
-.announcement-venue {
-  padding: 5px 12px;
-  font-size: 1.2rem; /* büyütüldü */
-  border-radius: 999px;
-  background: rgba(0,0,0,0.3);
-  border: 1px solid rgba(255,255,255,0.6);
-  box-shadow: 0 0 12px rgba(255,255,255,0.35);
-}
-
-/* Saat etiketi */
-.announcement-time {
-  padding: 6px 14px;
-  font-size: 1.1rem;
-  background: linear-gradient(90deg, #166534, #65a30d, #facc15);
-  border-radius: 999px;
-  color: #ffffff;
-  font-weight: 700;
-  border: 1px solid rgba(255,255,255,0.7);
-  box-shadow: 0 0 18px rgba(255,255,255,0.8);
-}
-
-/* Alt küçük bilgi */
-.announcement-sub {
-  display: block;
-  font-size: 0.95rem;
-  margin-top: 4px;
-  opacity: 0.95;
-}
-
-@keyframes barFadeIn {
-  from { transform: translateY(-100%); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
+    @keyframes barFadeIn {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
 
     /* Sayfa içi genel */
     .page {
@@ -309,6 +285,61 @@
       border-radius: 12px;
       border: 1px dashed rgba(148, 163, 184, 0.5);
       background: rgba(15, 23, 42, 0.7);
+      opacity: 0.9;
+    }
+
+    /* GALERİ GRID */
+    .gallery-grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+    }
+
+    .gallery-item,
+    .video-item {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      overflow: hidden;
+      font-size: 0.78rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gallery-thumb {
+      position: relative;
+      width: 100%;
+      padding-top: 75%;
+      overflow: hidden;
+      background: #020617;
+    }
+
+    .gallery-thumb img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gallery-caption {
+      padding: 6px 8px 7px;
+      border-top: 1px solid rgba(15,23,42,0.9);
+      opacity: 0.9;
+    }
+
+    .video-item video {
+      width: 100%;
+      display: block;
+      background: #020617;
+    }
+
+    .video-caption {
+      padding: 6px 8px 7px;
+      border-top: 1px solid rgba(15,23,42,0.9);
+      font-size: 0.78rem;
       opacity: 0.9;
     }
 
@@ -557,6 +588,53 @@
       opacity: 0.6;
     }
 
+    /* Sosyal icon bar (en alt) */
+    .social-bar {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .social-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #0b1120;
+      text-decoration: none;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+      border: 1px solid rgba(15,23,42,0.9);
+    }
+
+    .social-icon span {
+      pointer-events: none;
+    }
+
+    .social-whatsapp {
+      background: #22c55e;
+      color: #052e16;
+    }
+
+    .social-instagram {
+      background: radial-gradient(circle at 30% 30%, #fdf2f8 0, #ec4899 30%, #7c3aed 70%, #312e81 100%);
+      color: #fdf2f8;
+    }
+
+    .social-youtube {
+      background: #ef4444;
+      color: #fef2f2;
+    }
+
+    .social-tiktok {
+      background: radial-gradient(circle at 30% 30%, #0f172a 0, #020617 40%, #22d3ee 70%, #f97316 100%);
+      color: #e5e7eb;
+    }
+
     /* Responsive */
     @media (max-width: 900px) {
       .reviews-layout {
@@ -588,14 +666,17 @@
 </head>
 <body>
 
-  <!-- Üst duyuru alanı (ileride admin panelden yönetilecek) -->
+  <!-- Üst duyuru alanı (announcement.json'dan okunacak) -->
   <div class="announcement-bar">
     <div class="announcement-inner">
       <span class="announcement-label">BUGÜN NEREDEYİZ?</span>
-      <span class="announcement-text">
+      <span id="announcementText" class="announcement-text">
         Hayati İşler ve Ekibi bu akşam
         <strong>İstanbul • Mey Gazinosu</strong>'nda, sahne saati:
         <strong>21:00</strong>
+      </span>
+      <span id="announcementSub" class="announcement-sub">
+        Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.
       </span>
     </div>
   </div>
@@ -636,29 +717,33 @@
       </div>
     </section>
 
-    <!-- Galeri Bölümleri (sonra dinamik yapacağız) -->
+    <!-- Galeri Bölümleri (JSON'dan dinamik) -->
     <section class="sections">
+      <!-- Video Galerisi -->
       <article class="section-card">
         <div class="section-tag">Video Galerisi</div>
         <h2>Sahne performanslarımız</h2>
         <p>
           Farklı mekanlardaki sıra gecesi performanslarımızı izleyerek ekibimizi daha yakından tanıyabilirsiniz.
         </p>
-        <div class="section-placeholder">
-          Buraya yönetici panelinden videolar eklenecek.<br />
-          (YouTube bağlantıları veya direkt video dosyaları)
+
+        <div id="videoGallery" class="gallery-grid"></div>
+        <div id="videoEmpty" class="section-placeholder">
+          Henüz video eklenmemiştir. Yönetici panelinden video yüklediğinizde burada görünecektir.
         </div>
       </article>
 
+      <!-- Fotoğraf Galerisi -->
       <article class="section-card">
         <div class="section-tag">Fotoğraf Galerisi</div>
         <h2>Renkli kareler</h2>
         <p>
           Kına geceleri, düğünler, özel geceler ve mekan performanslarından seçili fotoğraflar.
         </p>
-        <div class="section-placeholder">
-          Buraya yönetici panelinden fotoğraflar eklenecek.<br />
-          (Albüm şeklinde gösterilecek)
+
+        <div id="photoGallery" class="gallery-grid"></div>
+        <div id="photoEmpty" class="section-placeholder">
+          Henüz fotoğraf eklenmemiştir. Yönetici panelinden fotoğraf yüklediğinizde burada görünecektir.
         </div>
       </article>
     </section>
@@ -672,20 +757,29 @@
 
       <div class="contact-card">
         <div class="contact-items">
-          <!-- Bunları gerçek numara/link ile sonra güncelleriz -->
-          <a href="tel:+905xxxxxxxxx" class="contact-item">
+          <a href="tel:+905373839345" class="contact-item">
             <span class="contact-item-label">Telefon</span>
-            <span>+90 5xx xxx xx xx</span>
+            <span>+90 537 383 93 45</span>
           </a>
 
-          <a href="https://wa.me/90xxxxxxxxxx" target="_blank" class="contact-item">
+          <a href="https://wa.me/905373839345?text=Merhaba%2C%20Hayati%20%C4%B0%C5%9Fler%20ve%20Urfa%20S%C4%B1ra%20Gecesi%20ekibine%20ula%C5%9Ft%C4%B1m.%20Etkinli%C4%9Fim%20i%C3%A7in%20bilgi%20ve%20rezervasyon%20almak%20istiyorum." target="_blank" class="contact-item">
             <span class="contact-item-label">WhatsApp</span>
-            <span>Hemen yazın</span>
+            <span>WhatsApp üzerinden yazın</span>
           </a>
 
-          <a href="https://instagram.com/" target="_blank" class="contact-item">
+          <a href="https://www.instagram.com/hayatislerofficial?igsh=aWxubHJrMmF3bGIx" target="_blank" class="contact-item">
             <span class="contact-item-label">Instagram</span>
-            <span>@hayatiisler</span>
+            <span>@hayatislerofficial</span>
+          </a>
+
+          <a href="https://www.tiktok.com/@urfa_sira_gecesi.hayati?_r=1&_t=ZS-91avCXfPbDp" target="_blank" class="contact-item">
+            <span class="contact-item-label">TikTok</span>
+            <span>@urfa_sira_gecesi.hayati</span>
+          </a>
+
+          <a href="https://youtube.com/@hayatiislerurfasiragecesi6601?si=ML0h-cbFn8LEIHcV" target="_blank" class="contact-item">
+            <span class="contact-item-label">YouTube</span>
+            <span>Kanala göz atın</span>
           </a>
         </div>
 
@@ -1016,6 +1110,21 @@
 
   <footer>
     © <span id="year"></span> Hayati İşler & Urfa Sıra Gecesi Ekibi. Tüm hakları saklıdır.
+
+    <div class="social-bar">
+      <a href="https://wa.me/905373839345?text=Merhaba%2C%20Hayati%20%C4%B0%C5%9Fler%20ve%20Urfa%20S%C4%B1ra%20Gecesi%20ekibine%20ula%C5%9Ft%C4%B1m.%20Etkinli%C4%9Fim%20i%C3%A7in%20bilgi%20ve%20rezervasyon%20almak%20istiyorum." target="_blank" class="social-icon social-whatsapp" aria-label="WhatsApp">
+        <span>W</span>
+      </a>
+      <a href="https://www.instagram.com/hayatislerofficial?igsh=aWxubHJrMmF3bGIx" target="_blank" class="social-icon social-instagram" aria-label="Instagram">
+        <span>IG</span>
+      </a>
+      <a href="https://youtube.com/@hayatiislerurfasiragecesi6601?si=ML0h-cbFn8LEIHcV" target="_blank" class="social-icon social-youtube" aria-label="YouTube">
+        <span>YT</span>
+      </a>
+      <a href="https://www.tiktok.com/@urfa_sira_gecesi.hayati?_r=1&_t=ZS-91avCXfPbDp" target="_blank" class="social-icon social-tiktok" aria-label="TikTok">
+        <span>TT</span>
+      </a>
+    </div>
   </footer>
 
   <script>
@@ -1041,6 +1150,121 @@
       "terör", "teror", "terörist", "terorist", "bomba", "silah", "daeş", "deaş", "işid", "işis"
     ];
 
+    // JSON'dan veri okuma yardımcıları
+    function normalizeList(data, key) {
+      if (!data) return [];
+      if (Array.isArray(data)) return data;
+      if (data[key] && Array.isArray(data[key])) return data[key];
+      return [];
+    }
+
+    function loadAnnouncement() {
+      const textEl = document.getElementById("announcementText");
+      const subEl = document.getElementById("announcementSub");
+
+      fetch("announcement.json", { cache: "no-store" })
+        .then(function (res) {
+          if (!res.ok) throw new Error("No announcement.json");
+          return res.json();
+        })
+        .then(function (data) {
+          const city = (data.city || "İstanbul").trim();
+          const venue = (data.venue || "Mey Gazinosu").trim();
+          const time = (data.time || "21:00").trim();
+          const day = (data.day || data.dayText || "bu akşam").trim();
+          const sub = (data.sub || "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.").trim();
+
+          textEl.innerHTML =
+            "Hayati İşler ve Ekibi " + day + " " +
+            "<strong>" + city + " • " + venue + "</strong>'nda, sahne saati: " +
+            "<strong>" + time + "</strong>";
+
+          subEl.textContent = sub;
+        })
+        .catch(function () {
+          // Hata olursa varsayılan metinler kalsın
+        });
+    }
+
+    function loadPhotos() {
+      const gallery = document.getElementById("photoGallery");
+      const emptyBox = document.getElementById("photoEmpty");
+      if (!gallery) return;
+
+      fetch("photos.json", { cache: "no-store" })
+        .then(function (res) {
+          if (!res.ok) throw new Error("no photos.json");
+          return res.json();
+        })
+        .then(function (data) {
+          const list = normalizeList(data, "photos");
+          if (!list.length) return;
+
+          let html = "";
+          list.forEach(function (item) {
+            const src = (item.file || item.path || "").trim();
+            if (!src) return;
+            const title = (item.title || item.name || "Sahne fotoğrafı").trim();
+
+            html +=
+              '<div class="gallery-item">' +
+                '<div class="gallery-thumb">' +
+                  '<img src="' + src + '" alt="' + title.replace(/"/g, "&quot;") + '">' +
+                '</div>' +
+                '<div class="gallery-caption">' + title + '</div>' +
+              '</div>';
+          });
+
+          if (html) {
+            gallery.innerHTML = html;
+            if (emptyBox) emptyBox.style.display = "none";
+          }
+        })
+        .catch(function () {
+          // Hata olursa placeholder kalsın
+        });
+    }
+
+    function loadVideos() {
+      const gallery = document.getElementById("videoGallery");
+      const emptyBox = document.getElementById("videoEmpty");
+      if (!gallery) return;
+
+      fetch("videos.json", { cache: "no-store" })
+        .then(function (res) {
+          if (!res.ok) throw new Error("no videos.json");
+          return res.json();
+        })
+        .then(function (data) {
+          const list = normalizeList(data, "videos");
+          if (!list.length) return;
+
+          let html = "";
+          list.forEach(function (item) {
+            const src = (item.file || item.path || "").trim();
+            if (!src) return;
+            const title = (item.title || item.name || "Sahne videosu").trim();
+
+            html +=
+              '<div class="video-item">' +
+                '<video controls preload="metadata">' +
+                  '<source src="' + src + '">' +
+                  'Tarayıcınız video etiketini desteklemiyor.' +
+                '</video>' +
+                '<div class="video-caption">' + title + '</div>' +
+              '</div>';
+          });
+
+          if (html) {
+            gallery.innerHTML = html;
+            if (emptyBox) emptyBox.style.display = "none";
+          }
+        })
+        .catch(function () {
+          // Hata olursa placeholder kalsın
+        });
+    }
+
     window.addEventListener("DOMContentLoaded", function () {
       // Mevcut sahte yorumların yıldızlarını çiz
       document.querySelectorAll(".review-card").forEach(function (card) {
@@ -1051,55 +1275,61 @@
         }
       });
 
+      // Yorum formu
       const form = document.getElementById("reviewForm");
       const nameInput = document.getElementById("reviewName");
       const ratingSelect = document.getElementById("reviewRating");
       const textArea = document.getElementById("reviewText");
       const messageBox = document.getElementById("reviewMessage");
 
-      if (!form) return;
+      if (form) {
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
 
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
+          const name = (nameInput.value || "").trim();
+          const rating = ratingSelect.value;
+          const text = (textArea.value || "").trim();
 
-        const name = (nameInput.value || "").trim();
-        const rating = ratingSelect.value;
-        const text = (textArea.value || "").trim();
+          // Mesaj kutusunu sıfırla
+          messageBox.style.display = "none";
+          messageBox.textContent = "";
+          messageBox.className = "alert";
 
-        // Mesaj kutusunu sıfırla
-        messageBox.style.display = "none";
-        messageBox.textContent = "";
-        messageBox.className = "alert";
+          // Basit zorunlu alan kontrolü
+          if (!name || !rating || !text) {
+            messageBox.classList.add("alert-error");
+            messageBox.textContent = "Lütfen ad, puan ve yorum alanlarını eksiksiz doldurun.";
+            messageBox.style.display = "block";
+            return;
+          }
 
-        // Basit zorunlu alan kontrolü
-        if (!name || !rating || !text) {
-          messageBox.classList.add("alert-error");
-          messageBox.textContent = "Lütfen ad, puan ve yorum alanlarını eksiksiz doldurun.";
+          const lowerContent = (name + " " + text).toLocaleLowerCase("tr");
+
+          // Küfür / hakaret / terör filtre kontrolü
+          const hasBanned = bannedWords.some(function (word) {
+            return lowerContent.includes(word);
+          });
+
+          if (hasBanned) {
+            messageBox.classList.add("alert-error");
+            messageBox.textContent = "Lütfen küfür, hakaret, ayrımcılık veya terör içeren ifadeler kullanmayın.";
+            messageBox.style.display = "block";
+            return;
+          }
+
+          // Burada gerçekte yorumu veritabanına göndermen gerekir (PHP + DB),
+          // şu an sadece kullanıcıya bilgi veriyoruz.
+          form.reset();
+          messageBox.classList.add("alert-success");
+          messageBox.textContent = "Teşekkürler! Yorumunuz alındı, yönetici onayından sonra yayınlanacaktır.";
           messageBox.style.display = "block";
-          return;
-        }
-
-        const lowerContent = (name + " " + text).toLocaleLowerCase("tr");
-
-        // Küfür / hakaret / terör filtre kontrolü
-        const hasBanned = bannedWords.some(function (word) {
-          return lowerContent.includes(word);
         });
+      }
 
-        if (hasBanned) {
-          messageBox.classList.add("alert-error");
-          messageBox.textContent = "Lütfen küfür, hakaret, ayrımcılık veya terör içeren ifadeler kullanmayın.";
-          messageBox.style.display = "block";
-          return;
-        }
-
-        // Burada gerçekte yorumu veritabanına göndermen gerekir (PHP + DB),
-        // şu an sadece kullanıcıya bilgi veriyoruz.
-        form.reset();
-        messageBox.classList.add("alert-success");
-        messageBox.textContent = "Teşekkürler! Yorumunuz alındı, yönetici onayından sonra yayınlanacaktır.";
-        messageBox.style.display = "block";
-      });
+      // Duyuru + Galeriler
+      loadAnnouncement();
+      loadPhotos();
+      loadVideos();
     });
   </script>
 </body>
