@@ -671,6 +671,110 @@
           buildTexts();
         });
     });
+
+    // ---------------- VİDEO GALERİSİ ----------------
+
+// Video listesi doldurma
+function loadVideos() {
+  fetch('/get-videos.php')
+    .then(r => r.json())
+    .then(list => {
+      const box = document.getElementById('videosList');
+      if (!box) return;
+
+      box.innerHTML = '';
+
+      if (!Array.isArray(list) || !list.length) {
+        box.innerHTML = '<div style="opacity:0.6;font-size:0.85rem;">Henüz video eklenmemiş.</div>';
+        return;
+      }
+
+      list.forEach(video => {
+        const card = document.createElement('div');
+        card.style.background = '#0f172a';
+        card.style.border = '1px solid rgba(148,163,184,0.4)';
+        card.style.borderRadius = '14px';
+        card.style.padding = '8px';
+        card.style.boxShadow = '0 6px 18px rgba(0,0,0,0.4)';
+
+        card.innerHTML = `
+          <video controls style="width:100%;border-radius:10px;max-height:220px;">
+            <source src="${video.src}" type="video/mp4">
+            Tarayıcınız video etiketini desteklemiyor.
+          </video>
+          <div style="font-size:0.78rem;margin-top:6px;opacity:0.9;">
+            ${video.title ? `<strong>${video.title}</strong><br>` : ''}
+            ${video.desc ? `<span style="opacity:0.75;">${video.desc}</span>` : ''}
+          </div>
+        `;
+        box.appendChild(card);
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      const box = document.getElementById('videosList');
+      if (box) {
+        box.innerHTML = '<div style="opacity:0.6;font-size:0.85rem;">Videolar yüklenemedi.</div>';
+      }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const vForm   = document.getElementById('videoForm');
+  const vFile   = document.getElementById('videoFile');
+  const vMsgBox = document.getElementById('videoMsg');
+
+  function showVideoMsg(text, ok) {
+    if (!vMsgBox) return;
+    vMsgBox.textContent = text;
+    vMsgBox.classList.remove('save-alert-ok', 'save-alert-error');
+    vMsgBox.classList.add(ok ? 'save-alert-ok' : 'save-alert-error');
+    vMsgBox.style.display = 'block';
+    setTimeout(() => { vMsgBox.style.display = 'none'; }, 2500);
+  }
+
+  if (vForm && vFile) {
+    vForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      if (!vFile.files || !vFile.files.length) {
+        showVideoMsg('Lütfen bir video seçin.', false);
+        return;
+      }
+
+      const fd = new FormData(vForm);
+
+      fetch('/upload-video.php', {
+        method: 'POST',
+        body: fd
+      })
+      .then(r => r.json())
+      .then(res => {
+        if (res.ok) {
+          vForm.reset();
+          showVideoMsg('Video başarıyla yüklendi.', true);
+          loadVideos();
+        } else {
+          showVideoMsg(res.message || 'Yükleme sırasında hata oluştu.', false);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        showVideoMsg('Sunucuya bağlanırken hata oluştu.', false);
+      });
+    });
+  }
+
+  // Sayfa açıldığında videoları da yükle
+  loadVideos();
+});
+
+// Video Galerisi sekmesine tıklanınca yeniden listele
+const videosTabBtn = document.querySelector('[data-target="tab-videos"]');
+if (videosTabBtn) {
+  videosTabBtn.addEventListener('click', loadVideos);
+}
+
   </script>
 </body>
 </html>
