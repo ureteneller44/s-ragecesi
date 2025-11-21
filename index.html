@@ -25,44 +25,138 @@
       color: inherit;
     }
 
-    /* Üst duyuru bandı */
+        /* Üst duyuru bandı – sarı & yeşil havai fişekli */
     .announcement-bar {
       position: relative;
       width: 100%;
-      background: linear-gradient(90deg, #b91c1c, #f97316);
-      color: #fff;
-      padding: 10px 16px;
+      padding: 18px 20px; /* paneli biraz genişlettik */
       overflow: hidden;
-      border-bottom: 2px solid rgba(0,0,0,0.3);
+      border-bottom: 2px solid rgba(0,0,0,0.6);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(250, 250, 170, 0.55) 0, transparent 55%),
+        radial-gradient(circle at 90% 0%, rgba(190, 242, 100, 0.55) 0, transparent 55%),
+        radial-gradient(circle at 50% 100%, rgba(132, 204, 22, 0.35) 0, transparent 60%),
+        linear-gradient(120deg, #022c22, #166534 35%, #65a30d 65%, #facc15 100%);
+      color: #ffffff; /* yazı beyaz */
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    }
+
+    .announcement-bar::before,
+    .announcement-bar::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      opacity: 0.7;
+      background:
+        radial-gradient(circle, #fefce8 0, #facc15 35%, transparent 60%),
+        radial-gradient(circle at 30% 30%, #bbf7d0 0, transparent 45%),
+        radial-gradient(circle at 70% 70%, #bef264 0, transparent 45%);
+      animation: fireworks 2.8s infinite ease-out;
+    }
+
+    .announcement-bar::before {
+      top: -120px;
+      left: -40px;
+      animation-delay: 0s;
+    }
+
+    .announcement-bar::after {
+      top: -130px;
+      right: -40px;
+      animation-delay: 1.2s;
+    }
+
+    @keyframes fireworks {
+      0% {
+        transform: scale(0.4);
+        opacity: 0;
+      }
+      35% {
+        transform: scale(1);
+        opacity: 0.95;
+      }
+      70% {
+        opacity: 0.4;
+      }
+      100% {
+        transform: scale(1.2);
+        opacity: 0;
+      }
     }
 
     .announcement-inner {
-      display: inline-block;
-      white-space: nowrap;
-      animation: slideIn 0.8s ease-out;
-      font-size: 0.95rem;
-      font-weight: 600;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 14px;
+      animation: barFadeIn 0.9s ease-out;
     }
 
     .announcement-label {
       text-transform: uppercase;
       letter-spacing: 2px;
       font-size: 0.75rem;
-      opacity: 0.9;
-      margin-right: 12px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(248, 250, 252, 0.4);
+      border: 1px solid rgba(248, 250, 252, 0.6);
+    }
+
+    .announcement-text {
+      font-size: 1rem;
+      font-weight: 600;
+      text-shadow: 0 0 8px rgba(0,0,0,0.8);
+      color: #ffffff; /* yazılar beyaz */
     }
 
     .announcement-text strong {
-      text-shadow: 0 0 8px rgba(0,0,0,0.5);
+      color: #ffffff; /* kalınlar da beyaz */
     }
 
-    @keyframes slideIn {
+    .announcement-venue {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      box-shadow: 0 0 14px rgba(34, 197, 94, 0.7);
+      border: 1px solid rgba(187, 247, 208, 0.8);
+      margin: 0 4px;
+      color: #ffffff;
+    }
+
+    .announcement-time {
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #15803d, #65a30d, #facc15);
+      color: #ffffff; /* saat yazısı beyaz */
+      margin-left: 4px;
+      box-shadow: 0 0 16px rgba(250, 204, 21, 0.9);
+      border: 1px solid rgba(250, 250, 170, 0.9);
+    }
+
+    .announcement-sub {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      margin-top: 3px;
+      opacity: 0.95;
+      color: #f9fafb;
+    }
+
+    @keyframes barFadeIn {
       from {
-        transform: translateX(100%);
+        transform: translateY(-100%);
         opacity: 0;
       }
       to {
-        transform: translateX(0);
+        transform: translateY(0);
         opacity: 1;
       }
     }
