@@ -1171,29 +1171,33 @@
       const textEl = document.getElementById("announcementText");
       const subEl = document.getElementById("announcementSub");
 
-      fetch("/announcement.json", { cache: "no-store" })
-        .then(function (res) {
-          if (!res.ok) throw new Error("No announcement.json");
-          return res.json();
-        })
-        .then(function (data) {
-          const city = (data.city || "İstanbul").trim();
-          const venue = (data.venue || "Mey Gazinosu").trim();
-          const time = (data.time || "21:00").trim();
-          const day = (data.day || data.dayText || "bu akşam").trim();
-          const sub = (data.sub || "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.").trim();
+      function loadAnnouncement() {
+  const textEl = document.getElementById("announcementText");
+  const subEl = document.getElementById("announcementSub");
 
-          textEl.innerHTML =
-            "Hayati İşler ve Ekibi " + day + " " +
-            "<strong>" + city + " • " + venue + "</strong>'nda, sahne saati: " +
-            "<strong>" + time + "</strong>";
+  fetch("get-announcement.php?_=" + Date.now(), { cache: "no-store" })
+    .then(function (res) {
+      if (!res.ok) throw new Error("No announcement.json");
+      return res.json();
+    })
+    .then(function (data) {
+      const city = (data.city || "İstanbul").trim();
+      const venue = (data.venue || "Mey Gazinosu").trim();
+      const time = (data.time || "21:00").trim();
+      const day = (data.day || data.dayText || "bu akşam").trim();
+      const sub = (data.sub || "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.").trim();
 
-          subEl.textContent = sub;
-        })
-        .catch(function () {
-          // Hata olursa varsayılan metinler kalsın
-        });
-    }
+      textEl.innerHTML =
+        "Hayati İşler ve Ekibi " + day + " " +
+        "<strong>" + city + " • " + venue + "</strong>'nda, sahne saati: " +
+        "<strong>" + time + "</strong>";
+
+      subEl.textContent = sub;
+    })
+    .catch(function () {
+      // Hata olursa varsayılan metinler kalsın
+    });
+}
 
     function loadPhotos() {
       const gallery = document.getElementById("photoGallery");
