@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Hayati İşler • Yönetim Paneli</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: radial-gradient(circle at top, #020617 0, #020617 50%, #000 100%);
+      color: #e5e7eb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 12px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 1100px;
+      background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow:
+        0 26px 80px rgba(0,0,0,0.8),
+        0 0 0 1px rgba(15,23,42,0.9);
+      overflow: hidden;
+    }
+
+    .app-header {
+      padding: 16px 20px 10px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top left, rgba(185,28,28,0.55), transparent 55%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .app-title {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .app-title h1 {
+      font-size: 1.1rem;
+      letter-spacing: 0.03em;
+    }
+
+    .app-title span {
+      font-size: 0.78rem;
+      opacity: 0.8;
+    }
+
+    .logout-link {
+      font-size: 0.8rem;
+      opacity: 0.8;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+
+    .tabs-bar {
+      padding: 10px 18px 0;
+      border-bottom: 1px solid rgba(30, 64, 175, 0.6);
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
+    }
+
+    .tab-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.95);
+      padding: 7px 14px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #e5e7eb;
+      opacity: 0.85;
+    }
+
+    .tab-btn span.icon {
+      font-size: 0.9rem;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(90deg, #f97316, #ea580c);
+      border-color: rgba(248,250,252,0.9);
+      color: #0f172a;
+      opacity: 1;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+    }
+
+    .content {
+      padding: 16px 18px 20px;
+    }
+
+    .tab-section {
+      display: none;
+    }
+
+    .tab-section.active {
+      display: block;
+    }
+
+    .section-header {
+      margin-bottom: 10px;
+    }
+
+    .section-header h2 {
+      font-size: 1rem;
+      margin-bottom: 2px;
+    }
+
+    .section-header p {
+      font-size: 0.82rem;
+      opacity: 0.8;
+    }
+
+    /* Duyuru formu */
+    .form-card {
+      margin-top: 4px;
+      padding: 12px 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
+      font-size: 0.85rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 8px;
+    }
+
+    .form-row + .form-row {
+      margin-top: 6px;
+    }
+
+    .form-group {
+      margin-bottom: 8px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      margin-bottom: 3px;
+      opacity: 0.9;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 7px 9px;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      background: rgba(15, 23, 42, 0.98);
+      color: #f9fafb;
+      font-size: 0.84rem;
+      outline: none;
+    }
+
+    .form-textarea {
+      min-height: 60px;
+      resize: vertical;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: #f97316;
+      box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.6);
+    }
+
+    .small-note {
+      font-size: 0.75rem;
+      opacity: 0.75;
+      margin-top: 4px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.84rem;
+      font-weight: 600;
+      background: linear-gradient(90deg, #f97316, #ea580c);
+      color: #0f172a;
+      margin-top: 4px;
+    }
+
+    .btn-secondary {
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.8);
+      color: #e5e7eb;
+    }
+
+    .btn + .btn {
+      margin-left: 6px;
+    }
+
+    .save-alert {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      padding: 6px 8px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .save-alert-ok {
+      background: rgba(22,163,74,0.1);
+      border: 1px solid rgba(74,222,128,0.85);
+      color: #bbf7d0;
+    }
+
+    .save-alert-error {
+      background: rgba(220,38,38,0.12);
+      border: 1px solid rgba(248,113,113,0.9);
+      color: #fecaca;
+    }
+
+    /* Duyuru önizleme */
+    .preview-bar {
+      margin-top: 14px;
+      position: relative;
+      background: radial-gradient(circle at top, #7f1d1d 0, #450a0a 40%, #111827 100%);
+      border-radius: 16px;
+      border: 1px solid rgba(127,29,29,0.95);
+      padding: 14px 14px 16px;
+      overflow: hidden;
+      box-shadow:
+        0 16px 40px rgba(0,0,0,0.85),
+        0 0 0 1px rgba(15,23,42,0.9);
+      font-size: 0.9rem;
+    }
+
+    .preview-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(252, 211, 77, 0.9);
+      background: rgba(0,0,0,0.45);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 0.72rem;
+      margin-bottom: 6px;
+    }
+
+    .preview-main {
+      font-size: 0.96rem;
+      font-weight: 600;
+      text-shadow: 0 0 10px rgba(0,0,0,0.7);
+      line-height: 1.6;
+    }
+
+    .preview-main strong {
+      color: #facc15;
+      text-shadow: 0 0 12px rgba(250, 204, 21, 1);
+    }
+
+    .preview-sub {
+      font-size: 0.82rem;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    .fw-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #ffffff 0, rgba(255,255,255,0) 70%);
+      opacity: 0.7;
+    }
+
+    .fw-dot.f1 { top: 6px; left: 12%; }
+    .fw-dot.f2 { top: 4px; left: 52%; }
+    .fw-dot.f3 { top: 10px; right: 10%; }
+
+    /* Diğer sekmeler için placeholder kartlar */
+    .placeholder-card {
+      margin-top: 8px;
+      padding: 14px 14px 16px;
+      border-radius: 16px;
+      border: 1px dashed rgba(148,163,184,0.7);
+      background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    .placeholder-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .placeholder-note {
+      font-size: 0.78rem;
+      opacity: 0.78;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 720px) {
+      .form-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .app-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="app-title">
+        <h1>Hayati İşler • Yönetim Paneli</h1>
+        <span>Buradan duyuru, resim galerisi ve video galerisi alanlarını yönetin.</span>
+      </div>
+      <div class="logout-link" onclick="window.location.href='index.html';">
+        Çıkış yap
+      </div>
+    </header>
+
+    <!-- Sekme butonları -->
+    <div class="tabs-bar">
+      <button class="tab-btn active" data-target="tab-announcement">
+        <span class="icon">📢</span>
+        <span>Duyuru</span>
+      </button>
+      <button class="tab-btn" data-target="tab-photos">
+        <span class="icon">📸</span>
+        <span>Resim Galerisi</span>
+      </button>
+      <button class="tab-btn" data-target="tab-videos">
+        <span class="icon">🎥</span>
+        <span>Video Galerisi</span>
+      </button>
+    </div>
+
+    <!-- İçerik -->
+    <div class="content">
+      <!-- DUYURU SEKME -->
+      <section id="tab-announcement" class="tab-section active">
+        <div class="section-header">
+          <h2>“Bugün Neredeyiz?” Duyurusu</h2>
+          <p>Üst bantta görünen şehir, mekan ve saat bilgisini buradan güncellersiniz.</p>
+        </div>
+
+        <div class="form-card">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cityInput" class="form-label">Şehir</label>
+              <input type="text" id="cityInput" class="form-input" placeholder="Örn: İstanbul">
+            </div>
+            <div class="form-group">
+              <label for="venueInput" class="form-label">Mekan adı</label>
+              <input type="text" id="venueInput" class="form-input" placeholder="Örn: Mey Gazinosu">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="timeInput" class="form-label">Sahne saati</label>
+              <input type="text" id="timeInput" class="form-input" placeholder="Örn: 21:00">
+            </div>
+            <div class="form-group">
+              <label for="dayTextInput" class="form-label">Gün bilgisi</label>
+              <input type="text" id="dayTextInput" class="form-input" placeholder="Örn: bu akşam, bu gece, yarın akşam...">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="subTextInput" class="form-label">Alt açıklama (isteğe bağlı)</label>
+            <textarea id="subTextInput" class="form-textarea" placeholder="Örn: Rezervasyon için hemen arayın, masalar hızla dolmaktadır."></textarea>
+          </div>
+
+          <div>
+            <button id="saveBtn" class="btn" type="button">Duyuruyu kaydet</button>
+            <button id="resetBtn" class="btn btn-secondary" type="button">Varsayılana döndür</button>
+          </div>
+
+          <div id="saveAlert" class="save-alert save-alert-ok">
+            Değişiklikler kaydedildi. Önizlemeden kontrol edebilirsiniz.
+          </div>
+
+          <div class="small-note">
+            Bu alan, sunucudaki <code>announcement.json</code> dosyasını günceller. Ana sitedeki üst bant otomatik olarak bu veriyi okur.
+          </div>
+
+          <div class="preview-bar">
+            <div class="fw-dot f1"></div>
+            <div class="fw-dot f2"></div>
+            <div class="fw-dot f3"></div>
+
+            <div class="preview-pill">BUGÜN NEREDEYİZ?</div>
+            <div id="previewMain" class="preview-main">
+              Hayati İşler ve Ekibi bu akşam
+              <strong>İstanbul • Mey Gazinosu'nda</strong>,
+              sahne saati:
+              <strong>21:00</strong>
+            </div>
+            <div id="previewSub" class="preview-sub">
+              Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESİM GALERİSİ SEKME -->
+      <section id="tab-photos" class="tab-section">
+        <div class="section-header">
+          <h2>Resim Galerisi</h2>
+          <p>Buradan sahne fotoğraflarını, organizasyon karelerini ve konsept görsellerini yöneteceksiniz.</p>
+        </div>
+
+        <div class="placeholder-card">
+          <div class="placeholder-title">Resim galerisi yönetimi buraya gelecek.</div>
+          <p>
+            Bu bölümde daha sonra:
+          </p>
+          <ul style="margin-top:4px;margin-left:18px;font-size:0.84rem;opacity:0.9;">
+            <li>Fotoğraf yükleme</li>
+            <li>Mevcut fotoğrafları listeleme</li>
+            <li>Silme / sıralama / öne çıkarma (vitrin) işlemleri</li>
+          </ul>
+          <div class="placeholder-note">
+            Şimdilik sadece sekmelerin çalıştığını test edebilirsiniz. Bir sonraki adımda
+            seninle birlikte resim galerisi dosyalarını ve yükleme mantığını yazacağız.
+          </div>
+        </div>
+      </section>
+
+      <!-- VİDEO GALERİSİ SEKME -->
+      <section id="tab-videos" class="tab-section">
+        <div class="section-header">
+          <h2>Video Galerisi</h2>
+          <p>Buradan YouTube linkleri veya video dosyaları ile sahne performans videolarını yöneteceksiniz.</p>
+        </div>
+
+        <div class="placeholder-card">
+          <div class="placeholder-title">Video galerisi yönetimi buraya gelecek.</div>
+          <p>
+            Bu bölümde daha sonra:
+          </p>
+          <ul style="margin-top:4px;margin-left:18px;font-size:0.84rem;opacity:0.9;">
+            <li>Yeni video ekleme (YouTube linki veya dosya)</li>
+            <li>Mevcut videoları listeleme</li>
+            <li>Silme / sıralama / öne çıkarma işlemleri</li>
+          </ul>
+          <div class="placeholder-note">
+            Şimdilik sekmelere tıklayıp arayüz geçişini test edebilirsin.
+            Bir sonraki aşamada video galerisi için ayrı PHP / JSON yapısını kurarız.
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const API_GET_URL  = "/api/get-announcement.php";
+    const API_SAVE_URL = "save-announcement.php";
+
+    // Sekme butonları
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabSections = document.querySelectorAll(".tab-section");
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-target");
+
+        tabButtons.forEach(b => b.classList.remove("active"));
+        tabSections.forEach(sec => sec.classList.remove("active"));
+
+        btn.classList.add("active");
+        const sect = document.getElementById(target);
+        if (sect) sect.classList.add("active");
+      });
+    });
+
+    // Duyuru sekmesi elemanları
+    const cityInput      = document.getElementById("cityInput");
+    const venueInput     = document.getElementById("venueInput");
+    const timeInput      = document.getElementById("timeInput");
+    const dayTextInput   = document.getElementById("dayTextInput");
+    const subTextInput   = document.getElementById("subTextInput");
+    const previewMain    = document.getElementById("previewMain");
+    const previewSub     = document.getElementById("previewSub");
+    const saveBtn        = document.getElementById("saveBtn");
+    const resetBtn       = document.getElementById("resetBtn");
+    const saveAlert      = document.getElementById("saveAlert");
+
+    function buildTexts() {
+      const city    = (cityInput.value    || "İstanbul").trim();
+      const venue   = (venueInput.value   || "Mey Gazinosu").trim();
+      const time    = (timeInput.value    || "21:00").trim();
+      const dayText = (dayTextInput.value || "bu akşam").trim();
+      const sub     = (subTextInput.value || "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.").trim();
+
+      const mainHtml =
+        `Hayati İşler ve Ekibi ${dayText} ` +
+        `<strong>${city} • ${venue}'nda</strong>, ` +
+        `sahne saati: <strong>${time}</strong>`;
+
+      previewMain.innerHTML = mainHtml;
+      previewSub.textContent = sub;
+    }
+
+    function showAlert(msg, ok = true) {
+      if (!saveAlert) return;
+      saveAlert.textContent = msg;
+      saveAlert.classList.remove("save-alert-ok", "save-alert-error");
+      saveAlert.classList.add(ok ? "save-alert-ok" : "save-alert-error");
+      saveAlert.style.display = "block";
+      setTimeout(() => {
+        saveAlert.style.display = "none";
+      }, 2200);
+    }
+
+    function loadFromServer() {
+      return fetch(API_GET_URL, { cache: "no-store" })
+        .then(r => {
+          if (!r.ok) throw new Error("Sunucu hatası");
+          return r.json();
+        })
+        .then(data => {
+          if (data.city)  cityInput.value    = data.city;
+          if (data.venue) venueInput.value   = data.venue;
+          if (data.time)  timeInput.value    = data.time;
+          if (data.day)   dayTextInput.value = data.day;
+          if (data.sub)   subTextInput.value = data.sub;
+
+          buildTexts();
+        });
+    }
+
+    function saveToServer() {
+      const payload = {
+        city:  cityInput.value,
+        venue: venueInput.value,
+        time:  timeInput.value,
+        day:   dayTextInput.value,
+        sub:   subTextInput.value
+      };
+
+      return fetch(API_SAVE_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: new URLSearchParams(payload).toString()
+      })
+      .then(r => r.json());
+    }
+
+    // Kaydet butonu
+    if (saveBtn) {
+      saveBtn.addEventListener("click", function () {
+        saveToServer()
+          .then(res => {
+            if (res && res.ok) {
+              buildTexts();
+              showAlert("Değişiklikler kaydedildi. Ana sitedeki üst bant güncellenecek.", true);
+            } else {
+              showAlert("Kaydedilirken bir hata oluştu.", false);
+            }
+          })
+          .catch(err => {
+            console.error("Kaydetme hatası:", err);
+            showAlert("Sunucuya bağlanırken hata oluştu.", false);
+          });
+      });
+    }
+
+    // Varsayılana döndür
+    if (resetBtn) {
+      resetBtn.addEventListener("click", function () {
+        cityInput.value    = "İstanbul";
+        venueInput.value   = "Mey Gazinosu";
+        timeInput.value    = "21:00";
+        dayTextInput.value = "bu akşam";
+        subTextInput.value = "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.";
+
+        saveToServer()
+          .then(res => {
+            if (res && res.ok) {
+              buildTexts();
+              showAlert("Varsayılan metinlere dönüldü.", true);
+            } else {
+              showAlert("Varsayılana dönerken hata oluştu.", false);
+            }
+          })
+          .catch(err => {
+            console.error("Reset hatası:", err);
+            showAlert("Sunucuya bağlanırken hata oluştu.", false);
+          });
+      });
+    }
+
+    // Input değişince önizleme güncelle
+    [cityInput, venueInput, timeInput, dayTextInput, subTextInput].forEach(function (el) {
+      if (!el) return;
+      el.addEventListener("input", buildTexts);
+    });
+
+    // Sayfa açıldığında sunucudan duyuruyu çek
+    document.addEventListener("DOMContentLoaded", function () {
+      loadFromServer()
+        .catch(err => {
+          console.error("Duyuru yüklenemedi:", err);
+          buildTexts();
+        });
+    });
+  </script>
+</body>
+</html>
