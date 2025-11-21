@@ -1171,17 +1171,17 @@
   const textEl = document.getElementById("announcementText");
   const subEl = document.getElementById("announcementSub");
 
-  fetch("announcement.json?_=" + Date.now(), { cache: "no-store" })
-    .then(function (res) {
-      if (!res.ok) throw new Error("No announcement.json");
-      return res.json();
-    })
-    .then(function (data) {
-      const city = (data.city || "İstanbul").trim();
+  db.collection("announcements").doc("QEYYxEpClLZ5yKZVLxeS").get()
+    .then((doc) => {
+      if (!doc.exists) return;
+
+      const data = doc.data();
+
+      const city  = (data.city  || "İstanbul").trim();
       const venue = (data.venue || "Mey Gazinosu").trim();
-      const time = (data.time || "21:00").trim();
-      const day = (data.day || data.dayText || "bu akşam").trim();
-      const sub = (data.sub || "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.").trim();
+      const time  = (data.time  || "21:00").trim();
+      const day   = (data.day   || "bu akşam").trim();
+      const sub   = (data.sub   || "Rezervasyon için hemen arayın").trim();
 
       textEl.innerHTML =
         "Hayati İşler ve Ekibi " + day + " " +
@@ -1190,8 +1190,8 @@
 
       subEl.textContent = sub;
     })
-    .catch(function () {
-      // Hata olursa varsayılan metinler kalsın
+    .catch((err) => {
+      console.error("Duyuru yüklenemedi:", err);
     });
 }
 
