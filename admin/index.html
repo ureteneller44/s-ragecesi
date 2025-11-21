@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Hayati İşler • Yönetici Paneli</title>
+  <title>Hayati İşler • Yönetici Girişi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -25,7 +25,7 @@
 
     .app {
       width: 100%;
-      max-width: 1080px;
+      max-width: 420px;
       background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
       border-radius: 22px;
       border: 1px solid rgba(148, 163, 184, 0.5);
@@ -39,16 +39,6 @@
       padding: 16px 20px 14px;
       border-bottom: 1px solid rgba(148, 163, 184, 0.4);
       background: radial-gradient(circle at top left, rgba(185,28,28,0.55), transparent 55%);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .app-title {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
     }
 
     .app-title h1 {
@@ -61,66 +51,12 @@
       opacity: 0.8;
     }
 
-    .status-pill {
-      font-size: 0.7rem;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(239, 68, 68, 0.9);
-      color: #fecaca;
-      background: rgba(127, 29, 29, 0.25);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
-    }
-
-    .status-pill.ok {
-      border-color: rgba(34,197,94,0.8);
-      color: #bbf7d0;
-      background: rgba(22,163,74,0.18);
-    }
-
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #ef4444;
-      box-shadow: 0 0 8px rgba(239,68,68,0.9);
-    }
-
-    .status-pill.ok .status-dot {
-      background: #22c55e;
-      box-shadow: 0 0 8px rgba(34,197,94,0.9);
-    }
-
     .content {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-      gap: 0;
-      min-height: 420px;
-    }
-
-    /* Sol panel */
-    .panel {
       padding: 18px 20px 18px;
     }
 
-    .panel-header {
-      margin-bottom: 10px;
-    }
-
-    .panel-header h2 {
-      font-size: 0.98rem;
-      margin-bottom: 2px;
-    }
-
-    .panel-header p {
-      font-size: 0.8rem;
-      opacity: 0.75;
-    }
-
     .login-card {
-      margin-top: 10px;
+      margin-top: 6px;
       padding: 14px 14px 14px;
       border-radius: 16px;
       border: 1px solid rgba(148, 163, 184, 0.55);
@@ -162,7 +98,6 @@
       margin-top: 2px;
     }
 
-    /* Şifre görünürlük */
     .password-wrapper {
       position: relative;
       display: flex;
@@ -201,13 +136,8 @@
       font-weight: 600;
       background: linear-gradient(90deg, #f97316, #ea580c);
       color: #0f172a;
-      margin-top: 4px;
-    }
-
-    .btn-secondary {
-      background: rgba(15,23,42,0.9);
-      border: 1px solid rgba(148,163,184,0.8);
-      color: #e5e7eb;
+      margin-top: 8px;
+      width: 100%;
     }
 
     .login-error {
@@ -227,179 +157,37 @@
       margin-top: 8px;
     }
 
-    /* Duyuru düzenleme paneli */
-    .form-card {
-      margin-top: 4px;
-      padding: 12px 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
-      font-size: 0.85rem;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 8px;
-    }
-
-    .form-row + .form-row {
-      margin-top: 6px;
-    }
-
-    textarea.form-input {
-      min-height: 52px;
-      resize: vertical;
-    }
-
-    .small-note {
-      font-size: 0.75rem;
-      opacity: 0.75;
-      margin-top: 4px;
-    }
-
-    .save-alert {
-      margin-top: 6px;
-      font-size: 0.78rem;
-      padding: 6px 8px;
-      border-radius: 10px;
-      display: none;
-    }
-
-    .save-alert-ok {
-      background: rgba(22,163,74,0.1);
-      border: 1px solid rgba(74,222,128,0.85);
-      color: #bbf7d0;
-    }
-
-    /* Sağ panel / Önizleme */
-    .preview {
-      border-left: 1px solid rgba(30, 64, 175, 0.65);
-      background: radial-gradient(circle at top, rgba(15,23,42,0.98), rgba(15,23,42,0.98));
-      padding: 18px 18px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .preview-header {
-      font-size: 0.82rem;
-      opacity: 0.9;
-      margin-bottom: 4px;
-    }
-
-    .preview-bar {
-      position: relative;
-      background: radial-gradient(circle at top, #7f1d1d 0, #450a0a 40%, #111827 100%);
-      border-radius: 16px;
-      border: 1px solid rgba(127,29,29,0.95);
-      padding: 14px 14px 16px;
-      overflow: hidden;
-      box-shadow:
-        0 16px 40px rgba(0,0,0,0.85),
-        0 0 0 1px rgba(15,23,42,0.9);
-    }
-
-    .preview-pill {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(252, 211, 77, 0.9);
-      background: rgba(0,0,0,0.45);
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-size: 0.72rem;
-      margin-bottom: 6px;
-    }
-
-    .preview-main {
-      font-size: 0.96rem;
-      font-weight: 600;
-      text-shadow: 0 0 10px rgba(0,0,0,0.7);
-      line-height: 1.6;
-    }
-
-    .preview-main strong {
-      color: #facc15;
-      text-shadow: 0 0 12px rgba(250, 204, 21, 1);
-    }
-
-    .preview-sub {
-      font-size: 0.82rem;
-      opacity: 0.9;
-      margin-top: 4px;
-    }
-
-    .fw-dot {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: radial-gradient(circle, #ffffff 0, rgba(255,255,255,0) 70%);
-      opacity: 0.7;
-    }
-
-    .fw-dot.f1 { top: 6px; left: 12%; }
-    .fw-dot.f2 { top: 4px; left: 52%; }
-    .fw-dot.f3 { top: 10px; right: 10%; }
-
-    .preview-note {
-      font-size: 0.75rem;
-      opacity: 0.75;
-      margin-top: 8px;
-    }
-
-    .code-box {
-      margin-top: 8px;
-      padding: 8px 8px;
-      border-radius: 10px;
-      background: rgba(15,23,42,0.98);
-      border: 1px solid rgba(30,64,175,0.75);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    .status-pill {
+      margin-top: 10px;
       font-size: 0.7rem;
-      line-height: 1.5;
-      max-height: 200px;
-      overflow: auto;
-      color: #e5e7eb;
-      white-space: pre;
-    }
-
-    .badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(239, 68, 68, 0.9);
+      color: #fecaca;
+      background: rgba(127, 29, 29, 0.25);
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      padding: 3px 8px;
+      white-space: nowrap;
+    }
+
+    .status-pill.ok {
+      border-color: rgba(34,197,94,0.8);
+      color: #bbf7d0;
+      background: rgba(22,163,74,0.18);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
       border-radius: 999px;
-      background: rgba(30,64,175,0.25);
-      border: 1px solid rgba(59,130,246,0.8);
-      font-size: 0.7rem;
-      margin-top: 4px;
+      background: #ef4444;
+      box-shadow: 0 0 8px rgba(239,68,68,0.9);
     }
 
-    .logout {
-      font-size: 0.75rem;
-      opacity: 0.75;
-      cursor: pointer;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    @media (max-width: 840px) {
-      .content {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .preview {
-        border-left: none;
-        border-top: 1px solid rgba(30, 64, 175, 0.65);
-        margin-top: 4px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .app-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+    .status-pill.ok .status-dot {
+      background: #22c55e;
+      box-shadow: 0 0 8px rgba(34,197,94,0.9);
     }
   </style>
 </head>
@@ -407,147 +195,48 @@
   <div class="app">
     <header class="app-header">
       <div class="app-title">
-        <h1>Hayati İşler • Yönetici Paneli</h1>
-        <span>Bugün neredeyiz? Duyuru yazısı ve sahne bilgilerini buradan güncelleyin.</span>
-      </div>
-
-      <div style="display:flex;align-items:center;gap:10px;">
-        <div id="loginStatus" class="status-pill">
-          <span class="status-dot"></span>
-          <span>Giriş gerekli</span>
-        </div>
+        <h1>Hayati İşler • Yönetici Girişi</h1>
+        <span>Bu alan sadece ekip tarafından kullanılmalıdır.</span>
       </div>
     </header>
 
     <div class="content">
-      <!-- Sol taraf: Giriş + Form -->
-      <section class="panel">
-        <div class="panel-header">
-          <h2>Yönetici Girişi</h2>
-          <p>Bu alan sadece ekip tarafından kullanılmalıdır.</p>
+      <div class="login-card">
+        <div class="form-group">
+          <label for="adminEmail" class="form-label">E-posta</label>
+          <input type="email" id="adminEmail" class="form-input" placeholder="Yönetici e-posta adresi">
+          <div class="form-helper">Bu e-posta adresi sadece yönetici için kullanılmalıdır.</div>
         </div>
 
-        <!-- Giriş kartı -->
-        <div id="loginCard" class="login-card">
-
-          <div class="form-group">
-            <label for="adminEmail" class="form-label">E-posta</label>
-            <input type="email" id="adminEmail" class="form-input" placeholder="Yönetici e-posta adresi">
-            <div class="form-helper">Bu e-posta adresi sadece yönetici için kullanılmalıdır.</div>
+        <div class="form-group" style="margin-top:10px;">
+          <label for="adminPass" class="form-label">Şifre</label>
+          <div class="password-wrapper">
+            <input type="password" id="adminPass" class="form-input" placeholder="Yönetici şifresini girin">
+            <button type="button" id="togglePass" class="toggle-pass">Göster</button>
           </div>
-
-          <div class="form-group" style="margin-top:10px;">
-            <label for="adminPass" class="form-label">Şifre</label>
-            <div class="password-wrapper">
-              <input type="password" id="adminPass" class="form-input" placeholder="Yönetici şifresini girin">
-              <button type="button" id="togglePass" class="toggle-pass">Göster</button>
-            </div>
-            <div class="form-helper">Bu şifre sadece Hayati İşler ve ekibinde olmalıdır.</div>
-          </div>
-
-          <button id="loginBtn" class="btn" type="button">Panele giriş yap</button>
-
-          <div id="loginError" class="login-error">
-            E-posta veya şifre hatalı. Lütfen tekrar deneyin.
-          </div>
-
-          <div class="login-hint">
-            <strong>Not:</strong> Bu panel şu anda sadece tarayıcınızda kayıt tutar.
-            Gerçek siteyi otomatik güncellemesi için daha sonra sunucu bağlantısı yapılacaktır.
-          </div>
-
+          <div class="form-helper">Bu şifre sadece Hayati İşler ve ekibinde olmalıdır.</div>
         </div>
 
-        <!-- Giriş sonrası duyuru formu -->
-        <div id="announceFormCard" class="form-card" style="display:none;">
-          <div class="panel-header" style="margin-bottom:6px;">
-            <h2>“Bugün Neredeyiz?” Duyurusu</h2>
-            <p>Üst kısımdaki hareketli duyuru yazısını buradan düzenleyin.</p>
-          </div>
+        <button id="loginBtn" class="btn" type="button">Panele giriş yap</button>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="cityInput" class="form-label">Şehir</label>
-              <input type="text" id="cityInput" class="form-input" placeholder="Örn: İstanbul">
-            </div>
-            <div class="form-group">
-              <label for="venueInput" class="form-label">Mekan adı</label>
-              <input type="text" id="venueInput" class="form-input" placeholder="Örn: Mey Gazinosu">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="timeInput" class="form-label">Sahne saati</label>
-              <input type="text" id="timeInput" class="form-input" placeholder="Örn: 21:00">
-            </div>
-            <div class="form-group">
-              <label for="dayTextInput" class="form-label">Gün bilgisi</label>
-              <input type="text" id="dayTextInput" class="form-input" placeholder="Örn: bu akşam, bu gece, yarın akşam...">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="subTextInput" class="form-label">Alt açıklama (isteğe bağlı)</label>
-            <textarea id="subTextInput" class="form-input" placeholder="Örn: Rezervasyon için hemen arayın, masalar hızla dolmaktadır."></textarea>
-          </div>
-
-          <button id="saveBtn" class="btn" type="button">Duyuruyu kaydet</button>
-          <button id="resetBtn" class="btn btn-secondary" type="button">Varsayılana döndür</button>
-
-          <div id="saveAlert" class="save-alert save-alert-ok">
-            Değişiklikler kaydedildi. Önizlemeyi kontrol edebilirsiniz.
-          </div>
-
-          <div class="small-note">
-            Bu panel şu anda metni sadece tarayıcınızda saklar. <br>
-            Gerçek sitedeki duyuru alanının otomatik güncellenmesi için daha sonra sunucu tarafı bağlantısı yapılacaktır.
-          </div>
-        </div>
-      </section>
-
-      <!-- Sağ taraf: Önizleme ve kod -->
-      <section class="preview">
-        <div class="preview-header">
-          Üst bant önizlemesi (<span style="opacity:0.9;">ziyaretçilerin gördüğü “BUGÜN NEREDEYİZ?” alanı</span>)
+        <div id="loginError" class="login-error">
+          E-posta veya şifre hatalı. Lütfen tekrar deneyin.
         </div>
 
-        <div class="preview-bar">
-          <div class="fw-dot f1"></div>
-          <div class="fw-dot f2"></div>
-          <div class="fw-dot f3"></div>
-
-          <div class="preview-pill">BUGÜN NEREDEYİZ?</div>
-          <div id="previewMain" class="preview-main">
-            Hayati İşler ve Ekibi bu akşam
-            <strong>İstanbul • Mey Gazinosu'nda</strong>,
-            sahne saati:
-            <strong>21:00</strong>
-          </div>
-          <div id="previewSub" class="preview-sub">
-            Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.
-          </div>
+        <div id="loginStatus" class="status-pill">
+          <span class="status-dot"></span>
+          <span>Giriş yapılmadı</span>
         </div>
 
-        <div class="preview-note">
-          Aşağıdaki kod, ana sitedeki <code>&lt;div class="announcement-inner"&gt;...</code> kısmına uyumlu olacak şekilde hazırlanmıştır.
+        <div class="login-hint">
+          Giriş başarılı olduğunda otomatik olarak <strong>yönetim paneline (panel.html)</strong> yönlendirileceksiniz.
         </div>
-
-        <div class="badge">
-          <span>İpucu:</span> Bu kodu gerekirse geliştiricinize iletebilirsiniz.
-        </div>
-
-        <div id="codeBox" class="code-box"></div>
-
-        <div style="margin-top:8px;display:flex;justify-content:flex-end;">
-          <span id="logoutBtn" class="logout" style="display:none;">Oturumu kapat</span>
-        </div>
-      </section>
+      </div>
     </div>
   </div>
 
   <script>
-    // Doğru giriş bilgileri
+    // Giriş bilgileri
     const CORRECT_EMAIL = "hayatiisler65@gmail.com";
     const CORRECT_PASSWORD = "Hayati19763465";
 
@@ -556,113 +245,16 @@
     const togglePassBtn = document.getElementById("togglePass");
     const loginBtn = document.getElementById("loginBtn");
     const loginError = document.getElementById("loginError");
-    const loginCard = document.getElementById("loginCard");
-    const announceFormCard = document.getElementById("announceFormCard");
     const loginStatus = document.getElementById("loginStatus");
-    const logoutBtn = document.getElementById("logoutBtn");
 
-    const cityInput = document.getElementById("cityInput");
-    const venueInput = document.getElementById("venueInput");
-    const timeInput = document.getElementById("timeInput");
-    const dayTextInput = document.getElementById("dayTextInput");
-    const subTextInput = document.getElementById("subTextInput");
-
-    const previewMain = document.getElementById("previewMain");
-    const previewSub = document.getElementById("previewSub");
-    const saveBtn = document.getElementById("saveBtn");
-    const resetBtn = document.getElementById("resetBtn");
-    const saveAlert = document.getElementById("saveAlert");
-    const codeBox = document.getElementById("codeBox");
-
-    const STORAGE_KEY = "hayati_announce_v1";
-    const LOGIN_KEY = "hayati_admin_logged";
-
-    function updateLoginUI(isLogged) {
-      if (isLogged) {
-        loginCard.style.display = "none";
-        announceFormCard.style.display = "block";
-        logoutBtn.style.display = "inline";
+    function updateStatus(ok) {
+      if (ok) {
         loginStatus.classList.add("ok");
-        loginStatus.querySelector("span:nth-child(2)").textContent = "Yönetici girişi: açık";
+        loginStatus.querySelector("span:nth-child(2)").textContent = "Giriş başarılı, panele yönlendiriliyorsunuz...";
       } else {
-        loginCard.style.display = "block";
-        announceFormCard.style.display = "none";
-        logoutBtn.style.display = "none";
         loginStatus.classList.remove("ok");
-        loginStatus.querySelector("span:nth-child(2)").textContent = "Giriş gerekli";
+        loginStatus.querySelector("span:nth-child(2)").textContent = "Giriş yapılmadı";
       }
-    }
-
-    function buildTexts() {
-      const city = (cityInput.value || "İstanbul").trim();
-      const venue = (venueInput.value || "Mey Gazinosu").trim();
-      const time = (timeInput.value || "21:00").trim();
-      const dayText = (dayTextInput.value || "bu akşam").trim();
-      const sub = (subTextInput.value || "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.").trim();
-
-      const mainHtml =
-        `Hayati İşler ve Ekibi ${dayText} ` +
-        `<strong>${city} • ${venue}'nda</strong>, ` +
-        `sahne saati: <strong>${time}</strong>`;
-
-      previewMain.innerHTML = mainHtml;
-      previewSub.textContent = sub;
-
-      const innerHtml =
-`<div class="announcement-label">BUGÜN NEREDEYİZ?</div>
-<div class="announcement-main">
-  Hayati İşler ve Ekibi ${dayText}
-  <strong>${city} • ${venue}'nda</strong>,
-  sahne saati:
-  <strong>${time}</strong>
-</div>
-<div class="announcement-sub">
-  ${sub}
-</div>`;
-
-      codeBox.textContent = innerHtml;
-    }
-
-    function saveToStorage() {
-      const data = {
-        city: cityInput.value,
-        venue: venueInput.value,
-        time: timeInput.value,
-        day: dayTextInput.value,
-        sub: subTextInput.value
-      };
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      } catch (e) {
-        console.warn("LocalStorage kaydedilemedi:", e);
-      }
-    }
-
-    function loadFromStorage() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return;
-        const data = JSON.parse(raw);
-        if (!data) return;
-
-        if (typeof data.city === "string") cityInput.value = data.city;
-        if (typeof data.venue === "string") venueInput.value = data.venue;
-        if (typeof data.time === "string") timeInput.value = data.time;
-        if (typeof data.day === "string") dayTextInput.value = data.day;
-        if (typeof data.sub === "string") subTextInput.value = data.sub;
-      } catch (e) {
-        console.warn("LocalStorage okunamadı:", e);
-      }
-    }
-
-    function resetDefaults() {
-      cityInput.value = "İstanbul";
-      venueInput.value = "Mey Gazinosu";
-      timeInput.value = "21:00";
-      dayTextInput.value = "bu akşam";
-      subTextInput.value = "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.";
-      buildTexts();
-      saveToStorage();
     }
 
     // Giriş butonu
@@ -672,13 +264,26 @@
 
       if (email === CORRECT_EMAIL && pass === CORRECT_PASSWORD) {
         loginError.style.display = "none";
-        localStorage.setItem(LOGIN_KEY, "1");
-        updateLoginUI(true);
-        loadFromStorage();
-        buildTexts();
+        updateStatus(true);
+
+        // Küçük bir gecikmeyle panele yönlendir
+        setTimeout(function () {
+          window.location.href = "panel.html";
+        }, 600);
       } else {
         loginError.style.display = "block";
+        updateStatus(false);
       }
+    });
+
+    // Enter ile login
+    [adminEmailInput, adminPassInput].forEach(function (el) {
+      el.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          loginBtn.click();
+        }
+      });
     });
 
     // Şifre göster/gizle
@@ -686,46 +291,6 @@
       const type = adminPassInput.getAttribute("type") === "password" ? "text" : "password";
       adminPassInput.setAttribute("type", type);
       togglePassBtn.textContent = type === "password" ? "Göster" : "Gizle";
-    });
-
-    // Çıkış
-    logoutBtn.addEventListener("click", function () {
-      localStorage.removeItem(LOGIN_KEY);
-      updateLoginUI(false);
-    });
-
-    // Kaydet
-    saveBtn.addEventListener("click", function () {
-      saveToStorage();
-      buildTexts();
-      saveAlert.style.display = "block";
-      setTimeout(() => {
-        saveAlert.style.display = "none";
-      }, 2000);
-    });
-
-    // Varsayılana dön
-    resetBtn.addEventListener("click", function () {
-      resetDefaults();
-      saveAlert.style.display = "block";
-      saveAlert.textContent = "Varsayılan metinlere geri dönüldü.";
-      setTimeout(() => {
-        saveAlert.style.display = "none";
-        saveAlert.textContent = "Değişiklikler kaydedildi. Önizlemeyi kontrol edebilirsiniz.";
-      }, 2200);
-    });
-
-    [cityInput, venueInput, timeInput, dayTextInput, subTextInput].forEach(function (el) {
-      el.addEventListener("input", buildTexts);
-    });
-
-    window.addEventListener("DOMContentLoaded", function () {
-      const isLogged = localStorage.getItem(LOGIN_KEY) === "1";
-      updateLoginUI(isLogged);
-      if (isLogged) {
-        loadFromStorage();
-      }
-      buildTexts();
     });
   </script>
 </body>
