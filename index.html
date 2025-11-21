@@ -588,13 +588,22 @@
       opacity: 0.6;
     }
 
-    /* Sosyal icon bar (en alt) */
-    .social-bar {
-      margin-top: 10px;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
+    /* Sosyal icon bar (altta sabit) */
+.social-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+}
 
     .social-icon {
       width: 34px;
