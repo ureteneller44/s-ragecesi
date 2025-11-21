@@ -1,0 +1,16 @@
+[
+  {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=VIDEOKODU1",
+    "title": "Meyhane Programı",
+    "desc": "İstanbul Mey Gazinosu'nda canlı sıra gecesi performansı.",
+    "thumb": "uploads/videos/thumb1.jpg"
+  },
+  {
+    "type": "youtube",
+    "url": "https://www.youtube.com/watch?v=VIDEOKODU2",
+    "title": "Düğün Gecesi",
+    "desc": "Urfa türküleriyle dolu unutulmaz düğün programı.",
+    "thumb": "uploads/videos/thumb2.jpg"
+  }
+]
