@@ -518,7 +518,7 @@
   </div>
 
   <script>
-    const API_GET_URL  = "/api/get-announcement.php";
+    const API_GET_URL  = "/get-announcement.php";
     const API_SAVE_URL = "save-announcement.php";
 
     // Sekme butonları
@@ -676,7 +676,7 @@
 
 // Video listesi doldurma
 function loadVideos() {
-  fetch('/get-videos.php')
+  fetch('/videos.json?_=' + Date.now())
     .then(r => r.json())
     .then(list => {
       const box = document.getElementById('videosList');
