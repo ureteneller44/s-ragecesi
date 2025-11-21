@@ -65,19 +65,30 @@
       font-size: 0.7rem;
       padding: 4px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(34,197,94,0.8);
-      color: #bbf7d0;
-      background: rgba(22,163,74,0.18);
+      border: 1px solid rgba(239, 68, 68, 0.9);
+      color: #fecaca;
+      background: rgba(127, 29, 29, 0.25);
       display: inline-flex;
       align-items: center;
       gap: 4px;
       white-space: nowrap;
     }
 
+    .status-pill.ok {
+      border-color: rgba(34,197,94,0.8);
+      color: #bbf7d0;
+      background: rgba(22,163,74,0.18);
+    }
+
     .status-dot {
       width: 6px;
       height: 6px;
       border-radius: 999px;
+      background: #ef4444;
+      box-shadow: 0 0 8px rgba(239,68,68,0.9);
+    }
+
+    .status-pill.ok .status-dot {
       background: #22c55e;
       box-shadow: 0 0 8px rgba(34,197,94,0.9);
     }
@@ -89,7 +100,7 @@
       min-height: 420px;
     }
 
-    /* Giriş ekranı */
+    /* Sol panel */
     .panel {
       padding: 18px 20px 18px;
     }
@@ -149,6 +160,32 @@
       font-size: 0.72rem;
       opacity: 0.7;
       margin-top: 2px;
+    }
+
+    /* Şifre görünürlük */
+    .password-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .password-wrapper .form-input {
+      padding-right: 70px;
+    }
+
+    .toggle-pass {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: rgba(15,23,42,0.98);
+      color: #e5e7eb;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      cursor: pointer;
     }
 
     .btn {
@@ -235,7 +272,7 @@
       color: #bbf7d0;
     }
 
-    /* Sağ taraf: Önizleme / bilgi */
+    /* Sağ panel / Önizleme */
     .preview {
       border-left: 1px solid rgba(30, 64, 175, 0.65);
       background: radial-gradient(circle at top, rgba(15,23,42,0.98), rgba(15,23,42,0.98));
@@ -391,32 +428,35 @@
         </div>
 
         <!-- Giriş kartı -->
-<div id="loginCard" class="login-card">
+        <div id="loginCard" class="login-card">
 
-  <div class="form-group">
-    <label for="adminEmail" class="form-label">E-posta</label>
-    <input type="email" id="adminEmail" class="form-input" placeholder="Yönetici e-posta adresi">
-    <div class="form-helper">Örn: hayatiisler65@gmail.com</div>
-  </div>
+          <div class="form-group">
+            <label for="adminEmail" class="form-label">E-posta</label>
+            <input type="email" id="adminEmail" class="form-input" placeholder="Yönetici e-posta adresi">
+            <div class="form-helper">Bu e-posta adresi sadece yönetici için kullanılmalıdır.</div>
+          </div>
 
-  <div class="form-group" style="margin-top:10px;">
-    <label for="adminPass" class="form-label">Şifre</label>
-    <input type="password" id="adminPass" class="form-input" placeholder="Yönetici şifresini girin">
-    <div class="form-helper">Bu şifre sadece Hayati İşler ve ekibinde olmalıdır.</div>
-  </div>
+          <div class="form-group" style="margin-top:10px;">
+            <label for="adminPass" class="form-label">Şifre</label>
+            <div class="password-wrapper">
+              <input type="password" id="adminPass" class="form-input" placeholder="Yönetici şifresini girin">
+              <button type="button" id="togglePass" class="toggle-pass">Göster</button>
+            </div>
+            <div class="form-helper">Bu şifre sadece Hayati İşler ve ekibinde olmalıdır.</div>
+          </div>
 
-  <button id="loginBtn" class="btn" type="button">Panele giriş yap</button>
+          <button id="loginBtn" class="btn" type="button">Panele giriş yap</button>
 
-  <div id="loginError" class="login-error">
-    E-posta veya şifre hatalı. Lütfen tekrar deneyin.
-  </div>
+          <div id="loginError" class="login-error">
+            E-posta veya şifre hatalı. Lütfen tekrar deneyin.
+          </div>
 
-  <div class="login-hint">
-    <strong>Not:</strong> Bu panel şu anda sadece tarayıcınızda kayıt tutar.
-    Gerçek siteyi güncellemesi için daha sonra sunucu bağlantısı yapılacaktır.
-  </div>
+          <div class="login-hint">
+            <strong>Not:</strong> Bu panel şu anda sadece tarayıcınızda kayıt tutar.
+            Gerçek siteyi otomatik güncellemesi için daha sonra sunucu bağlantısı yapılacaktır.
+          </div>
 
-</div>
+        </div>
 
         <!-- Giriş sonrası duyuru formu -->
         <div id="announceFormCard" class="form-card" style="display:none;">
@@ -507,10 +547,13 @@
   </div>
 
   <script>
+    // Doğru giriş bilgileri
     const CORRECT_EMAIL = "hayatiisler65@gmail.com";
     const CORRECT_PASSWORD = "Hayati19763465";
 
+    const adminEmailInput = document.getElementById("adminEmail");
     const adminPassInput = document.getElementById("adminPass");
+    const togglePassBtn = document.getElementById("togglePass");
     const loginBtn = document.getElementById("loginBtn");
     const loginError = document.getElementById("loginError");
     const loginCard = document.getElementById("loginCard");
@@ -539,11 +582,13 @@
         loginCard.style.display = "none";
         announceFormCard.style.display = "block";
         logoutBtn.style.display = "inline";
+        loginStatus.classList.add("ok");
         loginStatus.querySelector("span:nth-child(2)").textContent = "Yönetici girişi: açık";
       } else {
         loginCard.style.display = "block";
         announceFormCard.style.display = "none";
         logoutBtn.style.display = "none";
+        loginStatus.classList.remove("ok");
         loginStatus.querySelector("span:nth-child(2)").textContent = "Giriş gerekli";
       }
     }
@@ -620,26 +665,36 @@
       saveToStorage();
     }
 
+    // Giriş butonu
     loginBtn.addEventListener("click", function () {
-  const email = adminEmailInput.value.trim();
-  const pass = adminPassInput.value.trim();
+      const email = (adminEmailInput.value || "").trim();
+      const pass = (adminPassInput.value || "").trim();
 
-  if (email === CORRECT_EMAIL && pass === CORRECT_PASSWORD) {
-    loginError.style.display = "none";
-    localStorage.setItem(LOGIN_KEY, "1");
-    updateLoginUI(true);
-    loadFromStorage();
-    buildTexts();
-  } else {
-    loginError.style.display = "block";
-  }
-});
+      if (email === CORRECT_EMAIL && pass === CORRECT_PASSWORD) {
+        loginError.style.display = "none";
+        localStorage.setItem(LOGIN_KEY, "1");
+        updateLoginUI(true);
+        loadFromStorage();
+        buildTexts();
+      } else {
+        loginError.style.display = "block";
+      }
+    });
 
+    // Şifre göster/gizle
+    togglePassBtn.addEventListener("click", function () {
+      const type = adminPassInput.getAttribute("type") === "password" ? "text" : "password";
+      adminPassInput.setAttribute("type", type);
+      togglePassBtn.textContent = type === "password" ? "Göster" : "Gizle";
+    });
+
+    // Çıkış
     logoutBtn.addEventListener("click", function () {
       localStorage.removeItem(LOGIN_KEY);
       updateLoginUI(false);
     });
 
+    // Kaydet
     saveBtn.addEventListener("click", function () {
       saveToStorage();
       buildTexts();
@@ -649,6 +704,7 @@
       }, 2000);
     });
 
+    // Varsayılana dön
     resetBtn.addEventListener("click", function () {
       resetDefaults();
       saveAlert.style.display = "block";
