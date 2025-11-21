@@ -1171,7 +1171,7 @@
   const textEl = document.getElementById("announcementText");
   const subEl = document.getElementById("announcementSub");
 
-  fetch("get-announcement.php?_=" + Date.now(), { cache: "no-store" })
+  fetch("announcement.json?_=" + Date.now(), { cache: "no-store" })
     .then(function (res) {
       if (!res.ok) throw new Error("No announcement.json");
       return res.json();
