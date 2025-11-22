@@ -711,196 +711,216 @@
             `;
           });
 
-          photosList.innerHTML = html;
-        } catch (err) {
-          console.error("Fotoğraflar yüklenemedi:", err);
-          photosList.innerHTML =
-            '<div style="opacity:0.7;font-size:0.85rem;">Fotoğraflar yüklenemedi.</div>';
-        }
-      }
+          // FOTO GALERİSİ
+const photoForm  = document.getElementById("photoForm");
+const photoFile  = document.getElementById("photoFile");
+const photoTitle = document.getElementById("photoTitle");
+const photoDesc  = document.getElementById("photoDesc");
+const photoMsg   = document.getElementById("photoMsg");
+const photosList = document.getElementById("photosList");
 
-      if (photoForm && photoFile) {
-        photoForm.addEventListener("submit", async function (e) {
-          e.preventDefault();
-          if (!photoFile.files || !photoFile.files.length) {
-            showPhotoMsg("Lütfen bir fotoğraf seçin.", false);
-            return;
-          }
+function showPhotoMsg(text, ok) {
+  if (!photoMsg) return;
+  photoMsg.textContent = text;
+  photoMsg.classList.remove("save-alert-ok", "save-alert-error");
+  photoMsg.classList.add(ok ? "save-alert-ok" : "save-alert-error");
+  photoMsg.style.display = "block";
+  setTimeout(() => { photoMsg.style.display = "none"; }, 2500);
+}
 
-          const file  = photoFile.files[0];
-          const title = (photoTitle.value || "").trim();
-          const desc  = (photoDesc.value  || "").trim();
+async function loadPhotos() {
+  if (!photosList) return;
+  photosList.innerHTML = '<div style="opacity:0.7;font-size:0.85rem;">Yükleniyor...</div>';
 
-          try {
-            const ext = file.name.split(".").pop();
-            const base = file.name.replace(/\.[^/.]+$/, "");
-            const path = Date.now() + "-" + Math.random().toString(36).slice(2) +
-              "-" + base + "." + ext;
+  try {
+    const snap = await db.collection("photos")
+      .orderBy("createdAt", "desc")
+      .limit(100)
+      .get();
 
-            if (uploadError) {
-              console.error(uploadError);
-              showPhotoMsg("Yükleme sırasında hata oluştu.", false);
-              return;
-            }
+    if (snap.empty) {
+      photosList.innerHTML =
+        '<div style="opacity:0.7;font-size:0.85rem;">Henüz fotoğraf eklenmemiş.</div>';
+      return;
+    }
 
-            const url = publicData?.publicUrl || "";
+    let html = "";
+    snap.forEach(doc => {
+      const p = doc.data() || {};
+      const url   = p.url || "";
+      const title = p.title || "";
+      const desc  = p.desc || "";
 
-            await db.collection("photos").add({
-              bucket: "photos",
-              path: path,
-              url: url,
-              title: title,
-              desc: desc,
-              createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
+      html += `
+        <div style="
+          background:#020617;
+          border:1px solid rgba(148,163,184,0.4);
+          border-radius:14px;
+          overflow:hidden;
+          box-shadow:0 8px 24px rgba(0,0,0,0.6);
+          font-size:0.8rem;
+        ">
+          <div style="width:100%;padding-top:70%;position:relative;background:#020617;">
+            ${url ? `<img src="${url}" alt="${title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;">` : ""}
+          </div>
+          <div style="padding:8px 9px 9px;">
+            ${title ? `<div style="font-weight:600;margin-bottom:2px;">${title}</div>` : ""}
+            ${desc ? `<div style="opacity:0.8;">${desc}</div>` : ""}
+          </div>
+        </div>
+      `;
+    });
 
-            photoForm.reset();
-            showPhotoMsg("Fotoğraf başarıyla yüklendi.", true);
-            loadPhotos();
-          } catch (err) {
-            console.error("Foto yükleme hatası:", err);
-            showPhotoMsg("Fotoğraf yüklenirken bir hata oluştu.", false);
-          }
-        });
-      }
+    photosList.innerHTML = html;
 
-      // VİDEO GALERİSİ
-      const videoForm  = document.getElementById("videoForm");
-      const videoFile  = document.getElementById("videoFile");
-      const videoTitle = document.getElementById("videoTitle");
-      const videoDesc  = document.getElementById("videoDesc");
-      const videoMsg   = document.getElementById("videoMsg");
-      const videosList = document.getElementById("videosList");
+  } catch (err) {
+    console.error("Fotoğraflar yüklenemedi:", err);
+    photosList.innerHTML =
+      '<div style="opacity:0.7;font-size:0.85rem;">Fotoğraflar yüklenemedi.</div>';
+  }
+}
 
-      function showVideoMsg(text, ok) {
-        if (!videoMsg) return;
-        videoMsg.textContent = text;
-        videoMsg.classList.remove("save-alert-ok", "save-alert-error");
-        videoMsg.classList.add(ok ? "save-alert-ok" : "save-alert-error");
-        videoMsg.style.display = "block";
-        setTimeout(() => {
-          videoMsg.style.display = "none";
-        }, 2500);
-      }
+if (photoForm && photoFile) {
+  photoForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-      async function loadVideos() {
-        if (!videosList) return;
-        videosList.innerHTML = '<div style="opacity:0.7;font-size:0.85rem;">Yükleniyor...</div>';
-        try {
-          const snap = await db.collection("videos")
-            .orderBy("createdAt", "desc")
-            .limit(100)
-            .get();
+    const title = (photoTitle.value || "").trim();
+    const desc  = (photoDesc.value  || "").trim();
 
-          if (snap.empty) {
-            videosList.innerHTML =
-              '<div style="opacity:0.7;font-size:0.85rem;">Henüz video eklenmemiş.</div>';
-            return;
-          }
+    const urlInput = prompt("Cloudinary fotoğraf URL’sini yapıştırın:");
+    if (!urlInput || !urlInput.trim()) {
+      showPhotoMsg("URL girilmedi, işlem iptal.", false);
+      return;
+    }
 
-          let html = "";
-          snap.forEach(doc => {
-            const v = doc.data() || {};
-            const url   = v.url || "";
-            const title = v.title || "";
-            const desc  = v.desc || "";
-            html += `
-              <div style="
-                background:#020617;
-                border:1px solid rgba(148,163,184,0.4);
-                border-radius:14px;
-                overflow:hidden;
-                box-shadow:0 8px 24px rgba(0,0,0,0.6);
-                font-size:0.8rem;
-                padding:8px;
-              ">
-                ${url ? `
-                  <video controls style="width:100%;border-radius:10px;max-height:230px;">
-                    <source src="${url}" type="video/mp4">
-                    Tarayıcınız video etiketini desteklemiyor.
-                  </video>
-                ` : ""}
-                <div style="padding-top:6px;">
-                  ${title ? `<div style="font-weight:600;margin-bottom:2px;">${title}</div>` : ""}
-                  ${desc ? `<div style="opacity:0.8;">${desc}</div>` : ""}
-                </div>
-              </div>
-            `;
-          });
+    const url = urlInput.trim();
 
-          videosList.innerHTML = html;
-        } catch (err) {
-          console.error("Videolar yüklenemedi:", err);
-          videosList.innerHTML =
-            '<div style="opacity:0.7;font-size:0.85rem;">Videolar yüklenemedi.</div>';
-        }
-      }
+    try {
+      await db.collection("photos").add({
+        url: url,
+        title: title,
+        desc: desc,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
 
-      if (videoForm && videoFile) {
-        videoForm.addEventListener("submit", async function (e) {
-          e.preventDefault();
-          if (!videoFile.files || !videoFile.files.length) {
-            showVideoMsg("Lütfen bir video seçin.", false);
-            return;
-          }
-
-          const file  = videoFile.files[0];
-          const title = (videoTitle.value || "").trim();
-          const desc  = (videoDesc.value  || "").trim();
-
-          try {
-            const ext = file.name.split(".").pop();
-            const base = file.name.replace(/\.[^/.]+$/, "");
-            const path = Date.now() + "-" + Math.random().toString(36).slice(2) +
-              "-" + base + "." + ext;
-
-// Cloudinary kullanılıyor – videolar da panelden manuel yükleniyor, burada upload yok
-
-            if (uploadError) {
-              console.error(uploadError);
-              showVideoMsg("Yükleme sırasında hata oluştu.", false);
-              return;
-            }
-            
-            // Cloudinary: video URL’si panelden manuel alınıyor, burada publicUrl işlemi yok
-
-            const url = publicData?.publicUrl || "";
-
-            await db.collection("videos").add({
-              bucket: "videos",
-              path: path,
-              url: url,
-              title: title,
-              desc: desc,
-              createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
-
-            videoForm.reset();
-            showVideoMsg("Video başarıyla yüklendi.", true);
-            loadVideos();
-          } catch (err) {
-            console.error("Video yükleme hatası:", err);
-            showVideoMsg("Video yüklenirken bir hata oluştu.", false);
-          }
-        });
-      }
-
-      // Sekme açılışında liste yüklemeleri
-      loadAnnouncement();
+      photoForm.reset();
+      showPhotoMsg("Fotoğraf başarıyla kaydedildi.", true);
       loadPhotos();
+
+    } catch (err) {
+      console.error("Foto yükleme hatası:", err);
+      showPhotoMsg("Fotoğraf kaydedilirken hata oluştu.", false);
+    }
+  });
+}
+
+
+// VİDEO GALERİSİ
+const videoForm  = document.getElementById("videoForm");
+const videoFile  = document.getElementById("videoFile");
+const videoTitle = document.getElementById("videoTitle");
+const videoDesc  = document.getElementById("videoDesc");
+const videoMsg   = document.getElementById("videoMsg");
+const videosList = document.getElementById("videosList");
+
+function showVideoMsg(text, ok) {
+  if (!videoMsg) return;
+  videoMsg.textContent = text;
+  videoMsg.classList.remove("save-alert-ok", "save-alert-error");
+  videoMsg.classList.add(ok ? "save-alert-ok" : "save-alert-error");
+  videoMsg.style.display = "block";
+  setTimeout(() => { videoMsg.style.display = "none"; }, 2500);
+}
+
+async function loadVideos() {
+  if (!videosList) return;
+  videosList.innerHTML = '<div style="opacity:0.7;font-size:0.85rem;">Yükleniyor...</div>';
+
+  try {
+    const snap = await db.collection("videos")
+      .orderBy("createdAt", "desc")
+      .limit(100)
+      .get();
+
+    if (snap.empty) {
+      videosList.innerHTML =
+        '<div style="opacity:0.7;font-size:0.85rem;">Henüz video eklenmemiş.</div>';
+      return;
+    }
+
+    let html = "";
+    snap.forEach(doc => {
+      const v = doc.data() || {};
+      const url   = v.url || "";
+      const title = v.title || "";
+      const desc  = v.desc || "";
+
+      html += `
+        <div style="
+          background:#020617;
+          border:1px solid rgba(148,163,184,0.4);
+          border-radius:14px;
+          overflow:hidden;
+          box-shadow:0 8px 24px rgba(0,0,0,0.6);
+          font-size:0.8rem;
+          padding:8px;
+        ">
+          ${url ? `
+            <video controls style="width:100%;border-radius:10px;max-height:230px;object-fit:contain;background:#000;">
+              <source src="${url}" type="video/mp4">
+              Tarayıcınız video etiketini desteklemiyor.
+            </video>
+          ` : ""}
+          <div style="padding-top:6px;">
+            ${title ? `<div style="font-weight:600;margin-bottom:2px;">${title}</div>` : ""}
+            ${desc ? `<div style="opacity:0.8;">${desc}</div>` : ""}
+          </div>
+        </div>
+      `;
+    });
+
+    videosList.innerHTML = html;
+
+  } catch (err) {
+    console.error("Videolar yüklenemedi:", err);
+    videosList.innerHTML =
+      '<div style="opacity:0.7;font-size:0.85rem;">Videolar yüklenemedi.</div>';
+  }
+}
+
+if (videoForm && videoFile) {
+  videoForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const title = (videoTitle.value || "").trim();
+    const desc  = (videoDesc.value  || "").trim();
+
+    const urlInput = prompt("Cloudinary video URL’sini yapıştırın:");
+    if (!urlInput || !urlInput.trim()) {
+      showVideoMsg("URL girilmedi, işlem iptal.", false);
+      return;
+    }
+
+    const url = urlInput.trim();
+
+    try {
+      await db.collection("videos").add({
+        url: url,
+        title: title,
+        desc: desc,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      videoForm.reset();
+      showVideoMsg("Video başarıyla kaydedildi.", true);
       loadVideos();
 
-      // Video sekmesine her tıklamada yeniden yükle (güncel olsun)
-      const videosTabBtn = document.querySelector('[data-target="tab-videos"]');
-      if (videosTabBtn) {
-        videosTabBtn.addEventListener("click", loadVideos);
-      }
+    } catch (err) {
+      console.error("Video yükleme hatası:", err);
+      showVideoMsg("Video kaydedilirken hata oluştu.", false);
+    }
+  });
 
-      const photosTabBtn = document.querySelector('[data-target="tab-photos"]');
-      if (photosTabBtn) {
-        photosTabBtn.addEventListener("click", loadPhotos);
-      }
-    });
   </script>
 </body>
 </html>
