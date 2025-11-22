@@ -1207,7 +1207,7 @@
 
           let html = "";
           list.forEach(function (item) {
-            const src = (item.file || item.path || "").trim();
+            const src = (item.src || item.file || item.path || "").trim();
             if (!src) return;
             const title = (item.title || item.name || "Sahne fotoğrafı").trim();
 
@@ -1246,7 +1246,7 @@
 
           let html = "";
           list.forEach(function (item) {
-            const src = (item.file || item.path || "").trim();
+            cconst src = (item.src || item.file || item.path || "").trim();
             if (!src) return;
             const title = (item.title || item.name || "Sahne videosu").trim();
 
