@@ -488,10 +488,9 @@
     </div>
   </div>
 
-        <!-- Firebase (duyuru + metadata için) -->
+          <!-- Firebase (duyuru + metadata için) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-  <!-- DİKKAT: STORAGE YOK -->
   <script src="../firebase-init.js"></script>
 
   <script>
@@ -650,9 +649,33 @@
       el.addEventListener("input", buildTextsFromInputs);
     });
 
+    // 🔥 Cloudinary ayarları (otomatik upload)
+    const CLOUD_NAME = "dqwpwghbx";
+    const UPLOAD_PRESET = "unsigned_hayati"; // Cloudinary'de oluşturduğun unsigned preset
+
+    async function uploadToCloudinary(file, resourceType = "image") {
+      const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resourceType}/upload`;
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", UPLOAD_PRESET);
+
+      const res = await fetch(url, {
+        method: "POST",
+        body: formData
+      });
+
+      if (!res.ok) {
+        const txt = await res.text().catch(() => "");
+        throw new Error("Cloudinary upload başarısız: " + res.status + " " + txt);
+      }
+
+      const data = await res.json();
+      return data.secure_url;
+    }
+
     // FOTO GALERİSİ
     const photoForm  = document.getElementById("photoForm");
-    const photoFile  = document.getElementById("photoFile"); // sadece dosya seçtirmek için
+    const photoFile  = document.getElementById("photoFile");
     const photoTitle = document.getElementById("photoTitle");
     const photoDesc  = document.getElementById("photoDesc");
     const photoMsg   = document.getElementById("photoMsg");
@@ -719,37 +742,39 @@
       }
     }
 
-    if (photoForm) {
+    if (photoForm && photoFile) {
       photoForm.addEventListener("submit", async function (e) {
         e.preventDefault();
 
         const title = (photoTitle?.value || "").trim();
         const desc  = (photoDesc?.value  || "").trim();
 
-        // Sadece görsellik için dosya seçtirdik, asıl URL Cloudinary'den
-        const urlInput = prompt("Cloudinary fotoğraf URL’sini yapıştırın:");
-        if (!urlInput || !urlInput.trim()) {
-          showPhotoMsg("URL girilmedi, işlem iptal.", false);
+        if (!photoFile.files || photoFile.files.length === 0) {
+          showPhotoMsg("Lütfen bilgisayarınızdan bir fotoğraf seçin.", false);
           return;
         }
 
-        const url = urlInput.trim();
+        const file = photoFile.files[0];
 
         try {
+          showPhotoMsg("Fotoğraf yükleniyor, lütfen bekleyin...", true);
+
+          const url = await uploadToCloudinary(file, "image");
+
           await db.collection("photos").add({
-            url: url,
-            title: title,
-            desc: desc,
+            url,
+            title,
+            desc,
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
           });
 
-          if (photoForm) photoForm.reset();
-          showPhotoMsg("Fotoğraf kaydedildi (Cloudinary URL).", true);
+          photoForm.reset();
+          showPhotoMsg("Fotoğraf başarıyla yüklendi.", true);
           loadPhotos();
 
         } catch (err) {
-          console.error("Foto kaydı hatası:", err);
-          showPhotoMsg("Fotoğraf kaydedilirken hata oluştu.", false);
+          console.error("Foto yükleme hatası:", err);
+          showPhotoMsg("Fotoğraf yüklenirken hata oluştu.", false);
         }
       });
     }
@@ -827,36 +852,39 @@
       }
     }
 
-    if (videoForm) {
+    if (videoForm && videoFile) {
       videoForm.addEventListener("submit", async function (e) {
         e.preventDefault();
 
         const title = (videoTitle?.value || "").trim();
         const desc  = (videoDesc?.value  || "").trim();
 
-        const urlInput = prompt("Cloudinary video URL’sini yapıştırın:");
-        if (!urlInput || !urlInput.trim()) {
-          showVideoMsg("URL girilmedi, işlem iptal.", false);
+        if (!videoFile.files || videoFile.files.length === 0) {
+          showVideoMsg("Lütfen bilgisayarınızdan bir video seçin.", false);
           return;
         }
 
-        const url = urlInput.trim();
+        const file = videoFile.files[0];
 
         try {
+          showVideoMsg("Video yükleniyor, lütfen bekleyin...", true);
+
+          const url = await uploadToCloudinary(file, "video");
+
           await db.collection("videos").add({
-            url: url,
-            title: title,
-            desc: desc,
+            url,
+            title,
+            desc,
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
           });
 
-          if (videoForm) videoForm.reset();
-          showVideoMsg("Video kaydedildi (Cloudinary URL).", true);
+          videoForm.reset();
+          showVideoMsg("Video başarıyla yüklendi.", true);
           loadVideos();
 
         } catch (err) {
-          console.error("Video kaydı hatası:", err);
-          showVideoMsg("Video kaydedilirken hata oluştu.", false);
+          console.error("Video yükleme hatası:", err);
+          showVideoMsg("Video yüklenirken hata oluştu.", false);
         }
       });
     }
@@ -866,7 +894,6 @@
     loadPhotos();
     loadVideos();
 
-    // Sekmeye tıklayınca yeniden yükle
     const videosTabBtn = document.querySelector('[data-target="tab-videos"]');
     if (videosTabBtn) {
       videosTabBtn.addEventListener("click", loadVideos);
