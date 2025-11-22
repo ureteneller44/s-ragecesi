@@ -1,14 +1,7 @@
 [
   {
-    "type": "file",
-    "src": "uploads/videos/video1.mp4",
-    "title": "Meyhane Programı",
-    "desc": "İstanbul Mey Gazinosu'nda canlı sıra gecesi performansı."
-  },
-  {
-    "type": "file",
-    "src": "uploads/videos/video2.mp4",
-    "title": "Düğün Gecesi",
-    "desc": "Urfa türküleriyle dolu unutulmaz düğün programı."
+    "src": "https://res.cloudinary.com/dqwpwghbx/video/upload/v1234567890/video1.mp4",
+    "title": "Sahne Performansı",
+    "desc": "Hayati İşler & Urfa Sıra Gecesi video performansı."
   }
 ]
