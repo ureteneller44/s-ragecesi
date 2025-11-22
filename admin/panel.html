@@ -493,17 +493,9 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <script src="../firebase-init.js"></script>
 
-  <!-- Supabase (foto & video dosyaları için) -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
-    // Supabase client
-    const SUPABASE_URL = "https://pgomepobdrmdwpwitywd.supabase.co";
-    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBnb21lcG9iZHJtZHdwd2l0eXdkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3NTg1MDcsImV4cCI6MjA3OTMzNDUwN30.LVuMnmjLuGstp5Zuy5ZsLqXygInSJKlUz7jaO-4ozIk";
-
-    const { createClient } = supabase;
-    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
-
+    
     // Firestore duyuru doc ID
     const ANNOUNCEMENT_DOC_ID = "QEYYxEpClLZ5yKZVLxeS";
 
@@ -745,19 +737,11 @@
             const path = Date.now() + "-" + Math.random().toString(36).slice(2) +
               "-" + base + "." + ext;
 
-            const { error: uploadError } = await supabaseClient
-              .storage.from("photos")
-              .upload(path, file);
-
             if (uploadError) {
               console.error(uploadError);
               showPhotoMsg("Yükleme sırasında hata oluştu.", false);
               return;
             }
-
-            const { data: publicData } = supabaseClient
-              .storage.from("photos")
-              .getPublicUrl(path);
 
             const url = publicData?.publicUrl || "";
 
@@ -870,19 +854,15 @@
             const path = Date.now() + "-" + Math.random().toString(36).slice(2) +
               "-" + base + "." + ext;
 
-            const { error: uploadError } = await supabaseClient
-              .storage.from("videos")
-              .upload(path, file);
+// Cloudinary kullanılıyor – videolar da panelden manuel yükleniyor, burada upload yok
 
             if (uploadError) {
               console.error(uploadError);
               showVideoMsg("Yükleme sırasında hata oluştu.", false);
               return;
             }
-
-            const { data: publicData } = supabaseClient
-              .storage.from("videos")
-              .getPublicUrl(path);
+            
+            // Cloudinary: video URL’si panelden manuel alınıyor, burada publicUrl işlemi yok
 
             const url = publicData?.publicUrl || "";
 
