@@ -488,461 +488,393 @@
     </div>
   </div>
 
-  <!-- Firebase (duyuru + metadata için) -->
+    <!-- Firebase (duyuru + metadata için) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <script src="../firebase-init.js"></script>
 
-
   <script>
-    
-    // Firestore duyuru doc ID
-    const ANNOUNCEMENT_DOC_ID = "QEYYxEpClLZ5yKZVLxeS";
+  // Firestore duyuru doc ID
+  const ANNOUNCEMENT_DOC_ID = "QEYYxEpClLZ5yKZVLxeS";
 
-    document.addEventListener("DOMContentLoaded", function () {
-      // Sekmeler
-      const tabButtons = document.querySelectorAll(".tab-btn");
-      const tabSections = document.querySelectorAll(".tab-section");
+  document.addEventListener("DOMContentLoaded", function () {
+    // Sekmeler
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabSections = document.querySelectorAll(".tab-section");
 
-      tabButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-          const target = btn.getAttribute("data-target");
-          tabButtons.forEach(b => b.classList.remove("active"));
-          tabSections.forEach(sec => sec.classList.remove("active"));
-          btn.classList.add("active");
-          const sect = document.getElementById(target);
-          if (sect) sect.classList.add("active");
-        });
+    tabButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-target");
+        tabButtons.forEach(b => b.classList.remove("active"));
+        tabSections.forEach(sec => sec.classList.remove("active"));
+        btn.classList.add("active");
+        const sect = document.getElementById(target);
+        if (sect) sect.classList.add("active");
       });
+    });
 
-      // DUYURU ELEMANLARI
-      const cityInput    = document.getElementById("cityInput");
-      const venueInput   = document.getElementById("venueInput");
-      const timeInput    = document.getElementById("timeInput");
-      const dayTextInput = document.getElementById("dayTextInput");
-      const subTextInput = document.getElementById("subTextInput");
-      const previewMain  = document.getElementById("previewMain");
-      const previewSub   = document.getElementById("previewSub");
-      const saveBtn      = document.getElementById("saveBtn");
-      const resetBtn     = document.getElementById("resetBtn");
-      const saveAlert    = document.getElementById("saveAlert");
+    // DUYURU ELEMANLARI
+    const cityInput    = document.getElementById("cityInput");
+    const venueInput   = document.getElementById("venueInput");
+    const timeInput    = document.getElementById("timeInput");
+    const dayTextInput = document.getElementById("dayTextInput");
+    const subTextInput = document.getElementById("subTextInput");
+    const previewMain  = document.getElementById("previewMain");
+    const previewSub   = document.getElementById("previewSub");
+    const saveBtn      = document.getElementById("saveBtn");
+    const resetBtn     = document.getElementById("resetBtn");
+    const saveAlert    = document.getElementById("saveAlert");
 
-      function buildTextsFromInputs() {
-        const city    = (cityInput.value    || "İstanbul").trim();
-        const venue   = (venueInput.value   || "Mey Gazinosu").trim();
-        const time    = (timeInput.value    || "21:00").trim();
-        const dayText = (dayTextInput.value || "bu akşam").trim();
-        const sub     = (subTextInput.value || "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.").trim();
+    function buildTextsFromInputs() {
+      const city    = (cityInput?.value    || "İstanbul").trim();
+      const venue   = (venueInput?.value   || "Mey Gazinosu").trim();
+      const time    = (timeInput?.value    || "21:00").trim();
+      const dayText = (dayTextInput?.value || "bu akşam").trim();
+      const sub     = (subTextInput?.value || "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.").trim();
 
-        const mainHtml =
-          `Hayati İşler ve Ekibi ${dayText} ` +
-          `<strong>${city} • ${venue}'nda</strong>, ` +
-          `sahne saati: <strong>${time}</strong>`;
+      const mainHtml =
+        `Hayati İşler ve Ekibi ${dayText} ` +
+        `<strong>${city} • ${venue}'nda</strong>, ` +
+        `sahne saati: <strong>${time}</strong>`;
 
-        previewMain.innerHTML = mainHtml;
-        previewSub.textContent = sub;
-      }
+      if (previewMain) previewMain.innerHTML = mainHtml;
+      if (previewSub)  previewSub.textContent = sub;
+    }
 
-      function showAlert(msg, ok = true) {
-        if (!saveAlert) return;
-        saveAlert.textContent = msg;
-        saveAlert.classList.remove("save-alert-ok", "save-alert-error");
-        saveAlert.classList.add(ok ? "save-alert-ok" : "save-alert-error");
-        saveAlert.style.display = "block";
-        setTimeout(() => {
-          saveAlert.style.display = "none";
-        }, 2200);
-      }
+    function showAlert(msg, ok = true) {
+      if (!saveAlert) return;
+      saveAlert.textContent = msg;
+      saveAlert.classList.remove("save-alert-ok", "save-alert-error");
+      saveAlert.classList.add(ok ? "save-alert-ok" : "save-alert-error");
+      saveAlert.style.display = "block";
+      setTimeout(() => {
+        saveAlert.style.display = "none";
+      }, 2200);
+    }
 
-      async function loadAnnouncement() {
-        try {
-          const docRef = db.collection("announcements").doc(ANNOUNCEMENT_DOC_ID);
-          const snap = await docRef.get();
-          if (snap.exists) {
-            const data = snap.data() || {};
-            if (data.city)    cityInput.value    = data.city;
-            if (data.venue)   venueInput.value   = data.venue;
-            if (data.time)    timeInput.value    = data.time;
-            if (data.day)     dayTextInput.value = data.day;
-            if (data.sub)     subTextInput.value = data.sub;
-          } else {
-            // ilk kez kullanılıyorsa varsayılanları Firestore'a yaz
-            await docRef.set({
-              city: "İstanbul",
-              venue: "Mey Gazinosu",
-              time: "21:00",
-              day: "bu akşam",
-              sub: "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.",
-              createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            }, { merge: true });
-          }
-        } catch (err) {
-          console.error("Duyuru yüklenemedi:", err);
-        } finally {
-          buildTextsFromInputs();
+    async function loadAnnouncement() {
+      try {
+        const docRef = db.collection("announcements").doc(ANNOUNCEMENT_DOC_ID);
+        const snap = await docRef.get();
+        if (snap.exists) {
+          const data = snap.data() || {};
+          if (data.city   && cityInput)    cityInput.value    = data.city;
+          if (data.venue  && venueInput)   venueInput.value   = data.venue;
+          if (data.time   && timeInput)    timeInput.value    = data.time;
+          if (data.day    && dayTextInput) dayTextInput.value = data.day;
+          if (data.sub    && subTextInput) subTextInput.value = data.sub;
+        } else {
+          await docRef.set({
+            city: "İstanbul",
+            venue: "Mey Gazinosu",
+            time: "21:00",
+            day: "bu akşam",
+            sub: "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.",
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          }, { merge: true });
         }
+      } catch (err) {
+        console.error("Duyuru yüklenemedi:", err);
+      } finally {
+        buildTextsFromInputs();
       }
+    }
 
-      async function saveAnnouncement() {
-        const city  = (cityInput.value  || "").trim() || "İstanbul";
-        const venue = (venueInput.value || "").trim() || "Mey Gazinosu";
-        const time  = (timeInput.value  || "").trim() || "21:00";
-        const day   = (dayTextInput.value || "").trim() || "bu akşam";
-        const sub   = (subTextInput.value || "").trim() ||
-          "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.";
+    async function saveAnnouncement() {
+      const city  = (cityInput?.value      || "").trim() || "İstanbul";
+      const venue = (venueInput?.value     || "").trim() || "Mey Gazinosu";
+      const time  = (timeInput?.value      || "").trim() || "21:00";
+      const day   = (dayTextInput?.value   || "").trim() || "bu akşam";
+      const sub   = (subTextInput?.value   || "").trim() ||
+        "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.";
+
+      try {
+        await db.collection("announcements")
+          .doc(ANNOUNCEMENT_DOC_ID)
+          .set({
+            city,
+            venue,
+            time,
+            day,
+            sub,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+          }, { merge: true });
+
+        buildTextsFromInputs();
+        showAlert("Değişiklikler kaydedildi. Ana sitedeki üst bant güncelleyecektir.", true);
+      } catch (err) {
+        console.error("Duyuru kaydedilemedi:", err);
+        showAlert("Kaydedilirken bir hata oluştu.", false);
+      }
+    }
+
+    if (saveBtn) {
+      saveBtn.addEventListener("click", saveAnnouncement);
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener("click", async function () {
+        if (cityInput)    cityInput.value    = "İstanbul";
+        if (venueInput)   venueInput.value   = "Mey Gazinosu";
+        if (timeInput)    timeInput.value    = "21:00";
+        if (dayTextInput) dayTextInput.value = "bu akşam";
+        if (subTextInput) {
+          subTextInput.value =
+            "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.";
+        }
 
         try {
           await db.collection("announcements")
             .doc(ANNOUNCEMENT_DOC_ID)
             .set({
-              city,
-              venue,
-              time,
-              day,
-              sub,
+              city: "İstanbul",
+              venue: "Mey Gazinosu",
+              time: "21:00",
+              day: "bu akşam",
+              sub: "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.",
               updatedAt: firebase.firestore.FieldValue.serverTimestamp()
             }, { merge: true });
 
           buildTextsFromInputs();
-          showAlert("Değişiklikler kaydedildi. Ana sitedeki üst bant güncelleyecektir.", true);
+          showAlert("Varsayılan metinlere dönüldü.", true);
         } catch (err) {
-          console.error("Duyuru kaydedilemedi:", err);
-          showAlert("Kaydedilirken bir hata oluştu.", false);
+          console.error("Varsayılana dönerken hata:", err);
+          showAlert("Varsayılana dönerken hata oluştu.", false);
         }
-      }
-
-      if (saveBtn) {
-        saveBtn.addEventListener("click", saveAnnouncement);
-      }
-
-      if (resetBtn) {
-        resetBtn.addEventListener("click", async function () {
-          cityInput.value    = "İstanbul";
-          venueInput.value   = "Mey Gazinosu";
-          timeInput.value    = "21:00";
-          dayTextInput.value = "bu akşam";
-          subTextInput.value =
-            "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.";
-
-          try {
-            await db.collection("announcements")
-              .doc(ANNOUNCEMENT_DOC_ID)
-              .set({
-                city: "İstanbul",
-                venue: "Mey Gazinosu",
-                time: "21:00",
-                day: "bu akşam",
-                sub: "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.",
-                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-              }, { merge: true });
-
-            buildTextsFromInputs();
-            showAlert("Varsayılan metinlere dönüldü.", true);
-          } catch (err) {
-            console.error("Varsayılana dönerken hata:", err);
-            showAlert("Varsayılana dönerken hata oluştu.", false);
-          }
-        });
-      }
-
-      [cityInput, venueInput, timeInput, dayTextInput, subTextInput].forEach(el => {
-        if (!el) return;
-        el.addEventListener("input", buildTextsFromInputs);
       });
+    }
 
-      // FOTO GALERİSİ
-      const photoForm  = document.getElementById("photoForm");
-      const photoFile  = document.getElementById("photoFile");
-      const photoTitle = document.getElementById("photoTitle");
-      const photoDesc  = document.getElementById("photoDesc");
-      const photoMsg   = document.getElementById("photoMsg");
-      const photosList = document.getElementById("photosList");
+    [cityInput, venueInput, timeInput, dayTextInput, subTextInput].forEach(el => {
+      if (!el) return;
+      el.addEventListener("input", buildTextsFromInputs);
+    });
 
-      function showPhotoMsg(text, ok) {
-        if (!photoMsg) return;
-        photoMsg.textContent = text;
-        photoMsg.classList.remove("save-alert-ok", "save-alert-error");
-        photoMsg.classList.add(ok ? "save-alert-ok" : "save-alert-error");
-        photoMsg.style.display = "block";
-        setTimeout(() => {
-          photoMsg.style.display = "none";
-        }, 2500);
-      }
+    // FOTO GALERİSİ
+    const photoForm  = document.getElementById("photoForm");
+    const photoFile  = document.getElementById("photoFile");
+    const photoTitle = document.getElementById("photoTitle");
+    const photoDesc  = document.getElementById("photoDesc");
+    const photoMsg   = document.getElementById("photoMsg");
+    const photosList = document.getElementById("photosList");
 
-      async function loadPhotos() {
-        if (!photosList) return;
-        photosList.innerHTML = '<div style="opacity:0.7;font-size:0.85rem;">Yükleniyor...</div>';
-        try {
-          const snap = await db.collection("photos")
-            .orderBy("createdAt", "desc")
-            .limit(100)
-            .get();
+    function showPhotoMsg(text, ok) {
+      if (!photoMsg) return;
+      photoMsg.textContent = text;
+      photoMsg.classList.remove("save-alert-ok", "save-alert-error");
+      photoMsg.classList.add(ok ? "save-alert-ok" : "save-alert-error");
+      photoMsg.style.display = "block";
+      setTimeout(() => { photoMsg.style.display = "none"; }, 2500);
+    }
 
-          if (snap.empty) {
-            photosList.innerHTML =
-              '<div style="opacity:0.7;font-size:0.85rem;">Henüz fotoğraf eklenmemiş.</div>';
-            return;
-          }
+    async function loadPhotos() {
+      if (!photosList) return;
+      photosList.innerHTML = '<div style="opacity:0.7;font-size:0.85rem;">Yükleniyor...</div>';
 
-          let html = "";
-          snap.forEach(doc => {
-            const p = doc.data() || {};
-            const url   = p.url || "";
-            const title = p.title || "";
-            const desc  = p.desc || "";
-            html += `
-              <div style="
-                background:#020617;
-                border:1px solid rgba(148,163,184,0.4);
-                border-radius:14px;
-                overflow:hidden;
-                box-shadow:0 8px 24px rgba(0,0,0,0.6);
-                font-size:0.8rem;
-              ">
-                <div style="width:100%;padding-top:70%;position:relative;background:#020617;">
-                  ${url ? `<img src="${url}" alt="${title || "Fotoğraf"}"
-                     style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">` : ""}
-                </div>
-                <div style="padding:8px 9px 9px;">
-                  ${title ? `<div style="font-weight:600;margin-bottom:2px;">${title}</div>` : ""}
-                  ${desc ? `<div style="opacity:0.8;">${desc}</div>` : ""}
-                </div>
+      try {
+        const snap = await db.collection("photos")
+          .orderBy("createdAt", "desc")
+          .limit(100)
+          .get();
+
+        if (snap.empty) {
+          photosList.innerHTML =
+            '<div style="opacity:0.7;font-size:0.85rem;">Henüz fotoğraf eklenmemiş.</div>';
+          return;
+        }
+
+        let html = "";
+        snap.forEach(doc => {
+          const p = doc.data() || {};
+          const url   = p.url || "";
+          const title = p.title || "";
+          const desc  = p.desc || "";
+
+          html += `
+            <div style="
+              background:#020617;
+              border:1px solid rgba(148,163,184,0.4);
+              border-radius:14px;
+              overflow:hidden;
+              box-shadow:0 8px 24px rgba(0,0,0,0.6);
+              font-size:0.8rem;
+            ">
+              <div style="width:100%;padding-top:70%;position:relative;background:#020617;">
+                ${url ? `<img src="${url}" alt="${title || "Fotoğraf"}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">` : ""}
               </div>
-            `;
+              <div style="padding:8px 9px 9px;">
+                ${title ? `<div style="font-weight:600;margin-bottom:2px;">${title}</div>` : ""}
+                ${desc ? `<div style="opacity:0.8;">${desc}</div>` : ""}
+              </div>
+            </div>
+          `;
+        });
+
+        photosList.innerHTML = html;
+
+      } catch (err) {
+        console.error("Fotoğraflar yüklenemedi:", err);
+        photosList.innerHTML =
+          '<div style="opacity:0.7;font-size:0.85rem;">Fotoğraflar yüklenemedi.</div>';
+      }
+    }
+
+    if (photoForm && photoFile) {
+      photoForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const title = (photoTitle?.value || "").trim();
+        const desc  = (photoDesc?.value  || "").trim();
+
+        const urlInput = prompt("Cloudinary fotoğraf URL’sini yapıştırın:");
+        if (!urlInput || !urlInput.trim()) {
+          showPhotoMsg("URL girilmedi, işlem iptal.", false);
+          return;
+        }
+
+        const url = urlInput.trim();
+
+        try {
+          await db.collection("photos").add({
+            url: url,
+            title: title,
+            desc: desc,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
           });
 
-          // FOTO GALERİSİ
-const photoForm  = document.getElementById("photoForm");
-const photoFile  = document.getElementById("photoFile");
-const photoTitle = document.getElementById("photoTitle");
-const photoDesc  = document.getElementById("photoDesc");
-const photoMsg   = document.getElementById("photoMsg");
-const photosList = document.getElementById("photosList");
+          if (photoForm) photoForm.reset();
+          showPhotoMsg("Fotoğraf başarıyla kaydedildi.", true);
+          loadPhotos();
 
-function showPhotoMsg(text, ok) {
-  if (!photoMsg) return;
-  photoMsg.textContent = text;
-  photoMsg.classList.remove("save-alert-ok", "save-alert-error");
-  photoMsg.classList.add(ok ? "save-alert-ok" : "save-alert-error");
-  photoMsg.style.display = "block";
-  setTimeout(() => { photoMsg.style.display = "none"; }, 2500);
-}
-
-async function loadPhotos() {
-  if (!photosList) return;
-  photosList.innerHTML = '<div style="opacity:0.7;font-size:0.85rem;">Yükleniyor...</div>';
-
-  try {
-    const snap = await db.collection("photos")
-      .orderBy("createdAt", "desc")
-      .limit(100)
-      .get();
-
-    if (snap.empty) {
-      photosList.innerHTML =
-        '<div style="opacity:0.7;font-size:0.85rem;">Henüz fotoğraf eklenmemiş.</div>';
-      return;
-    }
-
-    let html = "";
-    snap.forEach(doc => {
-      const p = doc.data() || {};
-      const url   = p.url || "";
-      const title = p.title || "";
-      const desc  = p.desc || "";
-
-      html += `
-        <div style="
-          background:#020617;
-          border:1px solid rgba(148,163,184,0.4);
-          border-radius:14px;
-          overflow:hidden;
-          box-shadow:0 8px 24px rgba(0,0,0,0.6);
-          font-size:0.8rem;
-        ">
-          <div style="width:100%;padding-top:70%;position:relative;background:#020617;">
-            ${url ? `<img src="${url}" alt="${title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;">` : ""}
-          </div>
-          <div style="padding:8px 9px 9px;">
-            ${title ? `<div style="font-weight:600;margin-bottom:2px;">${title}</div>` : ""}
-            ${desc ? `<div style="opacity:0.8;">${desc}</div>` : ""}
-          </div>
-        </div>
-      `;
-    });
-
-    photosList.innerHTML = html;
-
-  } catch (err) {
-    console.error("Fotoğraflar yüklenemedi:", err);
-    photosList.innerHTML =
-      '<div style="opacity:0.7;font-size:0.85rem;">Fotoğraflar yüklenemedi.</div>';
-  }
-}
-
-if (photoForm && photoFile) {
-  photoForm.addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const title = (photoTitle.value || "").trim();
-    const desc  = (photoDesc.value  || "").trim();
-
-    const urlInput = prompt("Cloudinary fotoğraf URL’sini yapıştırın:");
-    if (!urlInput || !urlInput.trim()) {
-      showPhotoMsg("URL girilmedi, işlem iptal.", false);
-      return;
-    }
-
-    const url = urlInput.trim();
-
-    try {
-      await db.collection("photos").add({
-        url: url,
-        title: title,
-        desc: desc,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        } catch (err) {
+          console.error("Foto yükleme hatası:", err);
+          showPhotoMsg("Fotoğraf kaydedilirken hata oluştu.", false);
+        }
       });
+    }
 
-      photoForm.reset();
-      showPhotoMsg("Fotoğraf başarıyla kaydedildi.", true);
-      loadPhotos();
+    // VİDEO GALERİSİ
+    const videoForm  = document.getElementById("videoForm");
+    const videoFile  = document.getElementById("videoFile");
+    const videoTitle = document.getElementById("videoTitle");
+    const videoDesc  = document.getElementById("videoDesc");
+    const videoMsg   = document.getElementById("videoMsg");
+    const videosList = document.getElementById("videosList");
 
-    } catch (err) {
-      console.error("Foto yükleme hatası:", err);
-      showPhotoMsg("Fotoğraf kaydedilirken hata oluştu.", false);
+    function showVideoMsg(text, ok) {
+      if (!videoMsg) return;
+      videoMsg.textContent = text;
+      videoMsg.classList.remove("save-alert-ok", "save-alert-error");
+      videoMsg.classList.add(ok ? "save-alert-ok" : "save-alert-error");
+      videoMsg.style.display = "block";
+      setTimeout(() => { videoMsg.style.display = "none"; }, 2500);
+    }
+
+    async function loadVideos() {
+      if (!videosList) return;
+      videosList.innerHTML = '<div style="opacity:0.7;font-size:0.85rem;">Yükleniyor...</div>';
+
+      try {
+        const snap = await db.collection("videos")
+          .orderBy("createdAt", "desc")
+          .limit(100)
+          .get();
+
+        if (snap.empty) {
+          videosList.innerHTML =
+            '<div style="opacity:0.7;font-size:0.85rem;">Henüz video eklenmemiş.</div>';
+          return;
+        }
+
+        let html = "";
+        snap.forEach(doc => {
+          const v = doc.data() || {};
+          const url   = v.url || "";
+          const title = v.title || "";
+          const desc  = v.desc || "";
+
+          html += `
+            <div style="
+              background:#020617;
+              border:1px solid rgba(148,163,184,0.4);
+              border-radius:14px;
+              overflow:hidden;
+              box-shadow:0 8px 24px rgba(0,0,0,0.6);
+              font-size:0.8rem;
+              padding:8px;
+            ">
+              ${url ? `
+                <video controls style="width:100%;border-radius:10px;max-height:230px;object-fit:contain;background:#000;">
+                  <source src="${url}" type="video/mp4">
+                  Tarayıcınız video etiketini desteklemiyor.
+                </video>
+              ` : ""}
+              <div style="padding-top:6px;">
+                ${title ? `<div style="font-weight:600;margin-bottom:2px;">${title}</div>` : ""}
+                ${desc ? `<div style="opacity:0.8;">${desc}</div>` : ""}
+              </div>
+            </div>
+          `;
+        });
+
+        videosList.innerHTML = html;
+
+      } catch (err) {
+        console.error("Videolar yüklenemedi:", err);
+        videosList.innerHTML =
+          '<div style="opacity:0.7;font-size:0.85rem;">Videolar yüklenemedi.</div>';
+      }
+    }
+
+    if (videoForm && videoFile) {
+      videoForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const title = (videoTitle?.value || "").trim();
+        const desc  = (videoDesc?.value  || "").trim();
+
+        const urlInput = prompt("Cloudinary video URL’sini yapıştırın:");
+        if (!urlInput || !urlInput.trim()) {
+          showVideoMsg("URL girilmedi, işlem iptal.", false);
+          return;
+        }
+
+        const url = urlInput.trim();
+
+        try {
+          await db.collection("videos").add({
+            url: url,
+            title: title,
+            desc: desc,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+
+          if (videoForm) videoForm.reset();
+          showVideoMsg("Video başarıyla kaydedildi.", true);
+          loadVideos();
+
+        } catch (err) {
+          console.error("Video kaydetme hatası:", err);
+          showVideoMsg("Video kaydedilirken hata oluştu.", false);
+        }
+      });
+    }
+
+    // İlk yüklemeler
+    loadAnnouncement();
+    loadPhotos();
+    loadVideos();
+
+    // Sekmeye tıklayınca yeniden yükle
+    const videosTabBtn = document.querySelector('[data-target="tab-videos"]');
+    if (videosTabBtn) {
+      videosTabBtn.addEventListener("click", loadVideos);
+    }
+
+    const photosTabBtn = document.querySelector('[data-target="tab-photos"]');
+    if (photosTabBtn) {
+      photosTabBtn.addEventListener("click", loadPhotos);
     }
   });
-}
-
-
-// VİDEO GALERİSİ
-const videoForm  = document.getElementById("videoForm");
-const videoFile  = document.getElementById("videoFile");
-const videoTitle = document.getElementById("videoTitle");
-const videoDesc  = document.getElementById("videoDesc");
-const videoMsg   = document.getElementById("videoMsg");
-const videosList = document.getElementById("videosList");
-
-function showVideoMsg(text, ok) {
-  if (!videoMsg) return;
-  videoMsg.textContent = text;
-  videoMsg.classList.remove("save-alert-ok", "save-alert-error");
-  videoMsg.classList.add(ok ? "save-alert-ok" : "save-alert-error");
-  videoMsg.style.display = "block";
-  setTimeout(() => { videoMsg.style.display = "none"; }, 2500);
-}
-
-async function loadVideos() {
-  if (!videosList) return;
-  videosList.innerHTML = '<div style="opacity:0.7;font-size:0.85rem;">Yükleniyor...</div>';
-
-  try {
-    const snap = await db.collection("videos")
-      .orderBy("createdAt", "desc")
-      .limit(100)
-      .get();
-
-    if (snap.empty) {
-      videosList.innerHTML =
-        '<div style="opacity:0.7;font-size:0.85rem;">Henüz video eklenmemiş.</div>';
-      return;
-    }
-
-    let html = "";
-    snap.forEach(doc => {
-      const v = doc.data() || {};
-      const url   = v.url || "";
-      const title = v.title || "";
-      const desc  = v.desc || "";
-
-      html += `
-        <div style="
-          background:#020617;
-          border:1px solid rgba(148,163,184,0.4);
-          border-radius:14px;
-          overflow:hidden;
-          box-shadow:0 8px 24px rgba(0,0,0,0.6);
-          font-size:0.8rem;
-          padding:8px;
-        ">
-          ${url ? `
-            <video controls style="width:100%;border-radius:10px;max-height:230px;object-fit:contain;background:#000;">
-              <source src="${url}" type="video/mp4">
-              Tarayıcınız video etiketini desteklemiyor.
-            </video>
-          ` : ""}
-          <div style="padding-top:6px;">
-            ${title ? `<div style="font-weight:600;margin-bottom:2px;">${title}</div>` : ""}
-            ${desc ? `<div style="opacity:0.8;">${desc}</div>` : ""}
-          </div>
-        </div>
-      `;
-    });
-
-    videosList.innerHTML = html;
-
-  } catch (err) {
-    console.error("Videolar yüklenemedi:", err);
-    videosList.innerHTML =
-      '<div style="opacity:0.7;font-size:0.85rem;">Videolar yüklenemedi.</div>';
-  }
-}
-
-if (videoForm && videoFile) {
-  videoForm.addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const title = (videoTitle.value || "").trim();
-    const desc  = (videoDesc.value  || "").trim();
-
-    const urlInput = prompt("Cloudinary video URL’sini yapıştırın:");
-    if (!urlInput || !urlInput.trim()) {
-      showVideoMsg("URL girilmedi, işlem iptal.", false);
-      return;
-    }
-
-    const url = urlInput.trim();
-
-    try {
-      await db.collection("videos").add({
-        url: url,
-        title: title,
-        desc: desc,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-
-      videoForm.reset();
-      showVideoMsg("Video başarıyla kaydedildi.", true);
-      loadVideos();
-
-    } catch (err) {
-      console.error("Video kaydetme hatası:", err);
-      showVideoMsg("Video kaydedilirken hata oluştu.", false);
-    }
-  });
-}
-
-// Sekme açılışında liste yüklemeleri
-loadAnnouncement();
-loadPhotos();
-loadVideos();
-
-// Video sekmesine her tıklamada yeniden yükle (güncel olsun)
-const videosTabBtn = document.querySelector('[data-target="tab-videos"]');
-if (videosTabBtn) {
-  videosTabBtn.addEventListener("click", loadVideos);
-}
-
-const photosTabBtn = document.querySelector('[data-target="tab-photos"]');
-if (photosTabBtn) {
-  photosTabBtn.addEventListener("click", loadPhotos);
-}
-
-}); // <-- DOMContentLoaded kapanışı
-  </script>
-</body>
-</html>
-
   </script>
 </body>
 </html>
