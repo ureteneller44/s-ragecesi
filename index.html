@@ -289,59 +289,63 @@
     }
 
     /* GALERİ GRID */
-    .gallery-grid {
-      margin-top: 10px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 10px;
-    }
+.gallery-grid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
 
-    .gallery-item,
-    .video-item {
-      background: rgba(15, 23, 42, 0.9);
-      border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      overflow: hidden;
-      font-size: 0.78rem;
-      display: flex;
-      flex-direction: column;
-    }
+.gallery-item,
+.video-item {
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  overflow: hidden;
+  font-size: 0.78rem;
+  display: flex;
+  flex-direction: column;
+}
 
-    .gallery-thumb {
-      position: relative;
-      width: 100%;
-      padding-top: 75%;
-      overflow: hidden;
-      background: #020617;
-    }
+/* ---- FOTOĞRAFLAR ---- */
+.gallery-thumb {
+  width: 100%;
+  height: 180px;                  /* SABİT YÜKSEKLİK */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;              /* boşluklar için siyah zemin */
+}
 
-    .gallery-thumb img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+.gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;            /* kırpmadan göster, küçük büyür */
+}
 
-    .gallery-caption {
-      padding: 6px 8px 7px;
-      border-top: 1px solid rgba(15,23,42,0.9);
-      opacity: 0.9;
-    }
+/* ---- FOTOĞRAF ALT YAZI ---- */
+.gallery-caption {
+  padding: 6px 8px 7px;
+  border-top: 1px solid rgba(15,23,42,0.9);
+  opacity: 0.9;
+}
 
-    .video-item video {
-      width: 100%;
-      display: block;
-      background: #020617;
-    }
+/* ---- VİDEOLAR ---- */
+.video-item video {
+  width: 100%;
+  height: 180px;                  /* foto ile aynı yükseklik */
+  object-fit: contain;            /* kırpmadan göster */
+  background: #000;
+}
 
-    .video-caption {
-      padding: 6px 8px 7px;
-      border-top: 1px solid rgba(15,23,42,0.9);
-      font-size: 0.78rem;
-      opacity: 0.9;
-    }
+/* ---- VİDEO ALT YAZI ---- */
+.video-caption {
+  padding: 6px 8px 7px;
+  border-top: 1px solid rgba(15,23,42,0.9);
+  font-size: 0.78rem;
+  opacity: 0.9;
+}
 
     /* İletişim Bölümü */
     .contact-section {
