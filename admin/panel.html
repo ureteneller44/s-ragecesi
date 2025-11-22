@@ -488,10 +488,10 @@
     </div>
   </div>
 
-      <!-- Firebase (duyuru + metadata için) -->
+        <!-- Firebase (duyuru + metadata için) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <!-- DİKKAT: STORAGE YOK -->
   <script src="../firebase-init.js"></script>
 
   <script>
@@ -652,7 +652,7 @@
 
     // FOTO GALERİSİ
     const photoForm  = document.getElementById("photoForm");
-    const photoFile  = document.getElementById("photoFile");
+    const photoFile  = document.getElementById("photoFile"); // sadece dosya seçtirmek için
     const photoTitle = document.getElementById("photoTitle");
     const photoDesc  = document.getElementById("photoDesc");
     const photoMsg   = document.getElementById("photoMsg");
@@ -719,29 +719,23 @@
       }
     }
 
-    if (photoForm && photoFile) {
+    if (photoForm) {
       photoForm.addEventListener("submit", async function (e) {
         e.preventDefault();
 
         const title = (photoTitle?.value || "").trim();
         const desc  = (photoDesc?.value  || "").trim();
 
-        if (!photoFile.files || photoFile.files.length === 0) {
-          showPhotoMsg("Lütfen bir fotoğraf dosyası seçin.", false);
+        // Sadece görsellik için dosya seçtirdik, asıl URL Cloudinary'den
+        const urlInput = prompt("Cloudinary fotoğraf URL’sini yapıştırın:");
+        if (!urlInput || !urlInput.trim()) {
+          showPhotoMsg("URL girilmedi, işlem iptal.", false);
           return;
         }
 
-        const file = photoFile.files[0];
+        const url = urlInput.trim();
 
         try {
-          showPhotoMsg("Fotoğraf yükleniyor, lütfen bekleyin...", true);
-
-          const fileName = `admin_${Date.now()}_${file.name}`;
-          const storageRef = firebase.storage().ref().child(`photos/${fileName}`);
-
-          await storageRef.put(file);
-          const url = await storageRef.getDownloadURL();
-
           await db.collection("photos").add({
             url: url,
             title: title,
@@ -750,12 +744,12 @@
           });
 
           if (photoForm) photoForm.reset();
-          showPhotoMsg("Fotoğraf başarıyla yüklendi ve kaydedildi.", true);
+          showPhotoMsg("Fotoğraf kaydedildi (Cloudinary URL).", true);
           loadPhotos();
 
         } catch (err) {
-          console.error("Foto yükleme hatası:", err);
-          showPhotoMsg("Fotoğraf yüklenirken hata oluştu.", false);
+          console.error("Foto kaydı hatası:", err);
+          showPhotoMsg("Fotoğraf kaydedilirken hata oluştu.", false);
         }
       });
     }
@@ -833,29 +827,22 @@
       }
     }
 
-    if (videoForm && videoFile) {
+    if (videoForm) {
       videoForm.addEventListener("submit", async function (e) {
         e.preventDefault();
 
         const title = (videoTitle?.value || "").trim();
         const desc  = (videoDesc?.value  || "").trim();
 
-        if (!videoFile.files || videoFile.files.length === 0) {
-          showVideoMsg("Lütfen bir video dosyası seçin.", false);
+        const urlInput = prompt("Cloudinary video URL’sini yapıştırın:");
+        if (!urlInput || !urlInput.trim()) {
+          showVideoMsg("URL girilmedi, işlem iptal.", false);
           return;
         }
 
-        const file = videoFile.files[0];
+        const url = urlInput.trim();
 
         try {
-          showVideoMsg("Video yükleniyor, lütfen bekleyin...", true);
-
-          const fileName = `admin_${Date.now()}_${file.name}`;
-          const storageRef = firebase.storage().ref().child(`videos/${fileName}`);
-
-          await storageRef.put(file);
-          const url = await storageRef.getDownloadURL();
-
           await db.collection("videos").add({
             url: url,
             title: title,
@@ -864,12 +851,12 @@
           });
 
           if (videoForm) videoForm.reset();
-          showVideoMsg("Video başarıyla yüklendi ve kaydedildi.", true);
+          showVideoMsg("Video kaydedildi (Cloudinary URL).", true);
           loadVideos();
 
         } catch (err) {
-          console.error("Video kaydetme hatası:", err);
-          showVideoMsg("Video yüklenirken hata oluştu.", false);
+          console.error("Video kaydı hatası:", err);
+          showVideoMsg("Video kaydedilirken hata oluştu.", false);
         }
       });
     }
