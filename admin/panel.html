@@ -916,11 +916,32 @@ if (videoForm && videoFile) {
       loadVideos();
 
     } catch (err) {
-      console.error("Video yükleme hatası:", err);
+      console.error("Video kaydetme hatası:", err);
       showVideoMsg("Video kaydedilirken hata oluştu.", false);
     }
   });
-  }
+}
+
+// Sekme açılışında liste yüklemeleri
+loadAnnouncement();
+loadPhotos();
+loadVideos();
+
+// Video sekmesine her tıklamada yeniden yükle (güncel olsun)
+const videosTabBtn = document.querySelector('[data-target="tab-videos"]');
+if (videosTabBtn) {
+  videosTabBtn.addEventListener("click", loadVideos);
+}
+
+const photosTabBtn = document.querySelector('[data-target="tab-photos"]');
+if (photosTabBtn) {
+  photosTabBtn.addEventListener("click", loadPhotos);
+}
+
+}); // <-- DOMContentLoaded kapanışı
+  </script>
+</body>
+</html>
 
   </script>
 </body>
