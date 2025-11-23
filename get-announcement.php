@@ -1,22 +1,22 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 
-$default = [
-    "city" => "İstanbul",
-    "venue" => "Mey Gazinosu",
-    "time" => "21:00",
-    "day"  => "bu akşam",
-    "sub"  => "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır."
+$data = [
+    "city"  => "",
+    "venue" => "",
+    "time"  => "",
+    "day"   => "",
+    "sub"   => ""
 ];
 
 $file = __DIR__ . '/../announcement.json';
 
 if (file_exists($file)) {
     $json = file_get_contents($file);
-    $data = json_decode($json, true);
-    if (is_array($data)) {
-        $default = array_merge($default, $data);
+    $jsonData = json_decode($json, true);
+    if (is_array($jsonData)) {
+        $data = array_merge($data, $jsonData);
     }
 }
 
-echo json_encode($default, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
