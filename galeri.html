@@ -285,7 +285,7 @@
       const emptyBox = document.getElementById("photoEmpty");
       if (!gallery) return;
 
-      fetch("photos.json", { cache: "no-store" })
+      fetch("/photos.json", { cache: "no-store" })
         .then(res => {
           if (!res.ok) throw new Error("no photos.json");
           return res.json();
