@@ -679,7 +679,7 @@
 </head>
 <body>
 
-  <!-- Üst duyuru alanı (announcement.json'dan okunacak) -->
+    <!-- Üst duyuru alanı (announcement.json'dan okunacak) -->
   <div class="announcement-bar">
     <div class="announcement-inner">
       <span class="announcement-label">BUGÜN NEREDEYİZ?</span>
@@ -697,7 +697,7 @@
   <main class="page">
     <!-- Hero Alanı -->
     <section class="hero">
-            <div class="hero-text">
+      <div class="hero-text">
         <h1>
           <span>Hayati İşler</span> ve Urfa Sıra Gecesi Ekibi
         </h1>
@@ -713,25 +713,16 @@
           <div class="tag">Urfa & doğu ezgileri</div>
           <div class="tag">Özel konsept</div>
         </div>
-
-        <button
-          type="button"
-          class="btn-submit"
-          onclick="document.getElementById('photoGallery')?.scrollIntoView({ behavior: 'smooth' });"
-          style="margin-top: 14px;"
-        >
-          Fotoğraf Galerisini Gör
-        </button>
       </div>
 
       <div class="hero-img">
-  <div class="hero-img-inner">
-    <img src="/foto.png.jpg" class="hero-main-photo">
-  </div>
-  <div class="hero-img-ribbon">
-    Rezervasyon için hemen arayın
-  </div>
-</div>
+        <div class="hero-img-inner">
+          <img src="/foto.png.jpg" class="hero-main-photo">
+        </div>
+        <div class="hero-img-ribbon">
+          Rezervasyon için hemen arayın
+        </div>
+      </div>
     </section>
 
     <!-- Galeri Bölümleri (JSON'dan dinamik) -->
@@ -743,6 +734,15 @@
         <p>
           Farklı mekanlardaki sıra gecesi performanslarımızı izleyerek ekibimizi daha yakından tanıyabilirsiniz.
         </p>
+
+        <button
+          type="button"
+          class="btn-submit"
+          onclick="window.location.href='galeri.html';"
+          style="margin: 12px 0 18px;"
+        >
+          Video Galerisini Gör
+        </button>
 
         <div id="videoGallery" class="gallery-grid"></div>
         <div id="videoEmpty" class="section-placeholder">
@@ -757,6 +757,15 @@
         <p>
           Kına geceleri, düğünler, özel geceler ve mekan performanslarından seçili fotoğraflar.
         </p>
+        
+        <button
+          type="button"
+          class="btn-submit"
+          onclick="window.location.href='galeri.html';"
+          style="margin: 12px 0 18px;"
+        >
+          Fotoğraf Galerisini Gör
+        </button>
 
         <div id="photoGallery" class="gallery-grid"></div>
         <div id="photoEmpty" class="section-placeholder">
@@ -764,6 +773,7 @@
         </div>
       </article>
     </section>
+  </main>
 
     <!-- İletişim / Rezervasyon Bölümü -->
     <section class="contact-section">
