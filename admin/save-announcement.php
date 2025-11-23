@@ -15,12 +15,12 @@ $time  = isset($_POST['time'])  ? trim($_POST['time'])  : '';
 $day   = isset($_POST['day'])   ? trim($_POST['day'])   : '';
 $sub   = isset($_POST['sub'])   ? trim($_POST['sub'])   : '';
 
-// Boşsa varsayılan yap
-if ($city === '')  $city  = 'İstanbul';
-if ($venue === '') $venue = 'Mey Gazinosu';
-if ($time === '')  $time  = '21:00';
-if ($day === '')   $day   = 'bu akşam';
-if ($sub === '')   $sub   = 'Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.';
+// Boşsa varsayılan yapma, sadece alt yazıya nötr bir metin ver
+if ($city === '')  $city  = '';
+if ($venue === '') $venue = '';
+if ($time === '')  $time  = '';
+if ($day === '')   $day   = '';
+if ($sub === '')   $sub   = 'Çok kısa sürede adres ve detay bilgiler paylaşılacaktır.';
 
 $data = [
     "city"  => $city,
