@@ -488,7 +488,7 @@
     </div>
   </div>
 
-          <!-- Firebase (duyuru + metadata için) -->
+            <!-- Firebase (duyuru + metadata için) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <script src="../firebase-init.js"></script>
@@ -525,19 +525,11 @@
     const resetBtn     = document.getElementById("resetBtn");
     const saveAlert    = document.getElementById("saveAlert");
 
+    // ✅ Artık sadece alt açıklama kullanılıyor
     function buildTextsFromInputs() {
-      const city    = (cityInput?.value    || "İstanbul").trim();
-      const venue   = (venueInput?.value   || "Mey Gazinosu").trim();
-      const time    = (timeInput?.value    || "21:00").trim();
-      const dayText = (dayTextInput?.value || "bu akşam").trim();
-      const sub     = (subTextInput?.value || "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.").trim();
+      const sub = (subTextInput?.value || "").trim();
 
-      const mainHtml =
-        `Hayati İşler ve Ekibi ${dayText} ` +
-        `<strong>${city} • ${venue}'nda</strong>, ` +
-        `sahne saati: <strong>${time}</strong>`;
-
-      if (previewMain) previewMain.innerHTML = mainHtml;
+      if (previewMain) previewMain.innerHTML = "";
       if (previewSub)  previewSub.textContent = sub;
     }
 
@@ -552,26 +544,25 @@
       }, 2200);
     }
 
+    // ✅ Duyuruyu Firestore'dan okuyor, sadece sub alanını kullanıyor
     async function loadAnnouncement() {
       try {
         const docRef = db.collection("announcements").doc(ANNOUNCEMENT_DOC_ID);
         const snap = await docRef.get();
+
         if (snap.exists) {
           const data = snap.data() || {};
-          if (data.city   && cityInput)    cityInput.value    = data.city;
-          if (data.venue  && venueInput)   venueInput.value   = data.venue;
-          if (data.time   && timeInput)    timeInput.value    = data.time;
-          if (data.day    && dayTextInput) dayTextInput.value = data.day;
-          if (data.sub    && subTextInput) subTextInput.value = data.sub;
+          if (data.sub && subTextInput) {
+            subTextInput.value = data.sub;
+          }
         } else {
-          await docRef.set({
-            city: "İstanbul",
-            venue: "Mey Gazinosu",
-            time: "21:00",
-            day: "bu akşam",
-            sub: "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.",
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-          }, { merge: true });
+          await docRef.set(
+            {
+              sub: "",
+              createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            },
+            { merge: true }
+          );
         }
       } catch (err) {
         console.error("Duyuru yüklenemedi:", err);
@@ -580,22 +571,14 @@
       }
     }
 
+    // ✅ Artık sadece sub kaydediliyor, otomatik metin yok
     async function saveAnnouncement() {
-      const city  = (cityInput?.value      || "").trim() || "İstanbul";
-      const venue = (venueInput?.value     || "").trim() || "Mey Gazinosu";
-      const time  = (timeInput?.value      || "").trim() || "21:00";
-      const day   = (dayTextInput?.value   || "").trim() || "bu akşam";
-      const sub   = (subTextInput?.value   || "").trim() ||
-        "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.";
+      const sub = (subTextInput?.value || "").trim();
 
       try {
         await db.collection("announcements")
           .doc(ANNOUNCEMENT_DOC_ID)
           .set({
-            city,
-            venue,
-            time,
-            day,
             sub,
             updatedAt: firebase.firestore.FieldValue.serverTimestamp()
           }, { merge: true });
@@ -612,31 +595,23 @@
       saveBtn.addEventListener("click", saveAnnouncement);
     }
 
+    // ✅ Reset: sadece alt açıklamayı temizliyor
     if (resetBtn) {
       resetBtn.addEventListener("click", async function () {
-        if (cityInput)    cityInput.value    = "İstanbul";
-        if (venueInput)   venueInput.value   = "Mey Gazinosu";
-        if (timeInput)    timeInput.value    = "21:00";
-        if (dayTextInput) dayTextInput.value = "bu akşam";
         if (subTextInput) {
-          subTextInput.value =
-            "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.";
+          subTextInput.value = "";
         }
 
         try {
           await db.collection("announcements")
             .doc(ANNOUNCEMENT_DOC_ID)
             .set({
-              city: "İstanbul",
-              venue: "Mey Gazinosu",
-              time: "21:00",
-              day: "bu akşam",
-              sub: "Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.",
+              sub: "",
               updatedAt: firebase.firestore.FieldValue.serverTimestamp()
             }, { merge: true });
 
           buildTextsFromInputs();
-          showAlert("Varsayılan metinlere dönüldü.", true);
+          showAlert("Metin temizlendi.", true);
         } catch (err) {
           console.error("Varsayılana dönerken hata:", err);
           showAlert("Varsayılana dönerken hata oluştu.", false);
@@ -644,6 +619,8 @@
       });
     }
 
+    // Artık sadece alt açıklama değişince önizleme güncellenebilir ama
+    // diğer inputları da bağlı bırakmak istersen sorun yok
     [cityInput, venueInput, timeInput, dayTextInput, subTextInput].forEach(el => {
       if (!el) return;
       el.addEventListener("input", buildTextsFromInputs);
@@ -654,16 +631,16 @@
     const UPLOAD_PRESET = "unsigned_hayati"; // Cloudinary'de oluşturduğun unsigned preset
 
     async function uploadToCloudinary(file, resourceType = "image") {
-  const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resourceType}/upload`;
-  const formData = new FormData();
-  formData.append("file", file);
-  formData.append("upload_preset", "unsigned_upload");
-  formData.append("cloud_name", "dqwpwghbx");
+      const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resourceType}/upload`;
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "unsigned_upload");
+      formData.append("cloud_name", "dqwpwghbx");
 
-  const res = await fetch(url, {
-    method: "POST",
-    body: formData
-  });
+      const res = await fetch(url, {
+        method: "POST",
+        body: formData
+      });
 
       if (!res.ok) {
         const txt = await res.text().catch(() => "");
@@ -853,43 +830,6 @@
       }
     }
 
-    if (videoForm && videoFile) {
-      videoForm.addEventListener("submit", async function (e) {
-        e.preventDefault();
-
-        const title = (videoTitle?.value || "").trim();
-        const desc  = (videoDesc?.value  || "").trim();
-
-        if (!videoFile.files || videoFile.files.length === 0) {
-          showVideoMsg("Lütfen bilgisayarınızdan bir video seçin.", false);
-          return;
-        }
-
-        const file = videoFile.files[0];
-
-        try {
-          showVideoMsg("Video yükleniyor, lütfen bekleyin...", true);
-
-          const url = await uploadToCloudinary(file, "video");
-
-          await db.collection("videos").add({
-            url,
-            title,
-            desc,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-          });
-
-          videoForm.reset();
-          showVideoMsg("Video başarıyla yüklendi.", true);
-          loadVideos();
-
-        } catch (err) {
-          console.error("Video yükleme hatası:", err);
-          showVideoMsg("Video yüklenirken hata oluştu.", false);
-        }
-      });
-    }
-
     // İlk yüklemeler
     loadAnnouncement();
     loadPhotos();
@@ -906,5 +846,6 @@
     }
   });
   </script>
+
 </body>
 </html>
