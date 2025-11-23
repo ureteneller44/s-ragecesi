@@ -6,880 +6,410 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       background: radial-gradient(circle at top, #020617 0, #020617 50%, #000 100%);
-      color: #e5e7eb;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      color: #e5e7eb; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
       padding: 20px 12px;
     }
-
     .app {
-      width: 100%;
-      max-width: 1100px;
+      width: 100%; max-width: 1100px;
       background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
-      border-radius: 22px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      box-shadow:
-        0 26px 80px rgba(0,0,0,0.8),
-        0 0 0 1px rgba(15,23,42,0.9);
+      border-radius: 22px; border: 1px solid rgba(148, 163, 184, 0.5);
       overflow: hidden;
     }
-
     .app-header {
       padding: 16px 20px 10px;
       border-bottom: 1px solid rgba(148, 163, 184, 0.4);
-      background: radial-gradient(circle at top left, rgba(185,28,28,0.55), transparent 55%);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
     }
-
-    .app-title {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .app-title h1 {
-      font-size: 1.1rem;
-      letter-spacing: 0.03em;
-    }
-
-    .app-title span {
-      font-size: 0.78rem;
-      opacity: 0.8;
-    }
-
-    .logout-link {
-      font-size: 0.8rem;
-      opacity: 0.8;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      cursor: pointer;
-    }
-
-    .tabs-bar {
-      padding: 10px 18px 0;
-      border-bottom: 1px solid rgba(30, 64, 175, 0.6);
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
-    }
-
+    .tabs-bar { padding: 10px 18px 0; display: flex; gap: 8px; flex-wrap: wrap; }
     .tab-btn {
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.6);
-      background: rgba(15,23,42,0.95);
-      padding: 7px 14px;
-      font-size: 0.82rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: #e5e7eb;
-      opacity: 0.85;
+      border-radius: 999px; border: 1px solid rgba(148,163,184,0.6);
+      padding: 7px 14px; cursor: pointer;
+      background: rgba(15,23,42,0.95); color: #e5e7eb;
     }
-
-    .tab-btn span.icon {
-      font-size: 0.9rem;
-    }
-
     .tab-btn.active {
       background: linear-gradient(90deg, #f97316, #ea580c);
-      border-color: rgba(248,250,252,0.9);
-      color: #0f172a;
-      opacity: 1;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+      color: #0f172a; border-color: white;
     }
-
-    .content {
-      padding: 16px 18px 20px;
-    }
-
-    .tab-section {
-      display: none;
-    }
-
-    .tab-section.active {
-      display: block;
-    }
-
-    .section-header {
-      margin-bottom: 10px;
-    }
-
-    .section-header h2 {
-      font-size: 1rem;
-      margin-bottom: 2px;
-    }
-
-    .section-header p {
-      font-size: 0.82rem;
-      opacity: 0.8;
-    }
+    .tab-section { display: none; }
+    .tab-section.active { display: block; }
 
     .form-card {
-      margin-top: 4px;
-      padding: 12px 12px 12px;
+      margin-top: 4px; padding: 12px;
       border-radius: 16px;
       border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
-      font-size: 0.85rem;
     }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 8px;
-    }
-
-    .form-row + .form-row {
-      margin-top: 6px;
-    }
-
-    .form-group {
-      margin-bottom: 8px;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 0.8rem;
-      margin-bottom: 3px;
-      opacity: 0.9;
-    }
-
-    .form-input,
-    .form-textarea {
-      width: 100%;
-      padding: 7px 9px;
-      border-radius: 10px;
+    .form-group { margin-bottom: 8px; }
+    .form-input, .form-textarea {
+      width: 100%; padding: 7px 9px;
+      border-radius: 10px; background: rgba(15,23,42,0.98);
       border: 1px solid rgba(148, 163, 184, 0.8);
-      background: rgba(15, 23, 42, 0.98);
-      color: #f9fafb;
-      font-size: 0.84rem;
-      outline: none;
+      color: white;
     }
-
-    .form-textarea {
-      min-height: 60px;
-      resize: vertical;
-    }
-
-    .form-input:focus,
-    .form-textarea:focus {
-      border-color: #f97316;
-      box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.6);
-    }
-
-    .small-note {
-      font-size: 0.75rem;
-      opacity: 0.75;
-      margin-top: 4px;
-    }
-
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 8px 16px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      font-size: 0.84rem;
-      font-weight: 600;
+      padding: 8px 16px; border-radius: 999px;
       background: linear-gradient(90deg, #f97316, #ea580c);
-      color: #0f172a;
-      margin-top: 4px;
-    }
-
-    .btn-secondary {
-      background: rgba(15,23,42,0.9);
-      border: 1px solid rgba(148,163,184,0.8);
-      color: #e5e7eb;
-    }
-
-    .btn + .btn {
-      margin-left: 6px;
-    }
-
-    .save-alert {
-      margin-top: 6px;
-      font-size: 0.78rem;
-      padding: 6px 8px;
-      border-radius: 10px;
-      display: none;
-    }
-
-    .save-alert-ok {
-      background: rgba(22,163,74,0.1);
-      border: 1px solid rgba(74,222,128,0.85);
-      color: #bbf7d0;
-    }
-
-    .save-alert-error {
-      background: rgba(220,38,38,0.12);
-      border: 1px solid rgba(248,113,113,0.9);
-      color: #fecaca;
+      border: none; cursor: pointer;
+      color: #0f172a; font-weight: bold;
     }
 
     .preview-bar {
-      margin-top: 14px;
-      position: relative;
-      background: radial-gradient(circle at top, #7f1d1d 0, #450a0a 40%, #111827 100%);
-      border-radius: 16px;
-      border: 1px solid rgba(127,29,29,0.95);
-      padding: 14px 14px 16px;
-      overflow: hidden;
-      box-shadow:
-        0 16px 40px rgba(0,0,0,0.85),
-        0 0 0 1px rgba(15,23,42,0.9);
-      font-size: 0.9rem;
+      background: rgba(60,0,0,0.6);
+      padding: 14px; border-radius: 14px; margin-top: 12px;
     }
 
-    .preview-pill {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(252, 211, 77, 0.9);
-      background: rgba(0,0,0,0.45);
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-size: 0.72rem;
-      margin-bottom: 6px;
+    /* Yorum Listesi */
+    .comment-box {
+      background: #0f172a; padding: 12px; border-radius: 14px;
+      border: 1px solid rgba(148,163,184,0.4); margin-bottom: 12px;
     }
-
-    .preview-main {
-      font-size: 0.96rem;
-      font-weight: 600;
-      text-shadow: 0 0 10px rgba(0,0,0,0.7);
-      line-height: 1.6;
-    }
-
-    .preview-main strong {
-      color: #facc15;
-      text-shadow: 0 0 12px rgba(250, 204, 21, 1);
-    }
-
-    .preview-sub {
-      font-size: 0.82rem;
-      opacity: 0.9;
-      margin-top: 4px;
-    }
-
-    .fw-dot {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: radial-gradient(circle, #ffffff 0, rgba(255,255,255,0) 70%);
-      opacity: 0.7;
-    }
-
-    .fw-dot.f1 { top: 6px; left: 12%; }
-    .fw-dot.f2 { top: 4px; left: 52%; }
-    .fw-dot.f3 { top: 10px; right: 10%; }
-
-    @media (max-width: 720px) {
-      .form-row {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .app-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+    .comment-actions button {
+      margin-right: 8px; margin-top: 6px;
     }
   </style>
 </head>
+
 <body>
-  <div class="app">
-    <header class="app-header">
-      <div class="app-title">
-        <h1>Hayati İşler • Yönetim Paneli</h1>
-        <span>Buradan duyuru, resim galerisi ve video galerisi alanlarını yönetin.</span>
-      </div>
-      <div class="logout-link" onclick="window.location.href='index.html';">
-        Çıkış yap
-      </div>
-    </header>
+<div class="app">
 
-    <!-- Sekme butonları -->
-    <div class="tabs-bar">
-      <button class="tab-btn active" data-target="tab-announcement">
-        <span class="icon">📢</span>
-        <span>Duyuru</span>
-      </button>
-      <button class="tab-btn" data-target="tab-photos">
-        <span class="icon">📸</span>
-        <span>Resim Galerisi</span>
-      </button>
-      <button class="tab-btn" data-target="tab-videos">
-        <span class="icon">🎥</span>
-        <span>Video Galerisi</span>
-      </button>
+  <header class="app-header">
+    <div>
+      <h1>Hayati İşler • Yönetim Paneli</h1>
+      <small>Buradan duyuru, galeri ve yorumları yönetin.</small>
     </div>
 
-    <div class="content">
-      <!-- DUYURU SEKME -->
-      <section id="tab-announcement" class="tab-section active">
-        <div class="section-header">
-          <h2>“Bugün Neredeyiz?” Duyurusu</h2>
-          <p>Üst bantta görünen şehir, mekan ve saat bilgisini buradan güncellersiniz.</p>
-        </div>
+    <button onclick="window.location.href='index.html'" style="background:none;color:white;text-decoration:underline;cursor:pointer;">
+      Çıkış yap
+    </button>
+  </header>
 
-        <div class="form-card">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="cityInput" class="form-label">Şehir</label>
-              <input type="text" id="cityInput" class="form-input" placeholder="Örn: İstanbul">
-            </div>
-            <div class="form-group">
-              <label for="venueInput" class="form-label">Mekan adı</label>
-              <input type="text" id="venueInput" class="form-input" placeholder="Örn: Mey Gazinosu">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="timeInput" class="form-label">Sahne saati</label>
-              <input type="text" id="timeInput" class="form-input" placeholder="Örn: 21:00">
-            </div>
-            <div class="form-group">
-              <label for="dayTextInput" class="form-label">Gün bilgisi</label>
-              <input type="text" id="dayTextInput" class="form-input" placeholder="Örn: bu akşam, bu gece, yarın akşam...">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="subTextInput" class="form-label">Alt açıklama (isteğe bağlı)</label>
-            <textarea id="subTextInput" class="form-textarea" placeholder="Örn: Rezervasyon için hemen arayın, masalar hızla dolmaktadır."></textarea>
-          </div>
-
-          <div>
-            <button id="saveBtn" class="btn" type="button">Duyuruyu kaydet</button>
-            <button id="resetBtn" class="btn btn-secondary" type="button">Varsayılana döndür</button>
-          </div>
-
-          <div id="saveAlert" class="save-alert save-alert-ok">
-            Değişiklikler kaydedildi. Önizlemeden kontrol edebilirsiniz.
-          </div>
-
-          <div class="small-note">
-            Bu alan, Firestore’daki duyuru kaydını günceller. Ana sitedeki üst bant, Firebase üzerinden bu veriyi okur.
-          </div>
-
-          <div class="preview-bar">
-            <div class="fw-dot f1"></div>
-            <div class="fw-dot f2"></div>
-            <div class="fw-dot f3"></div>
-
-           <div class="preview-pill">BUGÜN NEREDEYİZ?</div>
-
-<div id="previewMain" class="preview-main">
-  <!-- Admin panelinde yazılan ana metin buraya gelecek -->
-</div>
-
-<div id="previewSub" class="preview-sub">
-  <!-- Admin panelinde yazılan alt metin buraya gelecek -->
-</div>
-
-      <!-- RESİM GALERİSİ SEKME -->
-      <section id="tab-photos" class="tab-section">
-        <div class="section-header">
-          <h2>Resim Galerisi</h2>
-          <p>Buradan sahne fotoğraflarını, organizasyon karelerini ve konsept görsellerini yükleyebilirsiniz.</p>
-        </div>
-
-        <div class="form-card">
-          <form id="photoForm">
-            <div class="form-group">
-              <label class="form-label" for="photoFile">Fotoğraf dosyası</label>
-              <input type="file" id="photoFile" class="form-input" accept=".jpg,.jpeg,.png,.webp">
-              <div class="small-note">Maksimum ~50 MB, sadece JPG / JPEG / PNG / WEBP.</div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="photoTitle">Başlık (isteğe bağlı)</label>
-              <input type="text" id="photoTitle" class="form-input" placeholder="Örn: Meyhane Programı">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="photoDesc">Açıklama (isteğe bağlı)</label>
-              <textarea id="photoDesc" class="form-textarea" placeholder="Örn: İstanbul Mey Gazinosu'nda sıra gecesi."></textarea>
-            </div>
-
-            <button type="submit" class="btn">Fotoğrafı yükle</button>
-            <div id="photoMsg" class="save-alert" style="display:none;"></div>
-          </form>
-        </div>
-
-        <div style="margin-top:14px;font-size:0.82rem;opacity:0.8;">
-          Yüklenmiş fotoğraflar:
-        </div>
-
-        <div id="photosList" style="
-          display:grid;
-          grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
-          gap:14px;
-          margin-top:8px;
-        "></div>
-      </section>
-
-      <!-- VİDEO GALERİSİ SEKME -->
-      <section id="tab-videos" class="tab-section">
-        <div class="section-header">
-          <h2>Video Galerisi</h2>
-          <p>Buradan sahne performans videolarını yükleyip yönetebilirsiniz.</p>
-        </div>
-
-        <div class="form-card">
-          <form id="videoForm">
-            <div class="form-group">
-              <label class="form-label" for="videoFile">Video dosyası</label>
-              <input type="file" id="videoFile" class="form-input" accept=".mp4,.mov,.mkv,.webm">
-              <div class="small-note">Önerilen format: MP4 • Boyut: makul ölçüde küçük olmalı.</div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="videoTitle">Başlık (isteğe bağlı)</label>
-              <input type="text" id="videoTitle" class="form-input" placeholder="Örn: Düğün Gecesi">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="videoDesc">Açıklama (isteğe bağlı)</label>
-              <textarea id="videoDesc" class="form-textarea" placeholder="Örn: Urfa türküleriyle dolu düğün programı."></textarea>
-            </div>
-
-            <button type="submit" class="btn">Videoyu yükle</button>
-            <div id="videoMsg" class="save-alert" style="display:none;"></div>
-          </form>
-        </div>
-
-        <div style="margin-top:14px;font-size:0.82rem;opacity:0.8;">
-          Yüklenmiş videolar:
-        </div>
-
-        <div id="videosList" style="
-          display:grid;
-          grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
-          gap:14px;
-          margin-top:8px;
-        "></div>
-      </section>
-    </div>
+  <!-- SEKME BUTONLARI -->
+  <div class="tabs-bar">
+    <button class="tab-btn active" data-target="tab-announcement">📢 Duyuru</button>
+    <button class="tab-btn" data-target="tab-photos">📸 Resimler</button>
+    <button class="tab-btn" data-target="tab-videos">🎥 Videolar</button>
+    <button class="tab-btn" data-target="tab-comments">💬 Yorumlar</button>
   </div>
 
-            <!-- Firebase (duyuru + metadata için) -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-  <script src="../firebase-init.js"></script>
+  <div class="content">
 
-  <script>
-  // Firestore duyuru doc ID
-  const ANNOUNCEMENT_DOC_ID = "QEYYxEpClLZ5yKZVLxeS";
+    <!-- DUYURU -->
+    <section id="tab-announcement" class="tab-section active">
+      <div class="form-card">
 
-  document.addEventListener("DOMContentLoaded", function () {
-    // Sekmeler
-    const tabButtons = document.querySelectorAll(".tab-btn");
-    const tabSections = document.querySelectorAll(".tab-section");
+        <label>Şehir</label>
+        <input id="cityInput" class="form-input">
 
-    tabButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const target = btn.getAttribute("data-target");
-        tabButtons.forEach(b => b.classList.remove("active"));
-        tabSections.forEach(sec => sec.classList.remove("active"));
-        btn.classList.add("active");
-        const sect = document.getElementById(target);
-        if (sect) sect.classList.add("active");
-      });
-    });
+        <label>Mekan</label>
+        <input id="venueInput" class="form-input">
 
-    // DUYURU ELEMANLARI
-    const cityInput    = document.getElementById("cityInput");
-    const venueInput   = document.getElementById("venueInput");
-    const timeInput    = document.getElementById("timeInput");
-    const dayTextInput = document.getElementById("dayTextInput");
-    const subTextInput = document.getElementById("subTextInput");
-    const previewMain  = document.getElementById("previewMain");
-    const previewSub   = document.getElementById("previewSub");
-    const saveBtn      = document.getElementById("saveBtn");
-    const resetBtn     = document.getElementById("resetBtn");
-    const saveAlert    = document.getElementById("saveAlert");
+        <label>Saat</label>
+        <input id="timeInput" class="form-input">
 
-    // ✅ Artık sadece alt açıklama kullanılıyor
-    function buildTextsFromInputs() {
-      const sub = (subTextInput?.value || "").trim();
+        <label>Gün bilgisi</label>
+        <input id="dayTextInput" class="form-input">
 
-      if (previewMain) previewMain.innerHTML = "";
-      if (previewSub)  previewSub.textContent = sub;
-    }
+        <label>Alt açıklama</label>
+        <textarea id="subTextInput" class="form-textarea"></textarea>
 
-    function showAlert(msg, ok = true) {
-      if (!saveAlert) return;
-      saveAlert.textContent = msg;
-      saveAlert.classList.remove("save-alert-ok", "save-alert-error");
-      saveAlert.classList.add(ok ? "save-alert-ok" : "save-alert-error");
-      saveAlert.style.display = "block";
-      setTimeout(() => {
-        saveAlert.style.display = "none";
-      }, 2200);
-    }
+        <button id="saveBtn" class="btn">Kaydet</button>
 
-    // ✅ Duyuruyu Firestore'dan okuyor, sadece sub alanını kullanıyor
-    async function loadAnnouncement() {
-      try {
-        const docRef = db.collection("announcements").doc(ANNOUNCEMENT_DOC_ID);
-        const snap = await docRef.get();
+        <div class="preview-bar">
+          <strong>Önizleme:</strong>
+          <div id="previewMain"></div>
+          <div id="previewSub"></div>
+        </div>
 
-        if (snap.exists) {
-          const data = snap.data() || {};
-          if (data.sub && subTextInput) {
-            subTextInput.value = data.sub;
-          }
-        } else {
-          await docRef.set(
-            {
-              sub: "",
-              createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            },
-            { merge: true }
-          );
-        }
-      } catch (err) {
-        console.error("Duyuru yüklenemedi:", err);
-      } finally {
-        buildTextsFromInputs();
-      }
-    }
+      </div>
+    </section>
 
-    // ✅ Artık sadece sub kaydediliyor, otomatik metin yok
-    async function saveAnnouncement() {
-      const sub = (subTextInput?.value || "").trim();
+    <!-- RESİM GALERİSİ -->
+    <section id="tab-photos" class="tab-section">
+      <div class="form-card">
+        <h3>Fotoğraf Yükle</h3>
 
-      try {
-        await db.collection("announcements")
-          .doc(ANNOUNCEMENT_DOC_ID)
-          .set({
-            sub,
-            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-          }, { merge: true });
+        <label>Dosya seç</label>
+        <input type="file" id="photoFile" class="form-input" accept="image/*">
 
-        buildTextsFromInputs();
-        showAlert("Değişiklikler kaydedildi. Ana sitedeki üst bant güncelleyecektir.", true);
-      } catch (err) {
-        console.error("Duyuru kaydedilemedi:", err);
-        showAlert("Kaydedilirken bir hata oluştu.", false);
-      }
-    }
+        <label>Başlık</label>
+        <input type="text" id="photoTitle" class="form-input">
 
-    if (saveBtn) {
-      saveBtn.addEventListener("click", saveAnnouncement);
-    }
+        <label>Açıklama</label>
+        <textarea id="photoDesc" class="form-textarea"></textarea>
 
-    // ✅ Reset: sadece alt açıklamayı temizliyor
-    if (resetBtn) {
-      resetBtn.addEventListener("click", async function () {
-        if (subTextInput) {
-          subTextInput.value = "";
-        }
+        <button id="uploadPhotoBtn" class="btn">Yükle</button>
+      </div>
 
-        try {
-          await db.collection("announcements")
-            .doc(ANNOUNCEMENT_DOC_ID)
-            .set({
-              sub: "",
-              updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-            }, { merge: true });
+      <h3 style="margin-top:18px;">Yüklenmiş Fotoğraflar</h3>
+      <div id="photosList"></div>
+    </section>
 
-          buildTextsFromInputs();
-          showAlert("Metin temizlendi.", true);
-        } catch (err) {
-          console.error("Varsayılana dönerken hata:", err);
-          showAlert("Varsayılana dönerken hata oluştu.", false);
-        }
-      });
-    }
+    <!-- VİDEO GALERİSİ -->
+    <section id="tab-videos" class="tab-section">
+      <div class="form-card">
+        <h3>Video Yükle</h3>
 
-    // Artık sadece alt açıklama değişince önizleme güncellenebilir ama
-    // diğer inputları da bağlı bırakmak istersen sorun yok
-    [cityInput, venueInput, timeInput, dayTextInput, subTextInput].forEach(el => {
-      if (!el) return;
-      el.addEventListener("input", buildTextsFromInputs);
-    });
+        <label>Dosya seç</label>
+        <input type="file" id="videoFile" class="form-input" accept="video/*">
 
-    // 🔥 Cloudinary ayarları (otomatik upload)
-    const CLOUD_NAME = "dqwpwghbx";
-    const UPLOAD_PRESET = "unsigned_hayati"; // Cloudinary'de oluşturduğun unsigned preset
+        <label>Başlık</label>
+        <input type="text" id="videoTitle" class="form-input">
 
-    async function uploadToCloudinary(file, resourceType = "image") {
-      const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resourceType}/upload`;
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", "unsigned_upload");
-      formData.append("cloud_name", "dqwpwghbx");
+        <label>Açıklama</label>
+        <textarea id="videoDesc" class="form-textarea"></textarea>
 
-      const res = await fetch(url, {
-        method: "POST",
-        body: formData
-      });
+        <button id="uploadVideoBtn" class="btn">Yükle</button>
+      </div>
 
-      if (!res.ok) {
-        const txt = await res.text().catch(() => "");
-        throw new Error("Cloudinary upload başarısız: " + res.status + " " + txt);
-      }
+      <h3 style="margin-top:18px;">Yüklenmiş Videolar</h3>
+      <div id="videosList"></div>
+    </section>
 
-      const data = await res.json();
-      return data.secure_url;
-    }
+    <!-- YORUMLAR SEKME -->
+    <section id="tab-comments" class="tab-section">
+      <h3>Bekleyen Yorumlar</h3>
+      <div id="commentsList"></div>
+    </section>
 
-    // FOTO GALERİSİ
-    const photoForm  = document.getElementById("photoForm");
-    const photoFile  = document.getElementById("photoFile");
-    const photoTitle = document.getElementById("photoTitle");
-    const photoDesc  = document.getElementById("photoDesc");
-    const photoMsg   = document.getElementById("photoMsg");
-    const photosList = document.getElementById("photosList");
+  </div><!-- content END -->
 
-    function showPhotoMsg(text, ok) {
-      if (!photoMsg) return;
-      photoMsg.textContent = text;
-      photoMsg.classList.remove("save-alert-ok", "save-alert-error");
-      photoMsg.classList.add(ok ? "save-alert-ok" : "save-alert-error");
-      photoMsg.style.display = "block";
-      setTimeout(() => { photoMsg.style.display = "none"; }, 2500);
-    }
+</div><!-- app END -->
 
-        async function loadPhotos() {
-      if (!photosList) return;
-      photosList.innerHTML = '<div style="opacity:0.7;font-size:0.85rem;">Yükleniyor...</div>';
 
-      try {
-        const snap = await db.collection("photos")
-          .orderBy("createdAt", "desc")
-          .limit(100)
-          .get();
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="../firebase-init.js"></script>
 
-        if (snap.empty) {
-          photosList.innerHTML =
-            '<div style="opacity:0.7;font-size:0.85rem;">Henüz fotoğraf eklenmemiş.</div>';
-          return;
-        }
+<script>
+/* ---------------------------------------------------
+   SEKME GEÇİŞİ
+--------------------------------------------------- */
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".tab-section").forEach(s => s.classList.remove("active"));
 
-        let html = "";
-        snap.forEach(doc => {
-          const p = doc.data() || {};
-          const url   = p.url || "";
-          const title = p.title || "";
-          const desc  = p.desc || "";
-
-          html += `
-            <div style="
-              background:#020617;
-              border:1px solid rgba(148,163,184,0.4);
-              border-radius:14px;
-              overflow:hidden;
-              box-shadow:0 8px 24px rgba(0,0,0,0.6);
-              font-size:0.8rem;
-            ">
-              <div style="width:100%;padding-top:70%;position:relative;background:#020617;">
-                ${url ? `<img src="${url}" alt="${title || "Fotoğraf"}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">` : ""}
-              </div>
-              <div style="padding:8px 9px 9px;">
-                ${title ? `<div style="font-weight:600;margin-bottom:2px;">${title}</div>` : ""}
-                ${desc ? `<div style="opacity:0.8;">${desc}</div>` : ""}
-                <button
-                  type="button"
-                  class="btn-xs btn-xs-delete"
-                  style="margin-top:6px;"
-                  onclick="deletePhoto('${doc.id}')"
-                >
-                  Sil
-                </button>
-              </div>
-            </div>
-          `;
-        });
-
-        photosList.innerHTML = html;
-
-      } catch (err) {
-        console.error("Fotoğraflar yüklenemedi:", err);
-        photosList.innerHTML =
-          '<div style="opacity:0.7;font-size:0.85rem;">Fotoğraflar yüklenemedi.</div>';
-      }
-    }
-
-    // Fotoğraf silme
-    window.deletePhoto = async function (id) {
-      try {
-        await db.collection("photos").doc(id).delete();
-        loadPhotos();
-      } catch (err) {
-        console.error("Fotoğraf silinemedi:", err);
-        showPhotoMsg("Fotoğraf silinirken hata oluştu.", false);
-      }
-    };
-
-    if (photoForm && photoFile) {
-      photoForm.addEventListener("submit", async function (e) {
-        e.preventDefault();
-
-        const title = (photoTitle?.value || "").trim();
-        const desc  = (photoDesc?.value  || "").trim();
-
-        if (!photoFile.files || photoFile.files.length === 0) {
-          showPhotoMsg("Lütfen bilgisayarınızdan bir fotoğraf seçin.", false);
-          return;
-        }
-
-        const file = photoFile.files[0];
-
-        try {
-          showPhotoMsg("Fotoğraf yükleniyor, lütfen bekleyin...", true);
-
-          const url = await uploadToCloudinary(file, "image");
-
-          await db.collection("photos").add({
-            url,
-            title,
-            desc,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-          });
-
-          photoForm.reset();
-          showPhotoMsg("Fotoğraf başarıyla yüklendi.", true);
-          loadPhotos();
-
-        } catch (err) {
-          console.error("Foto yükleme hatası:", err);
-          showPhotoMsg("Fotoğraf yüklenirken hata oluştu.", false);
-        }
-      });
-    }
-
-    // VİDEO GALERİSİ
-    const videoForm  = document.getElementById("videoForm");
-    const videoFile  = document.getElementById("videoFile");
-    const videoTitle = document.getElementById("videoTitle");
-    const videoDesc  = document.getElementById("videoDesc");
-    const videoMsg   = document.getElementById("videoMsg");
-    const videosList = document.getElementById("videosList");
-
-    function showVideoMsg(text, ok) {
-      if (!videoMsg) return;
-      videoMsg.textContent = text;
-      videoMsg.classList.remove("save-alert-ok", "save-alert-error");
-      videoMsg.classList.add(ok ? "save-alert-ok" : "save-alert-error");
-      videoMsg.style.display = "block";
-      setTimeout(() => { videoMsg.style.display = "none"; }, 2500);
-    }
-
-    async function loadVideos() {
-      if (!videosList) return;
-      videosList.innerHTML = '<div style="opacity:0.7;font-size:0.85rem;">Yükleniyor...</div>';
-
-      try {
-        const snap = await db.collection("videos")
-          .orderBy("createdAt", "desc")
-          .limit(100)
-          .get();
-
-        if (snap.empty) {
-          videosList.innerHTML =
-            '<div style="opacity:0.7;font-size:0.85rem;">Henüz video eklenmemiş.</div>';
-          return;
-        }
-
-        let html = "";
-        snap.forEach(doc => {
-          const v = doc.data() || {};
-          const url   = v.url || "";
-          const title = v.title || "";
-          const desc  = v.desc || "";
-
-          html += `
-            <div style="
-              background:#020617;
-              border:1px solid rgba(148,163,184,0.4);
-              border-radius:14px;
-              overflow:hidden;
-              box-shadow:0 8px 24px rgba(0,0,0,0.6);
-              font-size:0.8rem;
-              padding:8px;
-            ">
-              ${url ? `
-                <video controls style="width:100%;border-radius:10px;max-height:230px;object-fit:contain;background:#000;">
-                  <source src="${url}" type="video/mp4">
-                  Tarayıcınız video etiketini desteklemiyor.
-                </video>
-              ` : ""}
-              <div style="padding-top:6px;">
-                ${title ? `<div style="font-weight:600;margin-bottom:2px;">${title}</div>` : ""}
-                ${desc ? `<div style="opacity:0.8;">${desc}</div>` : ""}
-                <button
-                  type="button"
-                  class="btn-xs btn-xs-delete"
-                  style="margin-top:6px;"
-                  onclick="deleteVideo('${doc.id}')"
-                >
-                  Sil
-                </button>
-              </div>
-            </div>
-          `;
-        });
-
-        videosList.innerHTML = html;
-
-      } catch (err) {
-        console.error("Videolar yüklenemedi:", err);
-        videosList.innerHTML =
-          '<div style="opacity:0.7;font-size:0.85rem;">Videolar yüklenemedi.</div>';
-      }
-    }
-
-    // Video silme
-    window.deleteVideo = async function (id) {
-      try {
-        await db.collection("videos").doc(id).delete();
-        loadVideos();
-      } catch (err) {
-        console.error("Video silinemedi:", err);
-        showVideoMsg("Video silinirken hata oluştu.", false);
-      }
-    };
-
-    // İlk yüklemeler
-    loadAnnouncement();
-    loadPhotos();
-    loadVideos();
-
-    const videosTabBtn = document.querySelector('[data-target="tab-videos"]');
-    if (videosTabBtn) {
-      videosTabBtn.addEventListener("click", loadVideos);
-    }
-
-    const photosTabBtn = document.querySelector('[data-target="tab-photos"]');
-    if (photosTabBtn) {
-      photosTabBtn.addEventListener("click", loadPhotos);
-    }
+    btn.classList.add("active");
+    document.getElementById(btn.dataset.target).classList.add("active");
   });
-  </script>
+});
+
+/* ---------------------------------------------------
+   DUYURU - FIRESTORE
+--------------------------------------------------- */
+const ANN_ID = "QEYYxEpClLZ5yKZVLxeS";
+
+async function loadAnnouncement() {
+  const snap = await db.collection("announcements").doc(ANN_ID).get();
+  const data = snap.data() || {};
+
+  document.getElementById("cityInput").value = data.city || "";
+  document.getElementById("venueInput").value = data.venue || "";
+  document.getElementById("timeInput").value = data.time || "";
+  document.getElementById("dayTextInput").value = data.day || "";
+  document.getElementById("subTextInput").value = data.sub || "";
+
+  updatePreview();
+}
+
+function updatePreview() {
+  document.getElementById("previewMain").innerHTML =
+    `${cityInput.value} • ${venueInput.value} • ${timeInput.value}`;
+
+  document.getElementById("previewSub").innerText =
+    subTextInput.value;
+}
+
+document.getElementById("saveBtn").onclick = async () => {
+  await db.collection("announcements").doc(ANN_ID).set({
+    city: cityInput.value,
+    venue: venueInput.value,
+    time: timeInput.value,
+    day: dayTextInput.value,
+    sub: subTextInput.value,
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  }, { merge: true });
+
+  alert("Duyuru kaydedildi!");
+};
+
+["cityInput","venueInput","timeInput","dayTextInput","subTextInput"].forEach(id => {
+  document.getElementById(id).addEventListener("input", updatePreview);
+});
+
+
+/* ---------------------------------------------------
+   CLOUDINARY AYAR
+--------------------------------------------------- */
+const CLOUD = "dqwpwghbx";
+const PRESET = "unsigned_upload";
+
+async function cloudUpload(file, type="image") {
+  const url = `https://api.cloudinary.com/v1_1/${CLOUD}/${type}/upload`;
+  const fd = new FormData();
+  fd.append("file", file);
+  fd.append("upload_preset", PRESET);
+
+  const res = await fetch(url,{ method:"POST", body:fd });
+  const data = await res.json();
+  return data.secure_url;
+}
+
+
+/* ---------------------------------------------------
+   FOTOĞRAF YÜKLEME
+--------------------------------------------------- */
+document.getElementById("uploadPhotoBtn").onclick = async () => {
+  const file = document.getElementById("photoFile").files[0];
+  if (!file) return alert("Fotoğraf seç!");
+
+  const url = await cloudUpload(file,"image");
+
+  await db.collection("photos").add({
+    url,
+    title: photoTitle.value.trim(),
+    desc: photoDesc.value.trim(),
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  });
+
+  loadPhotos();
+  alert("Fotoğraf yüklendi!");
+};
+
+async function loadPhotos() {
+  const el = document.getElementById("photosList");
+  el.innerHTML = "Yükleniyor...";
+
+  const snap = await db.collection("photos").orderBy("createdAt","desc").get();
+
+  let html = "";
+  snap.forEach(doc => {
+    const p = doc.data();
+html += `
+<div class="comment-box">
+  <img src="${p.url}" style="width:100%;border-radius:10px;">
+  ${p.title ? `<strong>${p.title}</strong><br>`:""}
+  ${p.desc ? `<span>${p.desc}</span><br>`:""}
+  <button class="btn" onclick="deletePhoto('${doc.id}')">Sil</button>
+</div>`;
+  });
+
+  el.innerHTML = html;
+}
+
+async function deletePhoto(id) {
+  await db.collection("photos").doc(id).delete();
+  loadPhotos();
+}
+
+
+/* ---------------------------------------------------
+   VİDEO YÜKLEME
+--------------------------------------------------- */
+document.getElementById("uploadVideoBtn").onclick = async () => {
+  const file = document.getElementById("videoFile").files[0];
+  if (!file) return alert("Video seç!");
+
+  const url = await cloudUpload(file,"video");
+
+  await db.collection("videos").add({
+    url,
+    title: videoTitle.value.trim(),
+    desc: videoDesc.value.trim(),
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  });
+
+  loadVideos();
+  alert("Video yüklendi!");
+};
+
+async function loadVideos() {
+  const el = document.getElementById("videosList");
+  el.innerHTML = "Yükleniyor...";
+
+  const snap = await db.collection("videos").orderBy("createdAt","desc").get();
+
+  let html = "";
+  snap.forEach(doc => {
+    const v = doc.data();
+html += `
+<div class="comment-box">
+  <video controls style="width:100%;border-radius:10px;">
+    <source src="${v.url}">
+  </video>
+  ${v.title ? `<strong>${v.title}</strong><br>`:""}
+  ${v.desc ? `<span>${v.desc}</span><br>`:""}
+  <button class="btn" onclick="deleteVideo('${doc.id}')">Sil</button>
+</div>`;
+  });
+
+  el.innerHTML = html;
+}
+
+async function deleteVideo(id) {
+  await db.collection("videos").doc(id).delete();
+  loadVideos();
+}
+
+
+/* ---------------------------------------------------
+   YORUM LİSTELE — ONAY / SİL
+--------------------------------------------------- */
+async function loadComments() {
+  const el = document.getElementById("commentsList");
+  el.innerHTML = "Yükleniyor...";
+
+  const snap = await db.collection("comments")
+    .where("approved","==",false)
+    .orderBy("createdAt","desc").get();
+
+  let html = "";
+  snap.forEach(doc => {
+    const c = doc.data();
+
+    html += `
+<div class="comment-box">
+  <strong>${c.name}</strong> (${c.rating}⭐)<br>
+  <small>${c.venue}</small><br><br>
+  ${c.text}<br>
+
+  <div class="comment-actions">
+    <button class="btn" onclick="approveComment('${doc.id}')">Onayla</button>
+    <button class="btn" onclick="deleteComment('${doc.id}')">Sil</button>
+  </div>
+</div>`;
+  });
+
+  el.innerHTML = html;
+}
+
+async function approveComment(id) {
+  await db.collection("comments").doc(id).set({
+    approved: true
+  },{ merge:true });
+
+  loadComments();
+}
+
+async function deleteComment(id) {
+  await db.collection("comments").doc(id).delete();
+  loadComments();
+}
+
+
+/* ---------------------------------------------------
+   SAYFA AÇILINCA TÜM VERİLERİ YÜKLE
+--------------------------------------------------- */
+loadAnnouncement();
+loadPhotos();
+loadVideos();
+loadComments();
+</script>
 
 </body>
 </html>
