@@ -1299,68 +1299,69 @@
       });
 
       // Yorum formu
-      const form = document.getElementById("reviewForm");
-      const nameInput = document.getElementById("reviewName");
-      const ratingSelect = document.getElementById("reviewRating");
-      const textArea = document.getElementById("reviewText");
-      const messageBox = document.getElementById("reviewMessage");
+const form = document.getElementById("reviewForm");
+const nameInput = document.getElementById("reviewName");
+const ratingSelect = document.getElementById("reviewRating");
+const textArea = document.getElementById("reviewText");
+const messageBox = document.getElementById("reviewMessage");
 
-      if (form) {
-        form.addEventListener("submit", function (e) {
-          e.preventDefault();
+if (form) {
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-          const name = (nameInput.value || "").trim();
-          const rating = ratingSelect.value;
-          const text = (textArea.value || "").trim();
+    const name = (nameInput.value || "").trim();
+    const rating = ratingSelect.value;
+    const text = (textArea.value || "").trim();
 
-          // Mesaj kutusunu sıfırla
-          messageBox.style.display = "none";
-          messageBox.textContent = "";
-          messageBox.className = "alert";
+    // Mesaj kutusunu sıfırla
+    messageBox.style.display = "none";
+    messageBox.textContent = "";
+    messageBox.className = "alert";
 
-          // Basit zorunlu alan kontrolü
-          if (!name || !rating || !text) {
-            messageBox.classList.add("alert-error");
-            messageBox.textContent = "Lütfen ad, puan ve yorum alanlarını eksiksiz doldurun.";
-            messageBox.style.display = "block";
-            return;
-          }
+    // Zorunlu alan kontrolü
+    if (!name || !rating || !text) {
+      messageBox.classList.add("alert-error");
+      messageBox.textContent = "Lütfen ad, puan ve yorum alanlarını eksiksiz doldurun.";
+      messageBox.style.display = "block";
+      return;
+    }
 
-          const lowerContent = (name + " " + text).toLocaleLowerCase("tr");
+    const lowerContent = (name + " " + text).toLocaleLowerCase("tr");
 
-          // Küfür / hakaret / terör filtre kontrolü
-          const hasBanned = bannedWords.some(function (word) {
-            return lowerContent.includes(word);
-          });
+    // Küfür / hakaret filtresi
+    const hasBanned = bannedWords.some(function (word) {
+      return lowerContent.includes(word);
+    });
 
-          if (hasBanned) {
-            messageBox.classList.add("alert-error");
-            messageBox.textContent = "Lütfen küfür, hakaret, ayrımcılık veya terör içeren ifadeler kullanmayın.";
-            messageBox.style.display = "block";
-            return;
-          }
+    if (hasBanned) {
+      messageBox.classList.add("alert-error");
+      messageBox.textContent = "Lütfen küfür, hakaret veya terör içeren ifadeler kullanmayın.";
+      messageBox.style.display = "block";
+      return;
+    }
 
-          // Burada gerçekte yorumu veritabanına göndermen gerekir (PHP + DB),
-          // şu an sadece kullanıcıya bilgi veriyoruz.
-          form.reset();
-          messageBox.classList.add("alert-success");
-          messageBox.textContent = "Teşekkürler! Yorumunuz alındı, yönetici onayından sonra yayınlanacaktır.";
-          messageBox.style.display = "block";
-        });
-      }
+    // 🔥 YORUMU FIRESTORE'A KAYDETME
+    db.collection("comments").add({
+      name: name,
+      rating: Number(rating),
+      text: text,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      approved: false   // admin onayına düşsün
+    })
+    .then(() => {
+      form.reset();
+      messageBox.classList.add("alert-success");
+      messageBox.textContent = "Teşekkürler! Yorumunuz alındı, yönetici onayından sonra yayına girecek.";
+      messageBox.style.display = "block";
+    })
+    .catch((err) => {
+      messageBox.classList.add("alert-error");
+      messageBox.textContent = "Hata oluştu: " + err.message;
+      messageBox.style.display = "block";
+    });
 
-      // Duyuru + Galeriler (ilk yükleme)
-loadAnnouncement();
-loadPhotos();
-loadVideos();
-
-// Her 5 saniyede otomatik yenile
-setInterval(function () {
-  loadAnnouncement();
-  loadPhotos();
-  loadVideos();
-}, 5000);
-      });
+  });
+}
 
      </script>
    <!-- Firebase CDN -->
