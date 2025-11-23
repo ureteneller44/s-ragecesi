@@ -654,17 +654,16 @@
     const UPLOAD_PRESET = "unsigned_hayati"; // Cloudinary'de oluşturduğun unsigned preset
 
     async function uploadToCloudinary(file, resourceType = "image") {
-      const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resourceType}/upload`;
-      const formData = new FormData();
-      formData.append("file", file);
-    formData.append("upload_preset", "unsigned_upload");
-    formData.append("cloud_name", "dqwpwghbx");
-      formData.append("upload_preset", UPLOAD_PRESET);
+  const url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resourceType}/upload`;
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", "unsigned_upload");
+  formData.append("cloud_name", "dqwpwghbx");
 
-      const res = await fetch(url, {
-        method: "POST",
-        body: formData
-      });
+  const res = await fetch(url, {
+    method: "POST",
+    body: formData
+  });
 
       if (!res.ok) {
         const txt = await res.text().catch(() => "");
