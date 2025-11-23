@@ -694,7 +694,7 @@
     <section class="hero">
       <div class="hero-text">
         <h1>
-          <span>Hayati İşler</span> ve Urfa Sıra Gecesi Ekibi
+          <span>Hayati İşler</span>Urfa Sıra ve Gecesi Ekibi
         </h1>
         <p>
           Urfa türküleri, davul-zurna, saz ve renkli mendillerle tam bir sıra gecesi
@@ -1166,7 +1166,7 @@
   // Yıl otomatik
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // Yıldızları oluştur
+    // Yıldızları oluştur
   function renderStars(container, rating) {
     const fullStar = "★";
     const emptyStar = "☆";
@@ -1192,6 +1192,60 @@
     if (Array.isArray(data)) return data;
     if (data[key] && Array.isArray(data[key])) return data[key];
     return [];
+  }
+
+  // ✅ Firestore'dan onaylı yorumları al ve listeye ekle
+  function loadApprovedComments() {
+    const listEl = document.querySelector(".reviews-list");
+    if (!listEl) return;
+
+    if (typeof db === "undefined") {
+      console.error("Firebase 'db' tanımlı değil (firebase-init.js yüklü mü?).");
+      return;
+    }
+
+    db.collection("comments")
+      .orderBy("createdAt", "desc")
+      .limit(50)
+      .get()
+      .then((snap) => {
+        if (snap.empty) return;
+
+        snap.forEach((doc) => {
+          const data = doc.data() || {};
+          if (!data.approved) return; // sadece onaylı olanlar
+
+          const name = (data.name || "Misafir").toString();
+          const rating = Number(data.rating || 5);
+          const text = (data.text || "").toString();
+
+          // Yeni yorum kartı oluştur
+          const card = document.createElement("article");
+          card.className = "review-card";
+          card.setAttribute("data-rating", rating);
+
+          card.innerHTML = `
+            <div class="review-header">
+              <div class="review-name"></div>
+              <div class="review-stars"></div>
+            </div>
+            <p class="review-text"></p>
+            <div class="review-meta">Misafir yorumu</div>
+          `;
+
+          card.querySelector(".review-name").textContent = name;
+          card.querySelector(".review-text").textContent = text;
+
+          const starsEl = card.querySelector(".review-stars");
+          renderStars(starsEl, rating);
+
+          // Yeni yorumları listenin EN ÜSTÜNE ekle
+          listEl.prepend(card);
+        });
+      })
+      .catch((err) => {
+        console.error("Yorumlar yüklenemedi:", err);
+      });
   }
 
   // 🔔 Duyuru (üst bar) yükleme
