@@ -1,297 +1,814 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8">
-  <title>Hayati İşler • Yönetici Girişi</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: radial-gradient(circle at top, #020617 0, #020617 50%, #000 100%);
+    color: #e5e7eb;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 12px;
+  }
+
+  .app {
+    width: 100%;
+    max-width: 1100px;
+    background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
+    border-radius: 22px;
+    border: 1px solid rgba(148, 163, 184, 0.5);
+    box-shadow:
+      0 26px 80px rgba(0,0,0,0.8),
+      0 0 0 1px rgba(15,23,42,0.9);
+    overflow: hidden;
+  }
+
+  .app-header {
+    padding: 16px 20px 10px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+    background: radial-gradient(circle at top left, rgba(185,28,28,0.55), transparent 55%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .app-title {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .app-title h1 {
+    font-size: 1.1rem;
+    letter-spacing: 0.03em;
+  }
+
+  .app-title span {
+    font-size: 0.78rem;
+    opacity: 0.8;
+  }
+
+  .logout-link {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+
+  .tabs-bar {
+    padding: 10px 18px 0;
+    border-bottom: 1px solid rgba(30, 64, 175, 0.6);
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
+  }
+
+  .tab-btn {
+    border-radius: 999px;
+    border: 1px solid rgba(148,163,184,0.6);
+    background: rgba(15,23,42,0.95);
+    padding: 7px 14px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #e5e7eb;
+    opacity: 0.85;
+  }
+
+  .tab-btn span.icon {
+    font-size: 0.9rem;
+  }
+
+  .tab-btn.active {
+    background: linear-gradient(90deg, #f97316, #ea580c);
+    border-color: rgba(248,250,252,0.9);
+    color: #0f172a;
+    opacity: 1;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+  }
+
+  .content {
+    padding: 16px 18px 20px;
+  }
+
+  .tab-section {
+    display: none;
+  }
+
+  .tab-section.active {
+    display: block;
+  }
+
+  .section-header {
+    margin-bottom: 10px;
+  }
+
+  .section-header h2 {
+    font-size: 1rem;
+    margin-bottom: 2px;
+  }
+
+  .section-header p {
+    font-size: 0.82rem;
+    opacity: 0.8;
+  }
+
+  .form-card {
+    margin-top: 4px;
+    padding: 12px 12px 12px;
+    border-radius: 16px;
+    border: 1px solid rgba(148, 163, 184, 0.5);
+    background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
+    font-size: 0.85rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .form-row + .form-row {
+    margin-top: 6px;
+  }
+
+  .form-group {
+    margin-bottom: 8px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.8rem;
+    margin-bottom: 3px;
+    opacity: 0.9;
+  }
+
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    padding: 7px 9px;
+    border-radius: 10px;
+    border: 1px solid rgba(148, 163, 184, 0.8);
+    background: rgba(15, 23, 42, 0.98);
+    color: #f9fafb;
+    font-size: 0.84rem;
+    outline: none;
+  }
+
+  .form-textarea {
+    min-height: 60px;
+    resize: vertical;
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    border-color: #f97316;
+    box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.6);
+  }
+
+  .small-note {
+    font-size: 0.75rem;
+    opacity: 0.75;
+    margin-top: 4px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.84rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, #f97316, #ea580c);
+    color: #0f172a;
+    margin-top: 4px;
+  }
+
+  .btn-secondary {
+    background: rgba(15,23,42,0.9);
+    border: 1px solid rgba(148,163,184,0.8);
+    color: #e5e7eb;
+  }
+
+  .btn + .btn {
+    margin-left: 6px;
+  }
+
+  .save-alert {
+    margin-top: 6px;
+    font-size: 0.78rem;
+    padding: 6px 8px;
+    border-radius: 10px;
+    display: none;
+  }
+
+  .save-alert-ok {
+    background: rgba(22,163,74,0.1);
+    border: 1px solid rgba(74,222,128,0.85);
+    color: #bbf7d0;
+  }
+
+  .save-alert-error {
+    background: rgba(220,38,38,0.12);
+    border: 1px solid rgba(248,113,113,0.9);
+    color: #fecaca;
+  }
+
+  .preview-bar {
+    margin-top: 14px;
+    position: relative;
+    background: radial-gradient(circle at top, #7f1d1d 0, #450a0a 40%, #111827 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(127,29,29,0.95);
+    padding: 14px 14px 16px;
+    overflow: hidden;
+    box-shadow:
+      0 16px 40px rgba(0,0,0,0.85),
+      0 0 0 1px rgba(15,23,42,0.9);
+    font-size: 0.9rem;
+  }
+
+  .preview-pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(252, 211, 77, 0.9);
+    background: rgba(0,0,0,0.45);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.72rem;
+    margin-bottom: 6px;
+  }
+
+  .preview-main {
+    font-size: 0.96rem;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(0,0,0,0.7);
+    line-height: 1.6;
+  }
+
+  .preview-main strong {
+    color: #facc15;
+    text-shadow: 0 0 12px rgba(250, 204, 21, 1);
+  }
+
+  .preview-sub {
+    font-size: 0.82rem;
+    opacity: 0.9;
+    margin-top: 4px;
+  }
+
+  .fw-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: radial-gradient(circle, #ffffff 0, rgba(255,255,255,0) 70%);
+    opacity: 0.7;
+  }
+
+  .fw-dot.f1 { top: 6px; left: 12%; }
+  .fw-dot.f2 { top: 4px; left: 52%; }
+  .fw-dot.f3 { top: 10px; right: 10%; }
+
+  /* --- YORUM YÖNETİMİ (ADMIN) --- */
+
+  .comment-layout {
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: 18px;
+    align-items: flex-start;
+  }
+
+  .comment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 460px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+
+  .comment-card {
+    background: rgba(15,23,42,0.96);
+    border-radius: 14px;
+    border: 1px solid rgba(148,163,184,0.5);
+    padding: 10px 12px 9px;
+    font-size: 0.84rem;
+    box-shadow: 0 10px 32px rgba(0,0,0,0.7);
+  }
+
+  .comment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .comment-name {
+    font-weight: 600;
+    font-size: 0.86rem;
+  }
+
+  .comment-meta {
+    font-size: 0.76rem;
+    opacity: 0.75;
+  }
+
+  .badge-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-width: 1px;
+    border-style: solid;
+  }
+
+  .badge-pending {
+    border-color: rgba(250, 204, 21, 0.9);
+    background: rgba(113, 63, 18, 0.4);
+    color: #facc15;
+  }
+
+  .badge-approved {
+    border-color: rgba(74, 222, 128, 0.9);
+    background: rgba(22, 163, 74, 0.25);
+    color: #bbf7d0;
+  }
+
+  .badge-rejected {
+    border-color: rgba(248, 113, 113, 0.9);
+    background: rgba(127, 29, 29, 0.45);
+    color: #fecaca;
+  }
+
+  .comment-text {
+    font-size: 0.84rem;
+    line-height: 1.5;
+    margin-bottom: 4px;
+    opacity: 0.96;
+  }
+
+  .comment-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .comment-actions {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .btn-xs {
+    padding: 5px 9px;
+    font-size: 0.75rem;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(15,23,42,0.9);
+    color: #e5e7eb;
+    border: 1px solid rgba(148,163,184,0.8);
+  }
+
+  .btn-xs-approve {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    border-color: rgba(134, 239, 172, 0.9);
+    color: #022c22;
+  }
+
+  .btn-xs-delete {
+    background: rgba(127, 29, 29, 0.95);
+    border-color: rgba(248, 113, 113, 0.95);
+    color: #fee2e2;
+  }
+
+  .comment-side {
+    font-size: 0.82rem;
+    opacity: 0.85;
+  }
+
+  .comment-side h3 {
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+  }
+
+  .comment-stat {
+    margin-top: 4px;
+  }
+
+  .comment-stat span {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(15,23,42,0.9);
+    border: 1px solid rgba(148,163,184,0.7);
+    font-size: 0.76rem;
+    margin-right: 4px;
+  }
+
+  .comment-empty {
+    font-size: 0.82rem;
+    opacity: 0.75;
+  }
+
+  @media (max-width: 860px) {
+    .comment-layout {
+      grid-template-columns: minmax(0, 1fr);
     }
+  }
 
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: radial-gradient(circle at top, #020617 0, #020617 50%, #000 100%);
-      color: #e5e7eb;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px 12px;
+  @media (max-width: 720px) {
+    .form-row {
+      grid-template-columns: minmax(0, 1fr);
     }
+  }
 
-    .app {
-      width: 100%;
-      max-width: 420px;
-      background: radial-gradient(circle at top, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
-      border-radius: 22px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      box-shadow:
-        0 26px 80px rgba(0,0,0,0.8),
-        0 0 0 1px rgba(15,23,42,0.9);
-      overflow: hidden;
-    }
-
+  @media (max-width: 600px) {
     .app-header {
-      padding: 16px 20px 14px;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
-      background: radial-gradient(circle at top left, rgba(185,28,28,0.55), transparent 55%);
+      flex-direction: column;
+      align-items: flex-start;
     }
-
-    .app-title h1 {
-      font-size: 1.1rem;
-      letter-spacing: 0.03em;
-    }
-
-    .app-title span {
-      font-size: 0.78rem;
-      opacity: 0.8;
-    }
-
-    .content {
-      padding: 18px 20px 18px;
-    }
-
-    .login-card {
-      margin-top: 6px;
-      padding: 14px 14px 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      background: radial-gradient(circle at top, rgba(15,23,42,0.98), rgba(15,23,42,0.96));
-      box-shadow: 0 18px 45px rgba(0,0,0,0.7);
-      font-size: 0.86rem;
-    }
-
-    .form-group {
-      margin-bottom: 10px;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 0.8rem;
-      margin-bottom: 3px;
-      opacity: 0.9;
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 7px 9px;
-      border-radius: 10px;
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      background: rgba(15, 23, 42, 0.98);
-      color: #f9fafb;
-      font-size: 0.84rem;
-      outline: none;
-    }
-
-    .form-input:focus {
-      border-color: #f97316;
-      box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.6);
-    }
-
-    .form-helper {
-      font-size: 0.72rem;
-      opacity: 0.7;
-      margin-top: 2px;
-    }
-
-    .password-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .password-wrapper .form-input {
-      padding-right: 70px;
-    }
-
-    .toggle-pass {
-      position: absolute;
-      right: 8px;
-      top: 50%;
-      transform: translateY(-50%);
-      border: none;
-      background: rgba(15,23,42,0.98);
-      color: #e5e7eb;
-      font-size: 0.75rem;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.7);
-      cursor: pointer;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 8px 16px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      font-size: 0.84rem;
-      font-weight: 600;
-      background: linear-gradient(90deg, #f97316, #ea580c);
-      color: #0f172a;
-      margin-top: 8px;
-      width: 100%;
-    }
-
-    .login-error {
-      margin-top: 7px;
-      font-size: 0.78rem;
-      color: #fecaca;
-      background: rgba(127,29,29,0.25);
-      border-radius: 10px;
-      border: 1px solid rgba(248,113,113,0.8);
-      padding: 6px 8px;
-      display: none;
-    }
-
-    .login-hint {
-      font-size: 0.78rem;
-      opacity: 0.7;
-      margin-top: 8px;
-    }
-
-    .status-pill {
-      margin-top: 10px;
-      font-size: 0.7rem;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(239, 68, 68, 0.9);
-      color: #fecaca;
-      background: rgba(127, 29, 29, 0.25);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
-    }
-
-    .status-pill.ok {
-      border-color: rgba(34,197,94,0.8);
-      color: #bbf7d0;
-      background: rgba(22,163,74,0.18);
-    }
-
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #ef4444;
-      box-shadow: 0 0 8px rgba(239,68,68,0.9);
-    }
-
-    .status-pill.ok .status-dot {
-      background: #22c55e;
-      box-shadow: 0 0 8px rgba(34,197,94,0.9);
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
   <div class="app">
     <header class="app-header">
       <div class="app-title">
-        <h1>Hayati İşler • Yönetici Girişi</h1>
-        <span>Bu alan sadece ekip tarafından kullanılmalıdır.</span>
+        <h1>Hayati İşler • Yönetim Paneli</h1>
+        <span>Duyuru, resim, video ve yorum yönetimi</span>
       </div>
+      <div class="logout-link" onclick="window.location.href='index.html';">Çıkış yap</div>
     </header>
 
+    <!-- SEKME BUTONLARI -->
+    <div class="tabs-bar">
+      <button class="tab-btn active" data-target="tab-announcement"><span class="icon">📢</span>Duyuru</button>
+      <button class="tab-btn" data-target="tab-photos"><span class="icon">📸</span>Resim Ekle</button>
+      <button class="tab-btn" data-target="tab-videos"><span class="icon">🎥</span>Video Ekle</button>
+      <button class="tab-btn" data-target="tab-comments"><span class="icon">💬</span>Yorumlar</button>
+    </div>
+
     <div class="content">
-      <div class="login-card">
-        <div class="form-group">
-          <label for="adminEmail" class="form-label">E-posta</label>
-          <input type="email" id="adminEmail" class="form-input" placeholder="Yönetici e-posta adresi">
-          <div class="form-helper">Bu e-posta adresi sadece yönetici için kullanılmalıdır.</div>
+
+      <!-- DUYURU -->
+      <section id="tab-announcement" class="tab-section active">
+        <div class="section-header">
+          <h2>“Bugün Neredeyiz?” Duyurusu</h2>
+          <p>Alt açıklama index’te görünür.</p>
         </div>
 
-        <div class="form-group" style="margin-top:10px;">
-          <label for="adminPass" class="form-label">Şifre</label>
-          <div class="password-wrapper">
-            <input type="password" id="adminPass" class="form-input" placeholder="Yönetici şifresini girin">
-            <button type="button" id="togglePass" class="toggle-pass">Göster</button>
+        <div class="form-card">
+          <div class="form-group">
+            <label class="form-label" for="subTextInput">Alt açıklama</label>
+            <textarea id="subTextInput" class="form-textarea" placeholder="Rezervasyon için hemen arayın..."></textarea>
           </div>
-          <div class="form-helper">Bu şifre sadece Hayati İşler ve ekibinde olmalıdır.</div>
+
+          <button id="saveBtn" class="btn">Kaydet</button>
+          <button id="resetBtn" class="btn btn-secondary">Sıfırla</button>
+
+          <div id="saveAlert" class="save-alert save-alert-ok">Kaydedildi</div>
+
+          <div class="preview-bar">
+            <div class="fw-dot f1"></div><div class="fw-dot f2"></div><div class="fw-dot f3"></div>
+            <div class="preview-pill">BUGÜN NEREDEYİZ?</div>
+            <div id="previewMain" class="preview-main"></div>
+            <div id="previewSub" class="preview-sub"></div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- RESİM EKLE -->
+      <section id="tab-photos" class="tab-section">
+        <div class="section-header">
+          <h2>Fotoğraf Yükle</h2>
+          <p>Cloudinary + Firestore kayıt</p>
         </div>
 
-        <button id="loginBtn" class="btn" type="button">Panele giriş yap</button>
+        <div class="form-card">
+          <form id="photoForm">
+            <div class="form-group">
+              <label class="form-label">Fotoğraf</label>
+              <input type="file" id="photoFile" accept=".jpg,.png,.webp" class="form-input">
+            </div>
 
-        <div id="loginError" class="login-error">
-          E-posta veya şifre hatalı. Lütfen tekrar deneyin.
+            <div class="form-group">
+              <label class="form-label">Başlık</label>
+              <input type="text" id="photoTitle" class="form-input">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Açıklama</label>
+              <textarea id="photoDesc" class="form-textarea"></textarea>
+            </div>
+
+            <button class="btn" type="submit">Fotoğrafı Yükle</button>
+            <div id="photoMsg" class="save-alert"></div>
+          </form>
         </div>
 
-        <div id="loginStatus" class="status-pill">
-          <span class="status-dot"></span>
-          <span>Giriş yapılmadı</span>
+        <h3 style="margin-top:14px; font-size:0.9rem;">Yüklenen Fotoğraflar</h3>
+        <div id="photosList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:8px;"></div>
+      </section>
+
+
+      <!-- VİDEO EKLE -->
+      <section id="tab-videos" class="tab-section">
+        <div class="section-header">
+          <h2>Video Yükle</h2>
+          <p>Cloudinary + Firestore kayıt</p>
         </div>
 
-        <div class="login-hint">
-          Giriş başarılı olduğunda otomatik olarak <strong>yönetim paneline (panel.html)</strong> yönlendirileceksiniz.
+        <div class="form-card">
+          <form id="videoForm">
+            <div class="form-group">
+              <label class="form-label">Video</label>
+              <input type="file" id="videoFile" accept=".mp4,.webm" class="form-input">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Başlık</label>
+              <input type="text" id="videoTitle" class="form-input">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Açıklama</label>
+              <textarea id="videoDesc" class="form-textarea"></textarea>
+            </div>
+
+            <button class="btn" type="submit">Videoyu Yükle</button>
+            <div id="videoMsg" class="save-alert"></div>
+          </form>
         </div>
-      </div>
+
+        <h3 style="margin-top:14px; font-size:0.9rem;">Yüklenen Videolar</h3>
+        <div id="videosList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:8px;"></div>
+      </section>
+
+
+      <!-- YORUM YÖNETİMİ -->
+      <section id="tab-comments" class="tab-section">
+        <div class="section-header">
+          <h2>Yorum Yönetimi</h2>
+          <p>Kullanıcı yorumları burada görüntülenir, onay/sil yapılır.</p>
+        </div>
+
+        <div class="comment-layout">
+
+          <div class="comment-list" id="commentList">Yükleniyor...</div>
+
+          <div class="comment-side">
+            <h3>Durumlar</h3>
+            <div class="comment-stat" id="commentStats"></div>
+          </div>
+
+        </div>
+      </section>
+
     </div>
   </div>
 
+  <!-- Firebase CDN -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="../firebase-init.js"></script>
+
   <script>
-    // Giriş bilgileri
-    const CORRECT_EMAIL = "hayatiisler65@gmail.com";
-    const CORRECT_PASSWORD = "Hayati19763465";
+    const ANNOUNCEMENT_ID = "QEYYxEpClLZ5yKZVLxeS";
 
-    const adminEmailInput = document.getElementById("adminEmail");
-    const adminPassInput = document.getElementById("adminPass");
-    const togglePassBtn = document.getElementById("togglePass");
-    const loginBtn = document.getElementById("loginBtn");
-    const loginError = document.getElementById("loginError");
-    const loginStatus = document.getElementById("loginStatus");
+    document.addEventListener("DOMContentLoaded", () => {
 
-    function updateStatus(ok) {
-      if (ok) {
-        loginStatus.classList.add("ok");
-        loginStatus.querySelector("span:nth-child(2)").textContent = "Giriş başarılı, panele yönlendiriliyorsunuz...";
-      } else {
-        loginStatus.classList.remove("ok");
-        loginStatus.querySelector("span:nth-child(2)").textContent = "Giriş yapılmadı";
-      }
-    }
+      /* --- SEKME GEÇİŞİ --- */
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+          document.querySelectorAll(".tab-section").forEach(s => s.classList.remove("active"));
 
-    // Giriş butonu
-    loginBtn.addEventListener("click", function () {
-      const email = (adminEmailInput.value || "").trim();
-      const pass = (adminPassInput.value || "").trim();
-
-      if (email === CORRECT_EMAIL && pass === CORRECT_PASSWORD) {
-        loginError.style.display = "none";
-        updateStatus(true);
-
-        // Küçük bir gecikmeyle panele yönlendir
-        setTimeout(function () {
-          window.location.href = "panel.html";
-        }, 600);
-      } else {
-        loginError.style.display = "block";
-        updateStatus(false);
-      }
-    });
-
-    // Enter ile login
-    [adminEmailInput, adminPassInput].forEach(function (el) {
-      el.addEventListener("keydown", function (e) {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          loginBtn.click();
-        }
+          btn.classList.add("active");
+          document.getElementById(btn.dataset.target).classList.add("active");
+        });
       });
-    });
 
-    // Şifre göster/gizle
-    togglePassBtn.addEventListener("click", function () {
-      const type = adminPassInput.getAttribute("type") === "password" ? "text" : "password";
-      adminPassInput.setAttribute("type", type);
-      togglePassBtn.textContent = type === "password" ? "Göster" : "Gizle";
+      /* --- DUYURU --- */
+      const subInput = document.getElementById("subTextInput");
+      const previewSub = document.getElementById("previewSub");
+
+      function updatePreview() {
+        previewSub.textContent = subInput.value.trim();
+      }
+      subInput.addEventListener("input", updatePreview);
+
+      function loadAnnouncement() {
+        db.collection("announcements").doc(ANNOUNCEMENT_ID).get().then(snap => {
+          const d = snap.data() || {};
+          subInput.value = d.sub || "";
+          updatePreview();
+        });
+      }
+
+      document.getElementById("saveBtn").onclick = () => {
+        const sub = subInput.value.trim();
+        db.collection("announcements").doc(ANNOUNCEMENT_ID).set({ sub }, { merge: true })
+        document.getElementById("saveAlert").style.display = "block";
+        updatePreview();
+      };
+
+      document.getElementById("resetBtn").onclick = () => {
+        subInput.value = "";
+        updatePreview();
+        db.collection("announcements").doc(ANNOUNCEMENT_ID).set({ sub: "" }, { merge: true });
+      };
+
+      loadAnnouncement();
+
+
+      /* --- CLOUDINARY UPLOAD --- */
+      async function uploadToCloudinary(file, type = "image") {
+        const fd = new FormData();
+        fd.append("file", file);
+        fd.append("upload_preset", "unsigned_upload");
+
+        const r = await fetch(`https://api.cloudinary.com/v1_1/dqwpwghbx/${type}/upload`, {
+          method: "POST",
+          body: fd
+        });
+
+        const j = await r.json();
+        return j.secure_url;
+      }
+
+      /* --- FOTOĞRAF --- */
+      const photoForm = document.getElementById("photoForm");
+      const photosList = document.getElementById("photosList");
+
+      photoForm.onsubmit = async e => {
+        e.preventDefault();
+        const file = document.getElementById("photoFile").files[0];
+        if (!file) return alert("Fotoğraf seç");
+
+        const url = await uploadToCloudinary(file, "image");
+
+        await db.collection("photos").add({
+          url,
+          title: document.getElementById("photoTitle").value,
+          desc: document.getElementById("photoDesc").value,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        photoForm.reset();
+        loadPhotos();
+      };
+
+      function loadPhotos() {
+        db.collection("photos").orderBy("createdAt", "desc").get().then(snap => {
+          let html = "";
+          snap.forEach(doc => {
+            const d = doc.data();
+            html += `
+              <div style="border:1px solid #334;padding:6px;border-radius:10px;background:#020617;">
+                <img src="${d.url}" style="width:100%;border-radius:10px;">
+                <div style="padding:4px 0;font-size:0.8rem;">
+                  <b>${d.title || ""}</b><br>
+                  <span>${d.desc || ""}</span>
+                </div>
+              </div>`;
+          });
+          photosList.innerHTML = html || "<div class='comment-empty'>Fotoğraf yok</div>";
+        });
+      }
+      loadPhotos();
+
+      /* --- VİDEO --- */
+      const videoForm = document.getElementById("videoForm");
+      const videosList = document.getElementById("videosList");
+
+      videoForm.onsubmit = async e => {
+        e.preventDefault();
+        const file = document.getElementById("videoFile").files[0];
+        if (!file) return alert("Video seç");
+
+        const url = await uploadToCloudinary(file, "video");
+
+        await db.collection("videos").add({
+          url,
+          title: document.getElementById("videoTitle").value,
+          desc: document.getElementById("videoDesc").value,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        videoForm.reset();
+        loadVideos();
+      };
+
+      function loadVideos() {
+        db.collection("videos").orderBy("createdAt", "desc").get().then(snap => {
+          let html = "";
+          snap.forEach(doc => {
+            const d = doc.data();
+            html += `
+              <div style="border:1px solid #334;padding:6px;border-radius:10px;background:#020617;">
+                <video controls style="width:100%;border-radius:10px;max-height:230px;object-fit:contain;">
+                  <source src="${d.url}">
+                </video>
+                <div style="padding:4px 0;font-size:0.8rem;">
+                  <b>${d.title || ""}</b><br>
+                  <span>${d.desc || ""}</span>
+                </div>
+              </div>`;
+          });
+          videosList.innerHTML = html || "<div class='comment-empty'>Video yok</div>";
+        });
+      }
+      loadVideos();
+
+
+      /* --- YORUMLAR (ADMIN) --- */
+      function loadComments() {
+        db.collection("comments").orderBy("createdAt", "desc").get().then(snap => {
+
+          const list = document.getElementById("commentList");
+          const stat = document.getElementById("commentStats");
+
+          let html = "";
+          let total = 0, pending = 0, approved = 0;
+
+          snap.forEach(doc => {
+            const d = doc.data();
+            total++;
+            if (!d.approved) pending++; else approved++;
+
+            html += `
+              <div class="comment-card">
+                <div class="comment-header">
+                  <div class="comment-name">${d.name}</div>
+                  <span class="badge-status ${d.approved ? "badge-approved" : "badge-pending"}">
+                    ${d.approved ? "ONAYLI" : "BEKLİYOR"}
+                  </span>
+                </div>
+
+                <div class="comment-text">${d.text}</div>
+
+                <div class="comment-footer">
+                  <div class="comment-meta">${new Date(d.createdAt?.toDate?.() || Date.now()).toLocaleString()}</div>
+
+                  <div class="comment-actions">
+                    ${!d.approved ? `
+                      <button class="btn-xs btn-xs-approve" onclick="approveComment('${doc.id}')">Onayla</button>
+                    ` : ""}
+                    <button class="btn-xs btn-xs-delete" onclick="deleteComment('${doc.id}')">Sil</button>
+                  </div>
+                </div>
+              </div>`;
+          });
+
+          list.innerHTML = html || "<div class='comment-empty'>Hiç yorum yok</div>";
+
+          stat.innerHTML = `
+            <span>Toplam: ${total}</span>
+            <span>Bekleyen: ${pending}</span>
+            <span>Onaylı: ${approved}</span>
+          `;
+        });
+      }
+
+      window.approveComment = id => {
+        db.collection("comments").doc(id).update({ approved: true }).then(loadComments);
+      };
+      window.deleteComment = id => {
+        db.collection("comments").doc(id).delete().then(loadComments);
+      };
+
+      loadComments();
     });
   </script>
+
 </body>
 </html>
