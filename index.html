@@ -89,7 +89,7 @@
       100% { transform: scale(1.25); opacity: 0; }
     }
 
-    .announcement-inner {
+        .announcement-inner {
       position: relative;
       z-index: 5;
       display: flex;
@@ -99,7 +99,7 @@
       animation: barFadeIn 0.9s ease-out;
     }
 
-    /* Üst başlık */
+    /* Üst başlık (BUGÜN NEREDEYİZ?) */
     .announcement-label {
       text-transform: uppercase;
       letter-spacing: 2.2px;
@@ -112,25 +112,22 @@
       box-shadow: 0 0 14px rgba(255,255,255,0.4);
     }
 
-    /* Ana yazı */
-    .announcement-text {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: #ffffff;
+    /* Ana yazı + Alt küçük bilgi için ortak stil (kutucuk) */
+    .announcement-text,
+    .announcement-sub {
+      display: inline-block;              /* Genişlik sadece yazı kadar */
+      margin-top: 4px;
+      padding: 6px 12px;                  /* Kutunun iç boşluğu */
+      border-radius: 999px;               /* Hap şeklinde olsun */
+      background: rgba(0, 0, 0, 0.45);    /* Yazının arkası koyu kutu */
+      font-size: 0.95rem;
+      line-height: 1.4;
+      opacity: 0.95;
       text-shadow: 0 0 8px rgba(0,0,0,0.8);
     }
 
     .announcement-text strong {
       color: #ffffff;
-    }
-
-    /* Alt küçük bilgi */
-    .announcement-sub {
-      display: block;
-      font-size: 0.95rem;
-      margin-top: 4px;
-      opacity: 0.95;
-      width: 100%;
     }
 
     @keyframes barFadeIn {
