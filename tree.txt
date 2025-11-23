@@ -9,6 +9,9 @@
 ├── announcement.json
 ├── api
 │   └── get-photos.php
+├── firebase-init.js
+├── foto.png.jpg
+├── galeri.html
 ├── get-announcement.php
 ├── get-photos.php
 ├── index.html
@@ -25,10 +28,13 @@
 │   ├── api
 │   │   └── get-photos.php
 │   ├── firebase-init.js
+│   ├── foto.png.jpg
 │   ├── get-announcement.php
 │   ├── get-photos.php
 │   ├── index.html
 │   ├── photos.json
+│   ├── s-ragecesi
+│   ├── tree.txt
 │   ├── upload-photo.php
 │   ├── uploads
 │   │   └── videos
@@ -41,4 +47,4 @@
 │       └── upload-video.php
 └── videos.json
 
-14 directories, 28 files
+15 directories, 33 files
