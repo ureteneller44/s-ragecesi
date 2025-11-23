@@ -1194,20 +1194,18 @@
     .then((doc) => {
       if (!doc.exists) return;
 
-      const data = doc.data();
+      const data = doc.data() || {};
+      const sub  = (data.sub || "").trim();
 
-      const city  = (data.city  || "İstanbul").trim();
-      const venue = (data.venue || "Mey Gazinosu").trim();
-      const time  = (data.time  || "21:00").trim();
-      const day   = (data.day   || "bu akşam").trim();
-      const sub   = (data.sub   || "Rezervasyon için hemen arayın").trim();
+      // Üst satırı kullanmıyoruz
+      if (textEl) {
+        textEl.textContent = "";
+      }
 
-      textEl.innerHTML =
-        "Hayati İşler ve Ekibi " + day + " " +
-        "<strong>" + city + " • " + venue + "</strong>'nda, sahne saati: " +
-        "<strong>" + time + "</strong>";
-
-      subEl.textContent = sub;
+      // Sadece admin panelindeki "Alt açıklama" görünsün
+      if (subEl) {
+        subEl.textContent = sub || "çok kıssa surede adres ve detay bilgiler paylaşılacak....";
+      }
     })
     .catch((err) => {
       console.error("Duyuru yüklenemedi:", err);
