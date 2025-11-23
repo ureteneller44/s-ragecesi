@@ -138,6 +138,7 @@
       display: flex;
       flex-direction: column;
       box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      cursor: pointer; /* tıklanabilir */
     }
 
     .gallery-thumb {
@@ -154,12 +155,26 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
     .gallery-caption {
       padding: 6px 8px 8px;
       border-top: 1px solid rgba(15,23,42,0.9);
       opacity: 0.9;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .gallery-caption strong {
+      font-weight: 600;
+      display: block;
+    }
+
+    .gallery-caption span {
+      font-size: 0.78rem;
+      opacity: 0.8;
     }
 
     .video-item video {
@@ -167,12 +182,25 @@
       height: 190px;
       object-fit: cover;
       background: #000;
+      display: block;
     }
 
     .video-caption {
       padding: 6px 8px 8px;
       border-top: 1px solid rgba(15,23,42,0.9);
       opacity: 0.9;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .video-caption strong {
+      font-weight: 600;
+    }
+
+    .video-caption span {
+      font-size: 0.78rem;
+      opacity: 0.8;
     }
 
     .placeholder {
@@ -190,6 +218,102 @@
       padding: 10px 12px 14px;
       text-align: center;
       opacity: 0.6;
+    }
+
+    /* Lightbox (büyütme) */
+    .lightbox-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 16px;
+    }
+
+    .lightbox-backdrop.active {
+      display: flex;
+    }
+
+    .lightbox-inner {
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      background: #020617;
+      border-radius: 14px;
+      border: 1px solid rgba(148,163,184,0.6);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lightbox-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(30,64,175,0.8);
+      background: radial-gradient(circle at top left, #1d4ed8, #020617);
+    }
+
+    .lightbox-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .lightbox-close {
+      border: none;
+      background: transparent;
+      color: #e5e7eb;
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 4px 6px;
+    }
+
+    .lightbox-body {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .lightbox-media-wrapper {
+      width: 100%;
+      max-height: 60vh;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .lightbox-media-wrapper img {
+      max-width: 100%;
+      max-height: 60vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-media-wrapper video {
+      max-width: 100%;
+      max-height: 60vh;
+      display: block;
+      background: #000;
+    }
+
+    .lightbox-desc {
+      font-size: 0.82rem;
+      opacity: 0.9;
+    }
+
+    @media (max-width: 640px) {
+      .gallery-thumb,
+      .video-item video {
+        height: 160px;
+      }
     }
   </style>
 </head>
@@ -228,7 +352,21 @@
     © <span id="year"></span> Hayati İşler & Urfa Sıra Gecesi Ekibi
   </footer>
 
-  <!-- Firebase EKLENDİ -->
+  <!-- Lightbox (büyütme) -->
+  <div id="lightbox" class="lightbox-backdrop">
+    <div class="lightbox-inner">
+      <div class="lightbox-header">
+        <div class="lightbox-title" id="lightboxTitle"></div>
+        <button type="button" class="lightbox-close" id="lightboxClose">✕</button>
+      </div>
+      <div class="lightbox-body">
+        <div class="lightbox-media-wrapper" id="lightboxMedia"></div>
+        <div class="lightbox-desc" id="lightboxDesc"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <script src="firebase-init.js"></script>
@@ -252,7 +390,55 @@
       });
     });
 
-    // FOTOĞRAFLARI FIRESTORE'DAN ÇEK
+    // Lightbox kontrolü
+    const lightbox       = document.getElementById("lightbox");
+    const lightboxTitle  = document.getElementById("lightboxTitle");
+    const lightboxMedia  = document.getElementById("lightboxMedia");
+    const lightboxDesc   = document.getElementById("lightboxDesc");
+    const lightboxClose  = document.getElementById("lightboxClose");
+
+    function openLightbox(options) {
+      const type  = options.type;   // "image" veya "video"
+      const src   = options.src || "";
+      const title = options.title || "";
+      const desc  = options.desc || "";
+
+      lightboxTitle.textContent = title;
+      lightboxDesc.textContent  = desc;
+
+      // İçeriği temizle
+      lightboxMedia.innerHTML = "";
+
+      if (type === "image") {
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = title || "";
+        lightboxMedia.appendChild(img);
+      } else if (type === "video") {
+        const video = document.createElement("video");
+        video.controls = true;
+        video.autoplay = true;
+        video.preload = "auto";
+        video.innerHTML = `<source src="${src}">Tarayıcınız video etiketini desteklemiyor.`;
+        lightboxMedia.appendChild(video);
+      }
+
+      lightbox.classList.add("active");
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("active");
+      lightboxMedia.innerHTML = "";
+    }
+
+    lightboxClose.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    // Fotoğrafları Firestore'dan çek
     function loadPhotos() {
       const gallery = document.getElementById("photoGallery");
       const emptyBox = document.getElementById("photoEmpty");
@@ -267,10 +453,18 @@
           let html = "";
           snap.forEach(doc => {
             const p = doc.data();
+            const url   = p.url || "";
+            const title = (p.title || "").replace(/"/g, "&quot;");
+            const desc  = (p.desc  || "").replace(/"/g, "&quot;");
+
             html += `
-              <div class="gallery-item">
+              <div class="gallery-item"
+                   data-type="image"
+                   data-src="${url}"
+                   data-title="${title}"
+                   data-desc="${desc}">
                 <div class="gallery-thumb">
-                  <img src="${p.url}">
+                  <img src="${url}" alt="${title}">
                 </div>
                 <div class="gallery-caption">
                   <strong>${p.title || ""}</strong>
@@ -281,10 +475,15 @@
 
           gallery.innerHTML = html;
           emptyBox.style.display = "none";
+
+          attachLightboxHandlers();
+        })
+        .catch(err => {
+          console.error("Fotoğraflar yüklenemedi:", err);
         });
     }
 
-    // VİDEOLARI FIRESTORE'DAN ÇEK
+    // Videoları Firestore'dan çek
     function loadVideos() {
       const gallery = document.getElementById("videoGallery");
       const emptyBox = document.getElementById("videoEmpty");
@@ -299,10 +498,19 @@
           let html = "";
           snap.forEach(doc => {
             const v = doc.data();
+            const url   = v.url || "";
+            const title = (v.title || "").replace(/"/g, "&quot;");
+            const desc  = (v.desc  || "").replace(/"/g, "&quot;");
+
             html += `
-              <div class="video-item">
-                <video controls>
-                  <source src="${v.url}">
+              <div class="video-item"
+                   data-type="video"
+                   data-src="${url}"
+                   data-title="${title}"
+                   data-desc="${desc}">
+                <video controls preload="metadata">
+                  <source src="${url}">
+                  Tarayıcınız video etiketini desteklemiyor.
                 </video>
                 <div class="video-caption">
                   <strong>${v.title || ""}</strong>
@@ -313,10 +521,39 @@
 
           gallery.innerHTML = html;
           emptyBox.style.display = "none";
+
+          attachLightboxHandlers();
+        })
+        .catch(err => {
+          console.error("Videolar yüklenemedi:", err);
         });
     }
 
-    // SAYFA AÇILINCA YÜKLE
+    // Kartlara tıklanınca lightbox aç
+    function attachLightboxHandlers() {
+      const clickableItems = document.querySelectorAll(".gallery-item, .video-item");
+
+      clickableItems.forEach(item => {
+        item.addEventListener("click", (e) => {
+          // Eğer video içindeki kontroller tıklanıyorsa, kart click'i tetiklenmesin
+          const tag = e.target.tagName.toLowerCase();
+          if (tag === "button" || tag === "video" || tag === "source") {
+            return;
+          }
+
+          const type  = item.getAttribute("data-type");
+          const src   = item.getAttribute("data-src")   || "";
+          const title = item.getAttribute("data-title") || "";
+          const desc  = item.getAttribute("data-desc")  || "";
+
+          if (!src) return;
+
+          openLightbox({ type, src, title, desc });
+        });
+      });
+    }
+
+    // Sayfa açılınca yükle
     loadPhotos();
     loadVideos();
   </script>
