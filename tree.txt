@@ -9,6 +9,13 @@
 ├── announcement.json
 ├── api
 │   └── get-photos.php
+├── blog
+│   ├── cig-kofte-gelenekleri.html
+│   ├── sira-gecesi-adabi.html
+│   ├── sira-gecesi-tarihcesi.html
+│   ├── sira-gecesinde-neden-mendil-kullanilir.html
+│   ├── turkulerde-gecen-isimler-ve-hikayeleri.html
+│   └── turkulerin-hikayeleri.html
 ├── firebase-init.js
 ├── foto.png.jpg
 ├── galeri.html
@@ -47,4 +54,4 @@
 │       └── upload-video.php
 └── videos.json
 
-15 directories, 33 files
+16 directories, 39 files
