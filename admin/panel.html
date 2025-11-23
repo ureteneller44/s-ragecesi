@@ -664,7 +664,7 @@
       setTimeout(() => { photoMsg.style.display = "none"; }, 2500);
     }
 
-    async function loadPhotos() {
+        async function loadPhotos() {
       if (!photosList) return;
       photosList.innerHTML = '<div style="opacity:0.7;font-size:0.85rem;">Yükleniyor...</div>';
 
@@ -702,6 +702,14 @@
               <div style="padding:8px 9px 9px;">
                 ${title ? `<div style="font-weight:600;margin-bottom:2px;">${title}</div>` : ""}
                 ${desc ? `<div style="opacity:0.8;">${desc}</div>` : ""}
+                <button
+                  type="button"
+                  class="btn-xs btn-xs-delete"
+                  style="margin-top:6px;"
+                  onclick="deletePhoto('${doc.id}')"
+                >
+                  Sil
+                </button>
               </div>
             </div>
           `;
@@ -715,6 +723,17 @@
           '<div style="opacity:0.7;font-size:0.85rem;">Fotoğraflar yüklenemedi.</div>';
       }
     }
+
+    // Fotoğraf silme
+    window.deletePhoto = async function (id) {
+      try {
+        await db.collection("photos").doc(id).delete();
+        loadPhotos();
+      } catch (err) {
+        console.error("Fotoğraf silinemedi:", err);
+        showPhotoMsg("Fotoğraf silinirken hata oluştu.", false);
+      }
+    };
 
     if (photoForm && photoFile) {
       photoForm.addEventListener("submit", async function (e) {
@@ -812,6 +831,14 @@
               <div style="padding-top:6px;">
                 ${title ? `<div style="font-weight:600;margin-bottom:2px;">${title}</div>` : ""}
                 ${desc ? `<div style="opacity:0.8;">${desc}</div>` : ""}
+                <button
+                  type="button"
+                  class="btn-xs btn-xs-delete"
+                  style="margin-top:6px;"
+                  onclick="deleteVideo('${doc.id}')"
+                >
+                  Sil
+                </button>
               </div>
             </div>
           `;
@@ -825,6 +852,17 @@
           '<div style="opacity:0.7;font-size:0.85rem;">Videolar yüklenemedi.</div>';
       }
     }
+
+    // Video silme
+    window.deleteVideo = async function (id) {
+      try {
+        await db.collection("videos").doc(id).delete();
+        loadVideos();
+      } catch (err) {
+        console.error("Video silinemedi:", err);
+        showVideoMsg("Video silinirken hata oluştu.", false);
+      }
+    };
 
     // İlk yüklemeler
     loadAnnouncement();
