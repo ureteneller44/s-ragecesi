@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hayati İşler • Fotoğraf & Video Galerisi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: radial-gradient(circle at top, #3b0b0b 0, #050308 55%, #000 100%);
+      color: #f8f4ec;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Üst duyuru bandı (sade versiyon) */
+    .top-bar {
+      width: 100%;
+      padding: 14px 16px;
+      background: linear-gradient(115deg, #65a30d, #a3e635, #facc15, #65a30d);
+      background-size: 300% 300%;
+      animation: barWave 8s ease-in-out infinite;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    }
+
+    @keyframes barWave {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .top-bar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      color: #ffffff;
+      flex-wrap: wrap;
+    }
+
+    .top-title {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .top-link {
+      font-size: 0.82rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.6);
+      cursor: pointer;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 12px 32px;
+    }
+
+    .page-title {
+      font-size: 1.6rem;
+      margin-bottom: 4px;
+    }
+
+    .page-subtitle {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin-bottom: 18px;
+    }
+
+    /* Sekmeli layout */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.9);
+      color: #f9fafb;
+      font-size: 0.85rem;
+      cursor: pointer;
+      opacity: 0.85;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(90deg, #f97316, #ea580c);
+      border-color: rgba(248,250,252,0.9);
+      color: #0b1220;
+      opacity: 1;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* Galeri grid ortak */
+    .gallery-grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    .gallery-item,
+    .video-item {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      overflow: hidden;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+
+    /* Foto */
+    .gallery-thumb {
+      width: 100%;
+      height: 190px;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .gallery-caption {
+      padding: 6px 8px 8px;
+      border-top: 1px solid rgba(15,23,42,0.9);
+      opacity: 0.9;
+    }
+
+    .gallery-caption strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* Video */
+    .video-item video {
+      width: 100%;
+      height: 190px;
+      object-fit: contain;
+      background: #000;
+    }
+
+    .video-caption {
+      padding: 6px 8px 8px;
+      border-top: 1px solid rgba(15,23,42,0.9);
+      opacity: 0.9;
+    }
+
+    .placeholder {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      background: rgba(15,23,42,0.8);
+      font-size: 0.82rem;
+      opacity: 0.9;
+    }
+
+    footer {
+      font-size: 0.75rem;
+      padding: 10px 12px 14px;
+      text-align: center;
+      opacity: 0.6;
+    }
+
+    @media (max-width: 640px) {
+      .top-bar-inner {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <div class="top-title">Hayati İşler • Fotoğraf & Video Galerisi</div>
+      <a href="index.html" class="top-link">Ana sayfaya dön</a>
+    </div>
+  </div>
+
+  <main>
+    <h1 class="page-title">Tüm Galeri</h1>
+    <p class="page-subtitle">
+      Bu sayfada yönetici panelinden yüklediğiniz <strong>tüm fotoğraf ve videolar</strong> listelenir.
+      Üstteki sekmelerden sadece fotoğraf veya sadece videoları görebilirsiniz.
+    </p>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-target="tab-photos">Fotoğraf Galerisi</button>
+      <button class="tab-btn" data-target="tab-videos">Video Galerisi</button>
+    </div>
+
+    <!-- Fotoğraf paneli -->
+    <section id="tab-photos" class="tab-panel active">
+      <div id="photoGallery" class="gallery-grid"></div>
+      <div id="photoEmpty" class="placeholder">
+        Henüz fotoğraf eklenmemiştir. Yönetici panelinden fotoğraf yüklediğinizde burada görünecektir.
+      </div>
+    </section>
+
+    <!-- Video paneli -->
+    <section id="tab-videos" class="tab-panel">
+      <div id="videoGallery" class="gallery-grid"></div>
+      <div id="videoEmpty" class="placeholder">
+        Henüz video eklenmemiştir. Yönetici panelinden video yüklediğinizde burada görünecektir.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Hayati İşler & Urfa Sıra Gecesi Ekibi. Tüm hakları saklıdır.
+  </footer>
+
+  <script>
+    // Yıl
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Sekme geçişleri
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabPanels  = document.querySelectorAll(".tab-panel");
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-target");
+
+        tabButtons.forEach(b => b.classList.remove("active"));
+        tabPanels.forEach(p => p.classList.remove("active"));
+
+        btn.classList.add("active");
+        const panel = document.getElementById(target);
+        if (panel) panel.classList.add("active");
+      });
+    });
+
+    // JSON normalizer (index.html ile aynı mantık)
+    function normalizeList(data, key) {
+      if (!data) return [];
+      if (Array.isArray(data)) return data;
+      if (data[key] && Array.isArray(data[key])) return data[key];
+      return [];
+    }
+
+    // Fotoğrafları yükle
+    function loadPhotos() {
+      const gallery = document.getElementById("photoGallery");
+      const emptyBox = document.getElementById("photoEmpty");
+      if (!gallery) return;
+
+      fetch("photos.json", { cache: "no-store" })
+        .then(res => {
+          if (!res.ok) throw new Error("no photos.json");
+          return res.json();
+        })
+        .then(data => {
+          const list = normalizeList(data, "photos");
+          if (!list.length) {
+            gallery.innerHTML = "";
+            if (emptyBox) emptyBox.style.display = "block";
+            return;
+          }
+
+          let html = "";
+          list.forEach(item => {
+            const src   = (item.src || item.file || item.path || "").trim();
+            if (!src) return;
+            const title = (item.title || item.name || "Sahne fotoğrafı").trim();
+            const desc  = (item.desc || "").trim();
+
+            html +=
+              '<div class="gallery-item">' +
+                '<div class="gallery-thumb">' +
+                  '<img src="' + src + '" alt="' + title.replace(/"/g, "&quot;") + '">' +
+                '</div>' +
+                '<div class="gallery-caption">' +
+                  '<strong>' + title + '</strong>' +
+                  (desc ? '<span>' + desc + '</span>' : '') +
+                '</div>' +
+              '</div>';
+          });
+
+          if (html) {
+            gallery.innerHTML = html;
+            if (emptyBox) emptyBox.style.display = "none";
+          } else {
+            gallery.innerHTML = "";
+            if (emptyBox) emptyBox.style.display = "block";
+          }
+        })
+        .catch(() => {
+          // Hata olursa placeholder kalsın
+        });
+    }
+
+    // Videoları yükle
+    function loadVideos() {
+      const gallery = document.getElementById("videoGallery");
+      const emptyBox = document.getElementById("videoEmpty");
+      if (!gallery) return;
+
+      fetch("videos.json", { cache: "no-store" })
+        .then(res => {
+          if (!res.ok) throw new Error("no videos.json");
+          return res.json();
+        })
+        .then(data => {
+          const list = normalizeList(data, "videos");
+          if (!list.length) {
+            gallery.innerHTML = "";
+            if (emptyBox) emptyBox.style.display = "block";
+            return;
+          }
+
+          let html = "";
+          list.forEach(item => {
+            const src   = (item.src || item.file || item.path || "").trim();
+            if (!src) return;
+            const title = (item.title || item.name || "Sahne videosu").trim();
+            const desc  = (item.desc || "").trim();
+
+            html +=
+              '<div class="video-item">' +
+                '<video controls preload="metadata">' +
+                  '<source src="' + src + '">' +
+                  'Tarayıcınız video etiketini desteklemiyor.' +
+                '</video>' +
+                '<div class="video-caption">' +
+                  '<strong>' + title + '</strong>' +
+                  (desc ? '<span> - ' + desc + '</span>' : '') +
+                '</div>' +
+              '</div>';
+          });
+
+          if (html) {
+            gallery.innerHTML = html;
+            if (emptyBox) emptyBox.style.display = "none";
+          } else {
+            gallery.innerHTML = "";
+            if (emptyBox) emptyBox.style.display = "block";
+          }
+        })
+        .catch(() => {
+          // Hata olursa placeholder kalsın
+        });
+    }
+
+    // İlk yüklemede çağır
+    window.addEventListener("DOMContentLoaded", function () {
+      loadPhotos();
+      loadVideos();
+    });
+  </script>
+</body>
+</html>
