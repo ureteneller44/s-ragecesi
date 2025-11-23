@@ -679,17 +679,15 @@
 </head>
 <body>
 
-    <!-- Üst duyuru alanı (announcement.json'dan okunacak) -->
+      <!-- Üst duyuru alanı (Firebase'den okunacak) -->
   <div class="announcement-bar">
     <div class="announcement-inner">
       <span class="announcement-label">BUGÜN NEREDEYİZ?</span>
-      <span id="announcementText" class="announcement-text">
-        Hayati İşler ve Ekibi bu akşam
-        <strong>İstanbul • Mey Gazinosu</strong>'nda, sahne saati:
-        <strong>21:00</strong>
-      </span>
+      <!-- Üst ana satırı boş bırakıyoruz, kullanmayacağız -->
+      <span id="announcementText" class="announcement-text"></span>
+      <!-- Sadece admin panelindeki "Alt açıklama" burada görünecek -->
       <span id="announcementSub" class="announcement-sub">
-        Rezervasyon için hemen arayın, masa ve sahne programı hızlı dolmaktadır.
+        <!-- Varsayılan boş; panelden gelen yazı ile dolacak -->
       </span>
     </div>
   </div>
