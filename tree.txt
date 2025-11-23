@@ -1,0 +1,44 @@
+.
+├── .github
+│   └── workflows
+│       └── static.yml
+├── admin
+│   ├── index.html
+│   ├── panel.html
+│   └── save-announcement.php
+├── announcement.json
+├── api
+│   └── get-photos.php
+├── get-announcement.php
+├── get-photos.php
+├── index.html
+├── photos.json
+├── s-ragecesi
+│   ├── .github
+│   │   └── workflows
+│   │       └── static.yml
+│   ├── admin
+│   │   ├── index.html
+│   │   ├── panel.html
+│   │   └── save-announcement.php
+│   ├── announcement.json
+│   ├── api
+│   │   └── get-photos.php
+│   ├── firebase-init.js
+│   ├── get-announcement.php
+│   ├── get-photos.php
+│   ├── index.html
+│   ├── photos.json
+│   ├── upload-photo.php
+│   ├── uploads
+│   │   └── videos
+│   │       └── upload-video.php
+│   └── videos.json
+├── tree.txt
+├── upload-photo.php
+├── uploads
+│   └── videos
+│       └── upload-video.php
+└── videos.json
+
+14 directories, 28 files
