@@ -1163,218 +1163,261 @@
   </footer>
 
   <script>
-    // Yıl otomatik
-    document.getElementById('year').textContent = new Date().getFullYear();
+  // Yıl otomatik
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Yıldızları oluştur
-    function renderStars(container, rating) {
-      const fullStar = "★";
-      const emptyStar = "☆";
-      rating = Math.max(0, Math.min(5, Number(rating) || 0));
-      let stars = "";
-      for (let i = 1; i <= 5; i++) {
-        stars += i <= rating ? fullStar : emptyStar;
-      }
-      container.textContent = stars + " (" + rating + ")";
+  // Yıldızları oluştur
+  function renderStars(container, rating) {
+    const fullStar = "★";
+    const emptyStar = "☆";
+    rating = Math.max(0, Math.min(5, Number(rating) || 0));
+    let stars = "";
+    for (let i = 1; i <= 5; i++) {
+      stars += i <= rating ? fullStar : emptyStar;
+    }
+    container.textContent = stars + " (" + rating + ")";
+  }
+
+  // Küfür / hakaret / terör kelimeleri için basit filtre
+  const bannedWords = [
+    "siktir", "amk", "aq", "orospu", "piç", "pic", "kahpe", "ibne",
+    "yavşak", "şerefsiz", "salak", "aptal", "öl", "geber",
+    "terör", "teror", "terörist", "terorist", "bomba", "silah",
+    "daeş", "deaş", "işid", "işis"
+  ];
+
+  // JSON'dan veri okuma yardımcıları
+  function normalizeList(data, key) {
+    if (!data) return [];
+    if (Array.isArray(data)) return data;
+    if (data[key] && Array.isArray(data[key])) return data[key];
+    return [];
+  }
+
+  // 🔔 Duyuru (üst bar) yükleme
+  function loadAnnouncement() {
+    const textEl = document.getElementById("announcementText");
+    const subEl = document.getElementById("announcementSub");
+
+    if (typeof db === "undefined") {
+      console.error("Firebase 'db' tanımlı değil (firebase-init.js yüklü mü?).");
+      return;
     }
 
-    // Küfür / hakaret / terör kelimeleri için basit filtre
-    const bannedWords = [
-      "siktir", "amk", "aq", "orospu", "piç", "pic", "kahpe", "ibne",
-      "yavşak", "şerefsiz", "salak", "aptal", "öl", "geber",
-      "terör", "teror", "terörist", "terorist", "bomba", "silah", "daeş", "deaş", "işid", "işis"
-    ];
+    db.collection("announcements")
+      .doc("QEYYxEpClLZ5yKZVLxeS")
+      .get()
+      .then((doc) => {
+        if (!doc.exists) return;
 
-    // JSON'dan veri okuma yardımcıları
-    function normalizeList(data, key) {
-      if (!data) return [];
-      if (Array.isArray(data)) return data;
-      if (data[key] && Array.isArray(data[key])) return data[key];
-      return [];
-    }
+        const data = doc.data() || {};
+        const sub = (data.sub || "").trim();
 
-      function loadAnnouncement() {
-  const textEl = document.getElementById("announcementText");
-  const subEl = document.getElementById("announcementSub");
-
-  db.collection("announcements").doc("QEYYxEpClLZ5yKZVLxeS").get()
-    .then((doc) => {
-      if (!doc.exists) return;
-
-      const data = doc.data() || {};
-      const sub  = (data.sub || "").trim();
-
-      // Üst satırı kullanmıyoruz
-      if (textEl) {
-        textEl.textContent = "";
-      }
-
-      // Sadece admin panelindeki "Alt açıklama" görünsün
-      if (subEl) {
-        subEl.textContent = sub || "çok kıssa surede adres ve detay bilgiler paylaşılacak....";
-      }
-    })
-    .catch((err) => {
-      console.error("Duyuru yüklenemedi:", err);
-    });
-}
-
-    function loadPhotos() {
-      const gallery = document.getElementById("photoGallery");
-      const emptyBox = document.getElementById("photoEmpty");
-      if (!gallery) return;
-
-      fetch("photos.json", { cache: "no-store" })
-        .then(function (res) {
-          if (!res.ok) throw new Error("no photos.json");
-          return res.json();
-        })
-        .then(function (data) {
-          const list = normalizeList(data, "photos");
-          if (!list.length) return;
-
-          let html = "";
-          list.forEach(function (item) {
-            const src = (item.src || item.file || item.path || "").trim();
-            if (!src) return;
-            const title = (item.title || item.name || "Sahne fotoğrafı").trim();
-
-            html +=
-              '<div class="gallery-item">' +
-                '<div class="gallery-thumb">' +
-                  '<img src="' + src + '" alt="' + title.replace(/"/g, "&quot;") + '">' +
-                '</div>' +
-                '<div class="gallery-caption">' + title + '</div>' +
-              '</div>';
-          });
-
-          if (html) {
-            gallery.innerHTML = html;
-            if (emptyBox) emptyBox.style.display = "none";
-          }
-        })
-        .catch(function () {
-          // Hata olursa placeholder kalsın
-        });
-    }
-
-    function loadVideos() {
-      const gallery = document.getElementById("videoGallery");
-      const emptyBox = document.getElementById("videoEmpty");
-      if (!gallery) return;
-
-      fetch("videos.json", { cache: "no-store" })
-        .then(function (res) {
-          if (!res.ok) throw new Error("no videos.json");
-          return res.json();
-        })
-        .then(function (data) {
-          const list = normalizeList(data, "videos");
-          if (!list.length) return;
-
-          let html = "";
-          list.forEach(function (item) {
-            const src = (item.src || item.file || item.path || "").trim();
-            if (!src) return;
-            const title = (item.title || item.name || "Sahne videosu").trim();
-
-            html +=
-              '<div class="video-item">' +
-                '<video controls preload="metadata">' +
-                  '<source src="' + src + '">' +
-                  'Tarayıcınız video etiketini desteklemiyor.' +
-                '</video>' +
-                '<div class="video-caption">' + title + '</div>' +
-              '</div>';
-          });
-
-          if (html) {
-            gallery.innerHTML = html;
-            if (emptyBox) emptyBox.style.display = "none";
-          }
-        })
-        .catch(function () {
-          // Hata olursa placeholder kalsın
-        });
-    }
-
-    window.addEventListener("DOMContentLoaded", function () {
-      // Mevcut sahte yorumların yıldızlarını çiz
-      document.querySelectorAll(".review-card").forEach(function (card) {
-        const rating = card.getAttribute("data-rating");
-        const starsEl = card.querySelector(".review-stars");
-        if (starsEl) {
-          renderStars(starsEl, rating);
+        // Üst satırı kullanmıyoruz
+        if (textEl) {
+          textEl.textContent = "";
         }
+
+        // Sadece admin panelindeki "Alt açıklama" görünsün
+        if (subEl) {
+          subEl.textContent =
+            sub || "çok kıssa surede adres ve detay bilgiler paylaşılacak....";
+        }
+      })
+      .catch((err) => {
+        console.error("Duyuru yüklenemedi:", err);
       });
+  }
 
-      // Yorum formu
-const form = document.getElementById("reviewForm");
-const nameInput = document.getElementById("reviewName");
-const ratingSelect = document.getElementById("reviewRating");
-const textArea = document.getElementById("reviewText");
-const messageBox = document.getElementById("reviewMessage");
+  // 📸 Fotoğraf galerisi yükleme
+  function loadPhotos() {
+    const gallery = document.getElementById("photoGallery");
+    const emptyBox = document.getElementById("photoEmpty");
+    if (!gallery) return;
 
-if (form) {
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+    fetch("photos.json", { cache: "no-store" })
+      .then(function (res) {
+        if (!res.ok) throw new Error("no photos.json");
+        return res.json();
+      })
+      .then(function (data) {
+        const list = normalizeList(data, "photos");
+        if (!list.length) return;
 
-    const name = (nameInput.value || "").trim();
-    const rating = ratingSelect.value;
-    const text = (textArea.value || "").trim();
+        let html = "";
+        list.forEach(function (item) {
+          const src = (item.src || item.file || item.path || "").trim();
+          if (!src) return;
+          const title = (item.title || item.name || "Sahne fotoğrafı").trim();
 
-    // Mesaj kutusunu sıfırla
-    messageBox.style.display = "none";
-    messageBox.textContent = "";
-    messageBox.className = "alert";
-
-    // Zorunlu alan kontrolü
-    if (!name || !rating || !text) {
-      messageBox.classList.add("alert-error");
-      messageBox.textContent = "Lütfen ad, puan ve yorum alanlarını eksiksiz doldurun.";
-      messageBox.style.display = "block";
-      return;
-    }
-
-    const lowerContent = (name + " " + text).toLocaleLowerCase("tr");
-
-    // Küfür / hakaret filtresi
-    const hasBanned = bannedWords.some(function (word) {
-      return lowerContent.includes(word);
-    });
-
-    if (hasBanned) {
-      messageBox.classList.add("alert-error");
-      messageBox.textContent = "Lütfen küfür, hakaret veya terör içeren ifadeler kullanmayın.";
-      messageBox.style.display = "block";
-      return;
-    }
-
-    // 🔥 YORUMU FIRESTORE'A KAYDETME
-    db.collection("comments").add({
-      name: name,
-      rating: Number(rating),
-      text: text,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      approved: false   // admin onayına düşsün
-    })
-    .then(() => {
-      form.reset();
-      messageBox.classList.add("alert-success");
-      messageBox.textContent = "Teşekkürler! Yorumunuz alındı, yönetici onayından sonra yayına girecek.";
-      messageBox.style.display = "block";
-    })
-    .catch((err) => {
-      messageBox.classList.add("alert-error");
-      messageBox.textContent = "Hata oluştu: " + err.message;
-      messageBox.style.display = "block";
-    });
-
-  });
-}
+          html +=
+            '<div class="gallery-item">' +
+            '<div class="gallery-thumb">' +
+            '<img src="' +
+            src +
+            '" alt="' +
+            title.replace(/"/g, "&quot;") +
+            '">' +
+            "</div>" +
+            '<div class="gallery-caption">' +
+            title +
+            "</div>" +
+            "</div>";
         });
 
-     </script>
+        if (html) {
+          gallery.innerHTML = html;
+          if (emptyBox) emptyBox.style.display = "none";
+        }
+      })
+      .catch(function (err) {
+        console.error("Fotoğraflar yüklenemedi:", err);
+        // Hata olursa placeholder kalsın
+      });
+  }
+
+  // 🎥 Video galerisi yükleme
+  function loadVideos() {
+    const gallery = document.getElementById("videoGallery");
+    const emptyBox = document.getElementById("videoEmpty");
+    if (!gallery) return;
+
+    fetch("videos.json", { cache: "no-store" })
+      .then(function (res) {
+        if (!res.ok) throw new Error("no videos.json");
+        return res.json();
+      })
+      .then(function (data) {
+        const list = normalizeList(data, "videos");
+        if (!list.length) return;
+
+        let html = "";
+        list.forEach(function (item) {
+          const src = (item.src || item.file || item.path || "").trim();
+          if (!src) return;
+          const title = (item.title || item.name || "Sahne videosu").trim();
+
+          html +=
+            '<div class="video-item">' +
+            '<video controls preload="metadata">' +
+            '<source src="' +
+            src +
+            '">' +
+            "Tarayıcınız video etiketini desteklemiyor." +
+            "</video>" +
+            '<div class="video-caption">' +
+            title +
+            "</div>" +
+            "</div>";
+        });
+
+        if (html) {
+          gallery.innerHTML = html;
+          if (emptyBox) emptyBox.style.display = "none";
+        }
+      })
+      .catch(function (err) {
+        console.error("Videolar yüklenemedi:", err);
+        // Hata olursa placeholder kalsın
+      });
+  }
+
+  // Sayfa yüklendiğinde çalışacaklar
+  window.addEventListener("DOMContentLoaded", function () {
+    // ⭐ Mevcut sahte yorumların yıldızlarını çiz
+    document.querySelectorAll(".review-card").forEach(function (card) {
+      const rating = card.getAttribute("data-rating");
+      const starsEl = card.querySelector(".review-stars");
+      if (starsEl) {
+        renderStars(starsEl, rating);
+      }
+    });
+
+    // ✍️ Yorum formu
+    const form = document.getElementById("reviewForm");
+    const nameInput = document.getElementById("reviewName");
+    const ratingSelect = document.getElementById("reviewRating");
+    const textArea = document.getElementById("reviewText");
+    const messageBox = document.getElementById("reviewMessage");
+
+    if (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const name = (nameInput.value || "").trim();
+        const rating = ratingSelect.value;
+        const text = (textArea.value || "").trim();
+
+        // Mesaj kutusunu sıfırla
+        messageBox.style.display = "none";
+        messageBox.textContent = "";
+        messageBox.className = "alert";
+
+        // Zorunlu alan kontrolü
+        if (!name || !rating || !text) {
+          messageBox.classList.add("alert-error");
+          messageBox.textContent =
+            "Lütfen ad, puan ve yorum alanlarını eksiksiz doldurun.";
+          messageBox.style.display = "block";
+          return;
+        }
+
+        const lowerContent = (name + " " + text).toLocaleLowerCase("tr");
+
+        // Küfür / hakaret filtresi
+        const hasBanned = bannedWords.some(function (word) {
+          return lowerContent.includes(word);
+        });
+
+        if (hasBanned) {
+          messageBox.classList.add("alert-error");
+          messageBox.textContent =
+            "Lütfen küfür, hakaret veya terör içeren ifadeler kullanmayın.";
+          messageBox.style.display = "block";
+          return;
+        }
+
+        // Firebase db kontrolü
+        if (typeof db === "undefined") {
+          messageBox.classList.add("alert-error");
+          messageBox.textContent =
+            "Sunucu bağlantısı kurulamadı (db tanımlı değil). Lütfen daha sonra tekrar deneyin.";
+          messageBox.style.display = "block";
+          console.error("Firebase 'db' tanımlı değil, yorum kaydedilemedi.");
+          return;
+        }
+
+        // 🔥 YORUMU FIRESTORE'A KAYDETME
+        db.collection("comments")
+          .add({
+            name: name,
+            rating: Number(rating),
+            text: text,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            approved: false // admin onayına düşsün
+          })
+          .then(() => {
+            form.reset();
+            messageBox.classList.add("alert-success");
+            messageBox.textContent =
+              "Teşekkürler! Yorumunuz alındı, yönetici onayından sonra yayına girecek.";
+            messageBox.style.display = "block";
+          })
+          .catch((err) => {
+            messageBox.classList.add("alert-error");
+            messageBox.textContent = "Hata oluştu: " + err.message;
+            messageBox.style.display = "block";
+          });
+      });
+    }
+
+    // 🔁 Sayfa açıldığında üst bar + foto + video galerisini yükle
+    loadAnnouncement();
+    loadPhotos();
+    loadVideos();
+  });
+</script>
+
    <!-- Firebase CDN -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
