@@ -89,7 +89,7 @@
       100% { transform: scale(1.25); opacity: 0; }
     }
 
-        .announcement-inner {
+    .announcement-inner {
       position: relative;
       z-index: 5;
       display: flex;
@@ -286,63 +286,63 @@
     }
 
     /* GALERİ GRID */
-.gallery-grid {
-  margin-top: 10px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 10px;
-}
+    .gallery-grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+    }
 
-.gallery-item,
-.video-item {
-  background: rgba(15, 23, 42, 0.9);
-  border-radius: 12px;
-  border: 1px solid rgba(148, 163, 184, 0.4);
-  overflow: hidden;
-  font-size: 0.78rem;
-  display: flex;
-  flex-direction: column;
-}
+    .gallery-item,
+    .video-item {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      overflow: hidden;
+      font-size: 0.78rem;
+      display: flex;
+      flex-direction: column;
+    }
 
-/* ---- FOTOĞRAFLAR ---- */
-.gallery-thumb {
-  width: 100%;
-  height: 180px;                  /* SABİT YÜKSEKLİK */
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #000;              /* boşluklar için siyah zemin */
-}
+    /* ---- FOTOĞRAFLAR ---- */
+    .gallery-thumb {
+      width: 100%;
+      height: 180px;                  /* SABİT YÜKSEKLİK */
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;              /* boşluklar için siyah zemin */
+    }
 
-.gallery-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;            /* kırpmadan göster, küçük büyür */
-}
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;            /* kırpmadan göster, küçük büyür */
+    }
 
-/* ---- FOTOĞRAF ALT YAZI ---- */
-.gallery-caption {
-  padding: 6px 8px 7px;
-  border-top: 1px solid rgba(15,23,42,0.9);
-  opacity: 0.9;
-}
+    /* ---- FOTOĞRAF ALT YAZI ---- */
+    .gallery-caption {
+      padding: 6px 8px 7px;
+      border-top: 1px solid rgba(15,23,42,0.9);
+      opacity: 0.9;
+    }
 
-/* ---- VİDEOLAR ---- */
-.video-item video {
-  width: 100%;
-  height: 230px;        /* daha geniş görünmesi için */
-  object-fit: cover;    /* videoyu genişletir, kenarlardan kırpar */
-  background: #000;
-}
+    /* ---- VİDEOLAR ---- */
+    .video-item video {
+      width: 100%;
+      height: 230px;        /* daha geniş görünmesi için */
+      object-fit: cover;    /* videoyu genişletir, kenarlardan kırpar */
+      background: #000;
+    }
 
-/* ---- VİDEO ALT YAZI ---- */
-.video-caption {
-  padding: 6px 8px 7px;
-  border-top: 1px solid rgba(15,23,42,0.9);
-  font-size: 0.78rem;
-  opacity: 0.9;
-}
+    /* ---- VİDEO ALT YAZI ---- */
+    .video-caption {
+      padding: 6px 8px 7px;
+      border-top: 1px solid rgba(15,23,42,0.9);
+      font-size: 0.78rem;
+      opacity: 0.9;
+    }
 
     /* İletişim Bölümü */
     .contact-section {
@@ -590,21 +590,21 @@
     }
 
     /* Sosyal icon bar (altta sabit) */
-.social-bar {
-  position: fixed;
-  left: 50%;
-  bottom: 12px;
-  transform: translateX(-50%);
-  z-index: 999;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.6);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-}
+    .social-bar {
+      position: fixed;
+      left: 50%;
+      bottom: 12px;
+      transform: translateX(-50%);
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    }
 
     .social-icon {
       width: 34px;
@@ -645,6 +645,43 @@
       color: #e5e7eb;
     }
 
+    /* Dil seçici */
+    .lang-switcher {
+      position: fixed;
+      top: 10px;
+      right: 16px;
+      z-index: 1000;
+      display: flex;
+      gap: 6px;
+      padding: 4px 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 0.75rem;
+      align-items: center;
+    }
+
+    .lang-label {
+      opacity: 0.8;
+      margin-right: 2px;
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: #e5e7eb;
+      padding: 3px 7px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.75rem;
+    }
+
+    .lang-btn.active {
+      background: #facc15;
+      color: #111827;
+      font-weight: 600;
+    }
+
     /* Responsive */
     @media (max-width: 900px) {
       .reviews-layout {
@@ -671,12 +708,24 @@
       .contact-card {
         align-items: flex-start;
       }
+      .lang-switcher {
+        top: 70px;
+        right: 10px;
+      }
     }
   </style>
 </head>
 <body>
 
-      <!-- Üst duyuru alanı (Firebase'den okunacak) -->
+  <!-- Dil seçici -->
+  <div class="lang-switcher" aria-label="Dil seçimi">
+    <span class="lang-label">Dil:</span>
+    <button type="button" class="lang-btn" data-lang="tr">TR</button>
+    <button type="button" class="lang-btn" data-lang="en">EN</button>
+    <button type="button" class="lang-btn" data-lang="ar">العربية</button>
+  </div>
+
+  <!-- Üst duyuru alanı (Firebase'den okunacak) -->
   <div class="announcement-bar">
     <div class="announcement-inner">
       <span class="announcement-label">BUGÜN NEREDEYİZ?</span>
@@ -703,35 +752,35 @@
         </p>
 
         <div class="hero-tags">
-  <div class="tag">Canlı müzik</div>
-  <div class="tag">Otantik sahne</div>
-  <div class="tag">Urfa & doğu ezgileri</div>
-  <div class="tag">Özel konsept</div>
+          <div class="tag">Canlı müzik</div>
+          <div class="tag">Otantik sahne</div>
+          <div class="tag">Urfa & doğu ezgileri</div>
+          <div class="tag">Özel konsept</div>
 
-  <div style="margin-top:28px;">
-    <h2 style="color:#facc15; margin-bottom:12px; font-size:1.3rem;">Blog Yazıları</h2>
-    <div style="display:flex; flex-wrap:wrap; gap:12px;">
+          <div style="margin-top:28px;">
+            <h2 style="color:#facc15; margin-bottom:12px; font-size:1.3rem;">Blog Yazıları</h2>
+            <div style="display:flex; flex-wrap:wrap; gap:12px;">
 
-      <a href="/blog/sira-gecesi-adabi.html" style="padding:10px 16px; background:#222; border:1px solid #facc15; border-radius:6px; color:#facc15; text-decoration:none; font-size:0.95rem;">Sıra Gecesi Adabı</a>
-      <a href="/blog/sira-gecesi-tarihcesi.html" style="padding:10px 16px; background:#222; border:1px solid #facc15; border-radius:6px; color:#facc15; text-decoration:none; font-size:0.95rem;">Sıra Gecesi Tarihçesi</a>
-      <a href="/blog/turkulerde-gecen-isimler-ve-hikayeleri.html" style="padding:10px 16px; background:#222; border:1px solid #facc15; border-radius:6px; color:#facc15; text-decoration:none; font-size:0.95rem;">Türkülerde Geçen İsimler & Hikâyeleri</a>
-      <a href="/blog/turkulerin-hikayeleri.html" style="padding:10px 16px; background:#222; border:1px solid #facc15; border-radius:6px; color:#facc15; text-decoration:none; font-size:0.95rem;">Türkülerin Hikâyeleri</a>
-      <a href="/blog/cig-kofte-gelenekleri.html" style="padding:10px 16px; background:#222; border:1px solid #facc15; border-radius:6px; color:#facc15; text-decoration:none; font-size:0.95rem;">Çiğköfte Gelenekleri</a>
+              <a href="/blog/sira-gecesi-adabi.html" style="padding:10px 16px; background:#222; border:1px solid #facc15; border-radius:6px; color:#facc15; text-decoration:none; font-size:0.95rem;">Sıra Gecesi Adabı</a>
+              <a href="/blog/sira-gecesi-tarihcesi.html" style="padding:10px 16px; background:#222; border:1px solid #facc15; border-radius:6px; color:#facc15; text-decoration:none; font-size:0.95rem;">Sıra Gecesi Tarihçesi</a>
+              <a href="/blog/turkulerde-gecen-isimler-ve-hikayeleri.html" style="padding:10px 16px; background:#222; border:1px solid #facc15; border-radius:6px; color:#facc15; text-decoration:none; font-size:0.95rem;">Türkülerde Geçen İsimler & Hikâyeleri</a>
+              <a href="/blog/turkulerin-hikayeleri.html" style="padding:10px 16px; background:#222; border:1px solid #facc15; border-radius:6px; color:#facc15; text-decoration:none; font-size:0.95rem;">Türkülerin Hikâyeleri</a>
+              <a href="/blog/cig-kofte-gelenekleri.html" style="padding:10px 16px; background:#222; border:1px solid #facc15; border-radius:6px; color:#facc15; text-decoration:none; font-size:0.95rem;">Çiğköfte Gelenekleri</a>
 
-      <!-- BURAYA EKLEDİN -->
-      <a href="/blog/mendil-sallama-anlamlari.html" style="padding:10px 16px; background:#222; border:1px solid #facc15; border-radius:6px; color:#facc15; text-decoration:none; font-size:0.95rem;">
-        Sıra Gecesinde Mendil Sallama Anlamları
-      </a>
+              <!-- BURAYA EKLEDİN -->
+              <a href="/blog/mendil-sallama-anlamlari.html" style="padding:10px 16px; background:#222; border:1px solid #facc15; border-radius:6px; color:#facc15; text-decoration:none; font-size:0.95rem;">
+                Sıra Gecesinde Mendil Sallama Anlamları
+              </a>
 
-      <a href="/blog/mırra-ve-sira-gecesi.html" style="padding:10px 16px; background:#222; border:1px solid #facc15; border-radius:6px; color:#facc15; text-decoration:none; font-size:0.95rem;">
-        Mırra ve Sıra Gecesi Kültürü
-      </a>
+              <a href="/blog/mırra-ve-sira-gecesi.html" style="padding:10px 16px; background:#222; border:1px solid #facc15; border-radius:6px; color:#facc15; text-decoration:none; font-size:0.95rem;">
+                Mırra ve Sıra Gecesi Kültürü
+              </a>
 
-    </div>
-  </div>
-</div>
+            </div>
+          </div>
+        </div>
 
-    </div>
+      </div>
       <div class="hero-img">
         <div class="hero-img-inner">
           <img src="/foto.png.jpg" class="hero-main-photo">
@@ -747,8 +796,8 @@
       <!-- Video Galerisi -->
       <article class="section-card">
         <div class="section-tag">Video Galerisi</div>
-<div id="videoEmpty" class="gallery-empty">Henüz video eklenmemiştir. Yönetici panelinden video yüklediğinizde burada görünecektir.</div>
-<div id="videoGallery" class="video-grid"></div>
+        <div id="videoEmpty" class="gallery-empty">Henüz video eklenmemiştir. Yönetici panelinden video yüklediğinizde burada görünecektir.</div>
+        <div id="videoGallery" class="video-grid"></div>
         <h2>Sahne performanslarımız</h2>
         <p>
           Farklı mekanlardaki sıra gecesi performanslarımızı izleyerek ekibimizi daha yakından tanıyabilirsiniz.
@@ -771,8 +820,8 @@
       <!-- Fotoğraf Galerisi -->
       <article class="section-card">
         <div class="section-tag">Fotoğraf Galerisi</div>
-<div id="photoEmpty" class="gallery-empty">Henüz fotoğraf eklenmemiştir. Yönetici panelinden fotoğraf yüklediğinizde burada görünecektir.</div>
-<div id="photoGallery" class="gallery-grid"></div>
+        <div id="photoEmpty" class="gallery-empty">Henüz fotoğraf eklenmemiştir. Yönetici panelinden fotoğraf yüklediğinizde burada görünecektir.</div>
+        <div id="photoGallery" class="gallery-grid"></div>
         <h2>Renkli kareler</h2>
         <p>
           Kına geceleri, düğünler, özel geceler ve mekan performanslarından seçili fotoğraflar.
@@ -794,374 +843,375 @@
     </section>
   </main>
 
-    <!-- İletişim / Rezervasyon Bölümü -->
-    <section class="contact-section">
-      <h2 class="contact-title">İletişim & Rezervasyon</h2>
-      <p class="contact-subtitle">
-        Hayati İşler ve Urfa Sıra Gecesi ekibini davet etmek için hemen bizimle iletişime geçin.
-      </p>
+  <!-- İletişim / Rezervasyon Bölümü -->
+  <section class="contact-section">
+    <h2 class="contact-title">İletişim & Rezervasyon</h2>
+    <p class="contact-subtitle">
+      Hayati İşler ve Urfa Sıra Gecesi ekibini davet etmek için hemen bizimle iletişime geçin.
+    </p>
 
-      <div class="contact-card">
-        <div class="contact-items">
-          <a href="tel:+905373839345" class="contact-item">
-            <span class="contact-item-label">Telefon</span>
-            <span>+90 537 383 93 45</span>
-          </a>
+    <div class="contact-card">
+      <div class="contact-items">
+        <a href="tel:+905373839345" class="contact-item">
+          <span class="contact-item-label">Telefon</span>
+          <span>+90 537 383 93 45</span>
+        </a>
 
-          <a href="https://wa.me/905373839345?text=Merhaba%2C%20Hayati%20%C4%B0%C5%9Fler%20ve%20Urfa%20S%C4%B1ra%20Gecesi%20ekibine%20ula%C5%9Ft%C4%B1m.%20Etkinli%C4%9Fim%20i%C3%A7in%20bilgi%20ve%20rezervasyon%20almak%20istiyorum." target="_blank" class="contact-item">
-            <span class="contact-item-label">WhatsApp</span>
-            <span>WhatsApp üzerinden yazın</span>
-          </a>
+        <a href="https://wa.me/905373839345?text=Merhaba%2C%20Hayati%20%C4%B0%C5%9Fler%20ve%20Urfa%20S%C4%B1ra%20Gecesi%20ekibine%20ula%C5%9Ft%C4%B1m.%20Etkinli%C4%9Fim%20i%C3%A7in%20bilgi%20ve%20rezervasyon%20almak%20istiyorum." target="_blank" class="contact-item">
+          <span class="contact-item-label">WhatsApp</span>
+          <span>WhatsApp üzerinden yazın</span>
+        </a>
 
-          <a href="https://www.instagram.com/hayatislerofficial?igsh=aWxubHJrMmF3bGIx" target="_blank" class="contact-item">
-            <span class="contact-item-label">Instagram</span>
-            <span>@hayatislerofficial</span>
-          </a>
+        <a href="https://www.instagram.com/hayatislerofficial?igsh=aWxubHJrMmF3bGIx" target="_blank" class="contact-item">
+          <span class="contact-item-label">Instagram</span>
+          <span>@hayatislerofficial</span>
+        </a>
 
-          <a href="https://www.tiktok.com/@urfa_sira_gecesi.hayati?_r=1&_t=ZS-91avCXfPbDp" target="_blank" class="contact-item">
-            <span class="contact-item-label">TikTok</span>
-            <span>@urfa_sira_gecesi.hayati</span>
-          </a>
+        <a href="https://www.tiktok.com/@urfa_sira_gecesi.hayati?_r=1&_t=ZS-91avCXfPbDp" target="_blank" class="contact-item">
+          <span class="contact-item-label">TikTok</span>
+          <span>@urfa_sira_gecesi.hayati</span>
+        </a>
 
-          <a href="https://youtube.com/@hayatiislerurfasiragecesi6601?si=ML0h-cbFn8LEIHcV" target="_blank" class="contact-item">
-            <span class="contact-item-label">YouTube</span>
-            <span>Kanala göz atın</span>
-          </a>
-        </div>
-
-        <div class="contact-note">
-          Lütfen rezervasyonunuz için tarih, şehir ve mekan bilgisi ile birlikte kişi sayısını iletin.
-        </div>
+        <a href="https://youtube.com/@hayatiislerurfasiragecesi6601?si=ML0h-cbFn8LEIHcV" target="_blank" class="contact-item">
+          <span class="contact-item-label">YouTube</span>
+          <span>Kanala göz atın</span>
+        </a>
       </div>
-    </section>
 
-    <!-- Yorumlar Bölümü -->
-    <section class="reviews" id="yorumlar">
-      <h2 class="reviews-title">Misafir Yorumları</h2>
-      <p class="reviews-subtitle">
-        Gece sonunda misafirlerimizden gelen gerçek geri bildirimler. Siz de yorum bırakabilirsiniz.
-      </p>
+      <div class="contact-note">
+        Lütfen rezervasyonunuz için tarih, şehir ve mekan bilgisi ile birlikte kişi sayısını iletin.
+      </div>
+    </div>
+  </section>
 
-      <div class="reviews-layout">
-        <!-- Sol: Yorum listesi -->
-        <div class="reviews-list" aria-label="Misafir yorumları">
-          <!-- Örnek, sahte ama organik duran yorumlar -->
-          <article class="review-card" data-rating="5">
-            <div class="review-header">
-              <div class="review-name">Merve D.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Kına gecemizde sahne aldılar, tüm gece boyunca tempo hiç düşmedi. Hem aile büyükleri hem gençler çok eğlendi.
-            </p>
-            <div class="review-meta">İstanbul • Kına gecesi</div>
-          </article>
+  <!-- Yorumlar Bölümü -->
+  <section class="reviews" id="yorumlar">
+    <h2 class="reviews-title">Misafir Yorumları</h2>
+    <p class="reviews-subtitle">
+      Gece sonunda misafirlerimizden gelen gerçek geri bildirimler. Siz de yorum bırakabilirsiniz.
+    </p>
 
-          <article class="review-card" data-rating="5">
-            <div class="review-header">
-              <div class="review-name">Ali B.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Urfa türkülerini bu kadar içten söyleyen bir ekip uzun zamandır görmemiştim. Davul zurna performansı efsaneydi.
-            </p>
-            <div class="review-meta">Ankara • Düğün</div>
-          </article>
-
-          <article class="review-card" data-rating="4">
-            <div class="review-header">
-              <div class="review-name">Sevda K.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Kurumsal yılbaşı etkinliğimizde sahne aldılar, misafirlerimiz “bu seneki en iyi organizasyon” dedi.
-            </p>
-            <div class="review-meta">İzmir • Kurumsal etkinlik</div>
-          </article>
-
-          <article class="review-card" data-rating="5">
-            <div class="review-header">
-              <div class="review-name">Serhat G.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Halaylar, türküler, espriler… Herkes sahnedeydi resmen. Özellikle finaldeki toplu halay unutulmazdı.
-            </p>
-            <div class="review-meta">Bursa • Düğün</div>
-          </article>
-
-          <article class="review-card" data-rating="5">
-            <div class="review-header">
-              <div class="review-name">Elif Y.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Kız isteme ve nişanı aynı gün yaptık, ikisine de ayrı konsept hazırladılar. Profesyonel ve güler yüzlü bir ekip.
-            </p>
-            <div class="review-meta">Gaziantep • Nişan</div>
-          </article>
-
-          <article class="review-card" data-rating="4">
-            <div class="review-header">
-              <div class="review-name">Burak T.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Mekanın ses sistemiyle uyumlu çalıştılar, prova sürecinde bile titiz davrandılar. Güvenle tavsiye ediyorum.
-            </p>
-            <div class="review-meta">İstanbul • Meyhane programı</div>
-          </article>
-
-          <article class="review-card" data-rating="5">
-            <div class="review-header">
-              <div class="review-name">Zeynep A.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Kayınvalidem “ben böyle eğlence görmedim” dedi, daha ne olsun. Özellikle sıra gecesi bölümü harikaydı.
-            </p>
-            <div class="review-meta">Konya • Düğün</div>
-          </article>
-
-          <article class="review-card" data-rating="5">
-            <div class="review-header">
-              <div class="review-name">Hakan E.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Sahnede duruşları, kıyafetleri, disiplinleri ve enerjileri gerçekten çok kaliteli. Organizasyon işini bilen bir ekip.
-            </p>
-            <div class="review-meta">Adana • Özel gece</div>
-          </article>
-
-          <article class="review-card" data-rating="4">
-            <div class="review-header">
-              <div class="review-name">Gülşah N.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Konsept tamamen bize özel hazırlandı. Açılış türküsünden kapanışa kadar her şey planlı ve akıcıydı.
-            </p>
-            <div class="review-meta">Mersin • Kına gecesi</div>
-          </article>
-
-          <article class="review-card" data-rating="5">
-            <div class="review-header">
-              <div class="review-name">Mustafa İ.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              İş yemeği gibi başlayan gece, sonlara doğru tam bir sıra gecesine döndü. Tüm ekibe emekleri için teşekkürler.
-            </p>
-            <div class="review-meta">İstanbul • Kurumsal davet</div>
-          </article>
-
-          <article class="review-card" data-rating="5">
-            <div class="review-header">
-              <div class="review-name">Selin Ö.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Farklı şehirlerden gelen misafirlerimiz vardı, herkes kendini Urfa’da hissetti. Özellikle uzun hava performansı efsaneydi.
-            </p>
-            <div class="review-meta">Eskişehir • Düğün</div>
-          </article>
-
-          <article class="review-card" data-rating="4">
-            <div class="review-header">
-              <div class="review-name">Emre K.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Mekanla iletişimleri, prova saati, kurulum ve final toparlama süreci çok düzenliydi. Hiçbir şeyle biz uğraşmadık.
-            </p>
-            <div class="review-meta">İzmit • Lansman</div>
-          </article>
-
-          <article class="review-card" data-rating="5">
-            <div class="review-header">
-              <div class="review-name">Büşra S.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Kadınlar matinemizde hem eğlendik hem duygulandık. Repertuvarı tamamen bize göre ayarladılar.
-            </p>
-            <div class="review-meta">İstanbul • Kadınlar matinesi</div>
-          </article>
-
-          <article class="review-card" data-rating="5">
-            <div class="review-header">
-              <div class="review-name">Onur Ç.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Gece boyunca sahneden inmediler desek yeridir. İstek parçaları bile kırmadılar, tüm konuklar memnun kaldı.
-            </p>
-            <div class="review-meta">Ankara • Düğün</div>
-          </article>
-
-          <article class="review-card" data-rating="4">
-            <div class="review-header">
-              <div class="review-name">Nazan V.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Aile arasında sade bir nişan planlamıştık, onların sayesinde tam bir eğlenceye dönüştü. İyi ki tercih etmişiz.
-            </p>
-            <div class="review-meta">Sakarya • Nişan</div>
-          </article>
-
-          <article class="review-card" data-rating="5">
-            <div class="review-header">
-              <div class="review-name">Arda L.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Davul şovu ve halay bölümleri özellikle çok beğenildi. Sosyal medyada bile misafirlerimiz videoları paylaştı.
-            </p>
-            <div class="review-meta">İstanbul • Özel gece</div>
-          </article>
-
-          <article class="review-card" data-rating="5">
-            <div class="review-header">
-              <div class="review-name">Ece R.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Sahnede kurdukları samimi diyalog, espriler ve enerjileri geceyi çok sıcak bir aile ortamına çevirdi.
-            </p>
-            <div class="review-meta">İzmir • Düğün</div>
-          </article>
-
-          <article class="review-card" data-rating="4">
-            <div class="review-header">
-              <div class="review-name">Gökhan P.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Mekan küçük olmasına rağmen ses dengesi ve düzeni çok iyiydi. Herkesi dahil eden bir sahne performansı vardı.
-            </p>
-            <div class="review-meta">Çanakkale • Özel davet</div>
-          </article>
-
-          <article class="review-card" data-rating="5">
-            <div class="review-header">
-              <div class="review-name">Yasemin C.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Kına giriş müziklerinden damat çıkarma bölümüne kadar tüm detayları tek tek planladılar, içim çok rahattı.
-            </p>
-            <div class="review-meta">İstanbul • Kına gecesi</div>
-          </article>
-
-          <article class="review-card" data-rating="5">
-            <div class="review-header">
-              <div class="review-name">Kerem D.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Yurt dışından gelen akrabalar bile “Türkiye’ye her geldiğimizde böyle eğlence istiyoruz” dedi. Harikasınız.
-            </p>
-            <div class="review-meta">İstanbul • Aile buluşması</div>
-          </article>
-
-          <article class="review-card" data-rating="4">
-            <div class="review-header">
-              <div class="review-name">Derya U.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Çocukların da sahneye çıktığı, herkesin katıldığı çok samimi bir ortam oldu. Misafirlerimiz hala konuşuyor.
-            </p>
-            <div class="review-meta">Kocaeli • Düğün</div>
-          </article>
-
-          <article class="review-card" data-rating="5">
-            <div class="review-header">
-              <div class="review-name">Tolga S.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Son anda tarih değişikliği yapmamıza rağmen bizi kırmadılar, programlarını ayarlayıp geldiler. Çok teşekkür ederiz.
-            </p>
-            <div class="review-meta">İstanbul • Özel gece</div>
-          </article>
-
-          <article class="review-card" data-rating="5">
-            <div class="review-header">
-              <div class="review-name">Nilay H.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Otantik kıyafetleri, repertuvarları ve sahne duruşlarıyla tam anlamıyla profesyoneller. İçimiz rahat bir şekilde teslim olduk.
-            </p>
-            <div class="review-meta">Ankara • Nişan</div>
-          </article>
-
-          <article class="review-card" data-rating="4">
-            <div class="review-header">
-              <div class="review-name">Okan Z.</div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text">
-              Gecenin başında sakin başlayan program, sonunda tam bir şölene dönüştü. Misafirler ayrılırken yüzler gülüyordu.
-            </p>
-            <div class="review-meta">İstanbul • Kurumsal yemek</div>
-          </article>
-        </div>
-
-        <!-- Sağ: Yorum formu -->
-        <aside class="review-form-card">
-          <h3>Yorum Yapın</h3>
-          <p class="review-form-note">
-            Yorumunuz, yönetici onayından sonra yayınlanacaktır. Lütfen saygı çerçevesinde, küfür ve hakaret içermeyen ifadeler kullanın.
+    <div class="reviews-layout">
+      <!-- Sol: Yorum listesi -->
+      <div class="reviews-list" aria-label="Misafir yorumları">
+        <!-- Örnek, sahte ama organik duran yorumlar -->
+        <article class="review-card" data-rating="5">
+          <div class="review-header">
+            <div class="review-name">Merve D.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Kına gecemizde sahne aldılar, tüm gece boyunca tempo hiç düşmedi. Hem aile büyükleri hem gençler çok eğlendi.
           </p>
+          <div class="review-meta">İstanbul • Kına gecesi</div>
+        </article>
 
-          <form id="reviewForm" novalidate>
-            <div class="form-group">
-              <label class="form-label" for="reviewName">Adınız (kısaltılmış da yazabilirsiniz)</label>
-              <input type="text" id="reviewName" class="form-input" placeholder="Örn: Ayşe K.">
-              <div class="form-helper">Tam isminizi yazmak zorunda değilsiniz.</div>
-            </div>
+        <article class="review-card" data-rating="5">
+          <div class="review-header">
+            <div class="review-name">Ali B.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Urfa türkülerini bu kadar içten söyleyen bir ekip uzun zamandır görmemiştim. Davul zurna performansı efsaneydi.
+          </p>
+          <div class="review-meta">Ankara • Düğün</div>
+        </article>
 
-            <div class="form-group">
-              <label class="form-label" for="reviewRating">Puanınız</label>
-              <select id="reviewRating" class="form-select">
-                <option value="">Seçiniz</option>
-                <option value="5">5 - Mükemmel</option>
-                <option value="4">4 - Çok iyi</option>
-                <option value="3">3 - İyi</option>
-                <option value="2">2 - Fena değil</option>
-                <option value="1">1 - Zayıf</option>
-              </select>
-            </div>
+        <article class="review-card" data-rating="4">
+          <div class="review-header">
+            <div class="review-name">Sevda K.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Kurumsal yılbaşı etkinliğimizde sahne aldılar, misafirlerimiz “bu seneki en iyi organizasyon” dedi.
+          </p>
+          <div class="review-meta">İzmir • Kurumsal etkinlik</div>
+        </article>
 
-            <div class="form-group">
-              <label class="form-label" for="reviewText">Yorumunuz</label>
-              <textarea id="reviewText" class="form-textarea" placeholder="Gece hakkında düşüncelerinizi yazın..."></textarea>
-              <div class="form-helper">
-                Küfür, hakaret, ayrımcılık, terör övgüsü vb. içerikler kesinlikle yayınlanmaz.
-              </div>
-            </div>
+        <article class="review-card" data-rating="5">
+          <div class="review-header">
+            <div class="review-name">Serhat G.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Halaylar, türküler, espriler… Herkes sahnedeydi resmen. Özellikle finaldeki toplu halay unutulmazdı.
+          </p>
+          <div class="review-meta">Bursa • Düğün</div>
+        </article>
 
-            <button type="submit" class="btn-submit">Yorumu Gönder</button>
+        <article class="review-card" data-rating="5">
+          <div class="review-header">
+            <div class="review-name">Elif Y.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Kız isteme ve nişanı aynı gün yaptık, ikisine de ayrı konsept hazırladılar. Profesyonel ve güler yüzlü bir ekip.
+          </p>
+          <div class="review-meta">Gaziantep • Nişan</div>
+        </article>
 
-            <div id="reviewMessage" class="alert" style="display:none;"></div>
-          </form>
-        </aside>
+        <article class="review-card" data-rating="4">
+          <div class="review-header">
+            <div class="review-name">Burak T.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Mekanın ses sistemiyle uyumlu çalıştılar, prova sürecinde bile titiz davrandılar. Güvenle tavsiye ediyorum.
+          </p>
+          <div class="review-meta">İstanbul • Meyhane programı</div>
+        </article>
+
+        <article class="review-card" data-rating="5">
+          <div class="review-header">
+            <div class="review-name">Zeynep A.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Kayınvalidem “ben böyle eğlence görmedim” dedi, daha ne olsun. Özellikle sıra gecesi bölümü harikaydı.
+          </p>
+          <div class="review-meta">Konya • Düğün</div>
+        </article>
+
+        <article class="review-card" data-rating="5">
+          <div class="review-header">
+            <div class="review-name">Hakan E.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Sahnede duruşları, kıyafetleri, disiplinleri ve enerjileri gerçekten çok kaliteli. Organizasyon işini bilen bir ekip.
+          </p>
+          <div class="review-meta">Adana • Özel gece</div>
+        </article>
+
+        <article class="review-card" data-rating="4">
+          <div class="review-header">
+            <div class="review-name">Gülşah N.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Konsept tamamen bize özel hazırlandı. Açılış türküsünden kapanışa kadar her şey planlı ve akıcıydı.
+          </p>
+          <div class="review-meta">Mersin • Kına gecesi</div>
+        </article>
+
+        <article class="review-card" data-rating="5">
+          <div class="review-header">
+            <div class="review-name">Mustafa İ.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            İş yemeği gibi başlayan gece, sonlara doğru tam bir sıra gecesine döndü. Tüm ekibe emekleri için teşekkürler.
+          </p>
+          <div class="review-meta">İstanbul • Kurumsal davet</div>
+        </article>
+
+        <article class="review-card" data-rating="5">
+          <div class="review-header">
+            <div class="review-name">Selin Ö.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Farklı şehirlerden gelen misafirlerimiz vardı, herkes kendini Urfa’da hissetti. Özellikle uzun hava performansı efsaneydi.
+          </p>
+          <div class="review-meta">Eskişehir • Düğün</div>
+        </article>
+
+        <article class="review-card" data-rating="4">
+          <div class="review-header">
+            <div class="review-name">Emre K.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Mekanla iletişimleri, prova saati, kurulum ve final toparlama süreci çok düzenliydi. Hiçbir şeyle biz uğraşmadık.
+          </p>
+          <div class="review-meta">İzmit • Lansman</div>
+        </article>
+
+        <article class="review-card" data-rating="5">
+          <div class="review-header">
+            <div class="review-name">Büşra S.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Kadınlar matinemizde hem eğlendik hem duygulandık. Repertuvarı tamamen bize göre ayarladılar.
+          </p>
+          <div class="review-meta">İstanbul • Kadınlar matinesi</div>
+        </article>
+
+        <article class="review-card" data-rating="5">
+          <div class="review-header">
+            <div class="review-name">Onur Ç.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Gece boyunca sahneden inmediler desek yeridir. İstek parçaları bile kırmadılar, tüm konuklar memnun kaldı.
+          </p>
+          <div class="review-meta">Ankara • Düğün</div>
+        </article>
+
+        <article class="review-card" data-rating="4">
+          <div class="review-header">
+            <div class="review-name">Nazan V.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Aile arasında sade bir nişan planlamıştık, onların sayesinde tam bir eğlenceye dönüştü. İyi ki tercih etmişiz.
+          </p>
+          <div class="review-meta">Sakarya • Nişan</div>
+        </article>
+
+        <article class="review-card" data-rating="5">
+          <div class="review-header">
+            <div class="review-name">Arda L.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Davul şovu ve halay bölümleri özellikle çok beğenildi. Sosyal medyada bile misafirlerimiz videoları paylaştı.
+          </p>
+          <div class="review-meta">İstanbul • Özel gece</div>
+        </article>
+
+        <article class="review-card" data-rating="5">
+          <div class="review-header">
+            <div class="review-name">Ece R.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Sahnede kurdukları samimi diyalog, espriler ve enerjileri geceyi çok sıcak bir aile ortamına çevirdi.
+          </p>
+          <div class="review-meta">İzmir • Düğün</div>
+        </article>
+
+        <article class="review-card" data-rating="4">
+          <div class="review-header">
+            <div class="review-name">Gökhan P.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Mekan küçük olmasına rağmen ses dengesi ve düzeni çok iyiydi. Herkesi dahil eden bir sahne performansı vardı.
+          </p>
+          <div class="review-meta">Çanakkale • Özel davet</div>
+        </article>
+
+        <article class="review-card" data-rating="5">
+          <div class="review-header">
+            <div class="review-name">Yasemin C.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Kına giriş müziklerinden damat çıkarma bölümüne kadar tüm detayları tek tek planladılar, içim çok rahattı.
+          </p>
+          <div class="review-meta">İstanbul • Kına gecesi</div>
+        </article>
+
+        <article class="review-card" data-rating="5">
+          <div class="review-header">
+            <div class="review-name">Kerem D.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Yurt dışından gelen akrabalar bile “Türkiye’ye her geldiğimizde böyle eğlence istiyoruz” dedi. Harikasınız.
+          </p>
+          <div class="review-meta">İstanbul • Aile buluşması</div>
+        </article>
+
+        <article class="review-card" data-rating="4">
+          <div class="review-header">
+            <div class="review-name">Derya U.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Çocukların da sahneye çıktığı, herkesin katıldığı çok samimi bir ortam oldu. Misafirlerimiz hala konuşuyor.
+          </p>
+          <div class="review-meta">Kocaeli • Düğün</div>
+        </article>
+
+        <article class="review-card" data-rating="5">
+          <div class="review-header">
+            <div class="review-name">Tolga S.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Son anda tarih değişikliği yapmamıza rağmen bizi kırmadılar, programlarını ayarlayıp geldiler. Çok teşekkür ederiz.
+          </p>
+          <div class="review-meta">İstanbul • Özel gece</div>
+        </article>
+
+        <article class="review-card" data-rating="5">
+          <div class="review-header">
+            <div class="review-name">Nilay H.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Otantik kıyafetleri, repertuvarları ve sahne duruşlarıyla tam anlamıyla profesyoneller. İçimiz rahat bir şekilde teslim olduk.
+          </p>
+          <div class="review-meta">Ankara • Nişan</div>
+        </article>
+
+        <article class="review-card" data-rating="4">
+          <div class="review-header">
+            <div class="review-name">Okan Z.</div>
+            <div class="review-stars"></div>
+          </div>
+          <p class="review-text">
+            Gecenin başında sakin başlayan program, sonunda tam bir şölene dönüştü. Misafirler ayrılırken yüzler gülüyordu.
+          </p>
+          <div class="review-meta">İstanbul • Kurumsal yemek</div>
+        </article>
       </div>
-    </section>
-  </main>
+
+      <!-- Sağ: Yorum formu -->
+      <aside class="review-form-card">
+        <h3>Yorum Yapın</h3>
+        <p class="review-form-note">
+          Yorumunuz, yönetici onayından sonra yayınlanacaktır. Lütfen saygı çerçevesinde, küfür ve hakaret içermeyen ifadeler kullanın.
+        </p>
+
+        <form id="reviewForm" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="reviewName">Adınız (kısaltılmış da yazabilirsiniz)</label>
+            <input type="text" id="reviewName" class="form-input" placeholder="Örn: Ayşe K.">
+            <div class="form-helper">Tam isminizi yazmak zorunda değilsiniz.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reviewRating">Puanınız</label>
+            <select id="reviewRating" class="form-select">
+              <option value="">Seçiniz</option>
+              <option value="5">5 - Mükemmel</option>
+              <option value="4">4 - Çok iyi</option>
+              <option value="3">3 - İyi</option>
+              <option value="2">2 - Fena değil</option>
+              <option value="1">1 - Zayıf</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reviewText">Yorumunuz</label>
+            <textarea id="reviewText" class="form-textarea" placeholder="Gece hakkında düşüncelerinizi yazın..."></textarea>
+            <div class="form-helper">
+              Küfür, hakaret, ayrımcılık, terör övgüsü vb. içerikler kesinlikle yayınlanmaz.
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit">Yorumu Gönder</button>
+
+          <div id="reviewMessage" class="alert" style="display:none;"></div>
+        </form>
+      </aside>
+    </div>
+  </section>
 
   <footer>
     © <span id="year"></span> Hayati İşler & Urfa Sıra Gecesi Ekibi. Tüm hakları saklıdır.
 
     <div class="social-bar">
-      <a href="https://wa.me/905373839345?text=Merhaba%2C%20Hayati%20İ%C5%9Fler%20ve%20Urfa%20S%C4%B1ra%20Gecesi%20ekibi.%20Etkinli%C4%9Fim%20i%C3%A7in%20rezervasyon%20yapmak%20istiyorum.%20M%C3%BCsaitlik%2C%20fiyat%20ve%20program%20detaylar%C4%B1n%C4%B1%20%C3%B6%C4%9Frenebilir%20miyim%3F" 
-   target="_blank" 
-   class="social-icon social-whatsapp" 
-   aria-label="WhatsApp">
+      <a href="https://wa.me/905373839345?text=Merhaba%2C%20Hayati%20İ%C5%9Fler%20ve%20Urfa%20S%C4%B1ra%20Gecesi%20ekibi.%20Etkinli%C4%9Fim%20için%20rezervasyon%20yapmak%20istiyorum.%20Müsaitlik%2C%20fiyat%20ve%20program%20detaylarını%20öğrenebilir%20miyim%3F" 
+        target="_blank" 
+        class="social-icon social-whatsapp" 
+        aria-label="WhatsApp">
+        <span>WA</span>
+      </a>
       <a href="https://www.instagram.com/hayatislerofficial?igsh=aWxubHJrMmF3bGIx" target="_blank" class="social-icon social-instagram" aria-label="Instagram">
         <span>IG</span>
       </a>
@@ -1175,321 +1225,342 @@
   </footer>
 
   <script>
-  // Yıl otomatik
-  document.getElementById("year").textContent = new Date().getFullYear();
+    // Yıl otomatik
+    document.getElementById("year").textContent = new Date().getFullYear();
 
     // Yıldızları oluştur
-  function renderStars(container, rating) {
-    const fullStar = "★";
-    const emptyStar = "☆";
-    rating = Math.max(0, Math.min(5, Number(rating) || 0));
-    let stars = "";
-    for (let i = 1; i <= 5; i++) {
-      stars += i <= rating ? fullStar : emptyStar;
-    }
-    container.textContent = stars + " (" + rating + ")";
-  }
-
-  // Küfür / hakaret / terör kelimeleri için basit filtre
-  const bannedWords = [
-    "siktir", "amk", "aq", "orospu", "piç", "pic", "kahpe", "ibne",
-    "yavşak", "şerefsiz", "salak", "aptal", "öl", "geber",
-    "terör", "teror", "terörist", "terorist", "bomba", "silah",
-    "daeş", "deaş", "işid", "işis"
-  ];
-
-  // JSON'dan veri okuma yardımcıları
-  function normalizeList(data, key) {
-    if (!data) return [];
-    if (Array.isArray(data)) return data;
-    if (data[key] && Array.isArray(data[key])) return data[key];
-    return [];
-  }
-
-  // ✅ Firestore'dan onaylı yorumları al ve listeye ekle
-  function loadApprovedComments() {
-    const listEl = document.querySelector(".reviews-list");
-    if (!listEl) return;
-
-    if (typeof db === "undefined") {
-      console.error("Firebase 'db' tanımlı değil (firebase-init.js yüklü mü?).");
-      return;
-    }
-
-    db.collection("comments")
-      .orderBy("createdAt", "desc")
-      .limit(50)
-      .get()
-      .then((snap) => {
-        if (snap.empty) return;
-
-        snap.forEach((doc) => {
-          const data = doc.data() || {};
-          if (!data.approved) return; // sadece onaylı olanlar
-
-          const name = (data.name || "Misafir").toString();
-          const rating = Number(data.rating || 5);
-          const text = (data.text || "").toString();
-
-          // Yeni yorum kartı oluştur
-          const card = document.createElement("article");
-          card.className = "review-card";
-          card.setAttribute("data-rating", rating);
-
-          card.innerHTML = `
-            <div class="review-header">
-              <div class="review-name"></div>
-              <div class="review-stars"></div>
-            </div>
-            <p class="review-text"></p>
-            <div class="review-meta">Misafir yorumu</div>
-          `;
-
-          card.querySelector(".review-name").textContent = name;
-          card.querySelector(".review-text").textContent = text;
-
-          const starsEl = card.querySelector(".review-stars");
-          renderStars(starsEl, rating);
-
-          // Yeni yorumları listenin EN ÜSTÜNE ekle
-          listEl.prepend(card);
-        });
-      })
-      .catch((err) => {
-        console.error("Yorumlar yüklenemedi:", err);
-      });
-  }
-
-  // 🔔 Duyuru (üst bar) yükleme
-  function loadAnnouncement() {
-    const textEl = document.getElementById("announcementText");
-    const subEl = document.getElementById("announcementSub");
-
-    if (typeof db === "undefined") {
-      console.error("Firebase 'db' tanımlı değil (firebase-init.js yüklü mü?).");
-      return;
-    }
-
-    db.collection("announcements")
-      .doc("QEYYxEpClLZ5yKZVLxeS")
-      .get()
-      .then((doc) => {
-        if (!doc.exists) return;
-
-        const data = doc.data() || {};
-        const sub = (data.sub || "").trim();
-
-        // Üst satırı kullanmıyoruz
-        if (textEl) {
-          textEl.textContent = "";
-        }
-
-        // Sadece admin panelindeki "Alt açıklama" görünsün
-        if (subEl) {
-          subEl.textContent =
-            sub || "çok kıssa surede adres ve detay bilgiler paylaşılacak....";
-        }
-      })
-      .catch((err) => {
-        console.error("Duyuru yüklenemedi:", err);
-      });
-  }
-
-  // 📸 Fotoğraf galerisi yükleme
-  function loadPhotos() {
-    const gallery = document.getElementById("photoGallery");
-    const emptyBox = document.getElementById("photoEmpty");
-    if (!gallery) return;
-
-    fetch("photos.json", { cache: "no-store" })
-      .then(function (res) {
-        if (!res.ok) throw new Error("no photos.json");
-        return res.json();
-      })
-      .then(function (data) {
-        const list = normalizeList(data, "photos");
-        if (!list.length) return;
-
-        let html = "";
-        list.forEach(function (item) {
-          const src = (item.src || item.file || item.path || "").trim();
-          if (!src) return;
-          const title = (item.title || item.name || "Sahne fotoğrafı").trim();
-
-          html +=
-            '<div class="gallery-item">' +
-            '<div class="gallery-thumb">' +
-            '<img src="' +
-            src +
-            '" alt="' +
-            title.replace(/"/g, "&quot;") +
-            '">' +
-            "</div>" +
-            '<div class="gallery-caption">' +
-            title +
-            "</div>" +
-            "</div>";
-        });
-
-        if (html) {
-          gallery.innerHTML = html;
-          if (emptyBox) emptyBox.style.display = "none";
-        }
-      })
-      .catch(function (err) {
-        console.error("Fotoğraflar yüklenemedi:", err);
-        // Hata olursa placeholder kalsın
-      });
-  }
-
-  // 🎥 Video galerisi yükleme
-  function loadVideos() {
-    const gallery = document.getElementById("videoGallery");
-    const emptyBox = document.getElementById("videoEmpty");
-    if (!gallery) return;
-
-    fetch("videos.json", { cache: "no-store" })
-      .then(function (res) {
-        if (!res.ok) throw new Error("no videos.json");
-        return res.json();
-      })
-      .then(function (data) {
-        const list = normalizeList(data, "videos");
-        if (!list.length) return;
-
-        let html = "";
-        list.forEach(function (item) {
-          const src = (item.src || item.file || item.path || "").trim();
-          if (!src) return;
-          const title = (item.title || item.name || "Sahne videosu").trim();
-
-          html +=
-            '<div class="video-item">' +
-            '<video controls preload="metadata">' +
-            '<source src="' +
-            src +
-            '">' +
-            "Tarayıcınız video etiketini desteklemiyor." +
-            "</video>" +
-            '<div class="video-caption">' +
-            title +
-            "</div>" +
-            "</div>";
-        });
-
-        if (html) {
-          gallery.innerHTML = html;
-          if (emptyBox) emptyBox.style.display = "none";
-        }
-      })
-      .catch(function (err) {
-        console.error("Videolar yüklenemedi:", err);
-        // Hata olursa placeholder kalsın
-      });
-  }
-
-  // Sayfa yüklendiğinde çalışacaklar
-  window.addEventListener("DOMContentLoaded", function () {
-    // ⭐ Mevcut sahte yorumların yıldızlarını çiz
-    document.querySelectorAll(".review-card").forEach(function (card) {
-      const rating = card.getAttribute("data-rating");
-      const starsEl = card.querySelector(".review-stars");
-      if (starsEl) {
-        renderStars(starsEl, rating);
+    function renderStars(container, rating) {
+      const fullStar = "★";
+      const emptyStar = "☆";
+      rating = Math.max(0, Math.min(5, Number(rating) || 0));
+      let stars = "";
+      for (let i = 1; i <= 5; i++) {
+        stars += i <= rating ? fullStar : emptyStar;
       }
-    });
-
-    // ✍️ Yorum formu
-    const form = document.getElementById("reviewForm");
-    const nameInput = document.getElementById("reviewName");
-    const ratingSelect = document.getElementById("reviewRating");
-    const textArea = document.getElementById("reviewText");
-    const messageBox = document.getElementById("reviewMessage");
-
-    if (form) {
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        const name = (nameInput.value || "").trim();
-        const rating = ratingSelect.value;
-        const text = (textArea.value || "").trim();
-
-        // Mesaj kutusunu sıfırla
-        messageBox.style.display = "none";
-        messageBox.textContent = "";
-        messageBox.className = "alert";
-
-        // Zorunlu alan kontrolü
-        if (!name || !rating || !text) {
-          messageBox.classList.add("alert-error");
-          messageBox.textContent =
-            "Lütfen ad, puan ve yorum alanlarını eksiksiz doldurun.";
-          messageBox.style.display = "block";
-          return;
-        }
-
-        const lowerContent = (name + " " + text).toLocaleLowerCase("tr");
-
-        // Küfür / hakaret filtresi
-        const hasBanned = bannedWords.some(function (word) {
-          return lowerContent.includes(word);
-        });
-
-        if (hasBanned) {
-          messageBox.classList.add("alert-error");
-          messageBox.textContent =
-            "Lütfen küfür, hakaret veya terör içeren ifadeler kullanmayın.";
-          messageBox.style.display = "block";
-          return;
-        }
-
-        // Firebase db kontrolü
-        if (typeof db === "undefined") {
-          messageBox.classList.add("alert-error");
-          messageBox.textContent =
-            "Sunucu bağlantısı kurulamadı (db tanımlı değil). Lütfen daha sonra tekrar deneyin.";
-          messageBox.style.display = "block";
-          console.error("Firebase 'db' tanımlı değil, yorum kaydedilemedi.");
-          return;
-        }
-
-        // 🔥 YORUMU FIRESTORE'A KAYDETME
-        db.collection("comments")
-          .add({
-            name: name,
-            rating: Number(rating),
-            text: text,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-            approved: false // admin onayına düşsün
-          })
-          .then(() => {
-            form.reset();
-            messageBox.classList.add("alert-success");
-            messageBox.textContent =
-              "Teşekkürler! Yorumunuz alındı, yönetici onayından sonra yayına girecek.";
-            messageBox.style.display = "block";
-          })
-          .catch((err) => {
-            messageBox.classList.add("alert-error");
-            messageBox.textContent = "Hata oluştu: " + err.message;
-            messageBox.style.display = "block";
-          });
-      });
+      container.textContent = stars + " (" + rating + ")";
     }
 
-    // 🔁 Sayfa açıldığında üst bar + foto + video galerisini yükle
-    loadAnnouncement();
-    loadPhotos();
-    loadVideos();
-    loadApprovedComments();
-  });
-</script>
+    // Küfür / hakaret / terör kelimeleri için basit filtre
+    const bannedWords = [
+      "siktir", "amk", "aq", "orospu", "piç", "pic", "kahpe", "ibne",
+      "yavşak", "şerefsiz", "salak", "aptal", "öl", "geber",
+      "terör", "teror", "terörist", "terorist", "bomba", "silah",
+      "daeş", "deaş", "işid", "işis"
+    ];
 
-   <!-- Firebase CDN -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    // JSON'dan veri okuma yardımcıları
+    function normalizeList(data, key) {
+      if (!data) return [];
+      if (Array.isArray(data)) return data;
+      if (data[key] && Array.isArray(data[key])) return data[key];
+      return [];
+    }
 
-<!-- Firebase config ve init -->
-<script src="firebase-init.js"></script>
+    // ✅ Firestore'dan onaylı yorumları al ve listeye ekle
+    function loadApprovedComments() {
+      const listEl = document.querySelector(".reviews-list");
+      if (!listEl) return;
+
+      if (typeof db === "undefined") {
+        console.error("Firebase 'db' tanımlı değil (firebase-init.js yüklü mü?).");
+        return;
+      }
+
+      db.collection("comments")
+        .orderBy("createdAt", "desc")
+        .limit(50)
+        .get()
+        .then((snap) => {
+          if (snap.empty) return;
+
+          snap.forEach((doc) => {
+            const data = doc.data() || {};
+            if (!data.approved) return; // sadece onaylı olanlar
+
+            const name = (data.name || "Misafir").toString();
+            const rating = Number(data.rating || 5);
+            const text = (data.text || "").toString();
+
+            // Yeni yorum kartı oluştur
+            const card = document.createElement("article");
+            card.className = "review-card";
+            card.setAttribute("data-rating", rating);
+
+            card.innerHTML = `
+              <div class="review-header">
+                <div class="review-name"></div>
+                <div class="review-stars"></div>
+              </div>
+              <p class="review-text"></p>
+              <div class="review-meta">Misafir yorumu</div>
+            `;
+
+            card.querySelector(".review-name").textContent = name;
+            card.querySelector(".review-text").textContent = text;
+
+            const starsEl = card.querySelector(".review-stars");
+            renderStars(starsEl, rating);
+
+            // Yeni yorumları listenin EN ÜSTÜNE ekle
+            listEl.prepend(card);
+          });
+        })
+        .catch((err) => {
+          console.error("Yorumlar yüklenemedi:", err);
+        });
+    }
+
+    // 🔔 Duyuru (üst bar) yükleme
+    function loadAnnouncement() {
+      const textEl = document.getElementById("announcementText");
+      const subEl = document.getElementById("announcementSub");
+
+      if (typeof db === "undefined") {
+        console.error("Firebase 'db' tanımlı değil (firebase-init.js yüklü mü?).");
+        return;
+      }
+
+      db.collection("announcements")
+        .doc("QEYYxEpClLZ5yKZVLxeS")
+        .get()
+        .then((doc) => {
+          if (!doc.exists) return;
+
+          const data = doc.data() || {};
+          const sub = (data.sub || "").trim();
+
+          // Üst satırı kullanmıyoruz
+          if (textEl) {
+            textEl.textContent = "";
+          }
+
+          // Sadece admin panelindeki "Alt açıklama" görünsün
+          if (subEl) {
+            subEl.textContent =
+              sub || "çok kıssa surede adres ve detay bilgiler paylaşılacak....";
+          }
+        })
+        .catch((err) => {
+          console.error("Duyuru yüklenemedi:", err);
+        });
+    }
+
+    // 📸 Fotoğraf galerisi yükleme
+    function loadPhotos() {
+      const gallery = document.getElementById("photoGallery");
+      const emptyBox = document.getElementById("photoEmpty");
+      if (!gallery) return;
+
+      fetch("photos.json", { cache: "no-store" })
+        .then(function (res) {
+          if (!res.ok) throw new Error("no photos.json");
+          return res.json();
+        })
+        .then(function (data) {
+          const list = normalizeList(data, "photos");
+          if (!list.length) return;
+
+          let html = "";
+          list.forEach(function (item) {
+            const src = (item.src || item.file || item.path || "").trim();
+            if (!src) return;
+            const title = (item.title || item.name || "Sahne fotoğrafı").trim();
+
+            html +=
+              '<div class="gallery-item">' +
+              '<div class="gallery-thumb">' +
+              '<img src="' +
+              src +
+              '" alt="' +
+              title.replace(/"/g, "&quot;") +
+              '">' +
+              "</div>" +
+              '<div class="gallery-caption">' +
+              title +
+              "</div>" +
+              "</div>";
+          });
+
+          if (html) {
+            gallery.innerHTML = html;
+            if (emptyBox) emptyBox.style.display = "none";
+          }
+        })
+        .catch(function (err) {
+          console.error("Fotoğraflar yüklenemedi:", err);
+          // Hata olursa placeholder kalsın
+        });
+    }
+
+    // 🎥 Video galerisi yükleme
+    function loadVideos() {
+      const gallery = document.getElementById("videoGallery");
+      const emptyBox = document.getElementById("videoEmpty");
+      if (!gallery) return;
+
+      fetch("videos.json", { cache: "no-store" })
+        .then(function (res) {
+          if (!res.ok) throw new Error("no videos.json");
+          return res.json();
+        })
+        .then(function (data) {
+          const list = normalizeList(data, "videos");
+          if (!list.length) return;
+
+          let html = "";
+          list.forEach(function (item) {
+            const src = (item.src || item.file || item.path || "").trim();
+            if (!src) return;
+            const title = (item.title || item.name || "Sahne videosu").trim();
+
+            html +=
+              '<div class="video-item">' +
+              '<video controls preload="metadata">' +
+              '<source src="' +
+              src +
+              '">' +
+              "Tarayıcınız video etiketini desteklemiyor." +
+              "</video>" +
+              '<div class="video-caption">' +
+              title +
+              "</div>" +
+              "</div>";
+          });
+
+          if (html) {
+            gallery.innerHTML = html;
+            if (emptyBox) emptyBox.style.display = "none";
+          }
+        })
+        .catch(function (err) {
+          console.error("Videolar yüklenemedi:", err);
+          // Hata olursa placeholder kalsın
+        });
+    }
+
+    // Sayfa yüklendiğinde çalışacaklar
+    window.addEventListener("DOMContentLoaded", function () {
+      // ⭐ Mevcut sahte yorumların yıldızlarını çiz
+      document.querySelectorAll(".review-card").forEach(function (card) {
+        const rating = card.getAttribute("data-rating");
+        const starsEl = card.querySelector(".review-stars");
+        if (starsEl) {
+          renderStars(starsEl, rating);
+        }
+      });
+
+      // ✍️ Yorum formu
+      const form = document.getElementById("reviewForm");
+      const nameInput = document.getElementById("reviewName");
+      const ratingSelect = document.getElementById("reviewRating");
+      const textArea = document.getElementById("reviewText");
+      const messageBox = document.getElementById("reviewMessage");
+
+      if (form) {
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const name = (nameInput.value || "").trim();
+          const rating = ratingSelect.value;
+          const text = (textArea.value || "").trim();
+
+          // Mesaj kutusunu sıfırla
+          messageBox.style.display = "none";
+          messageBox.textContent = "";
+          messageBox.className = "alert";
+
+          // Zorunlu alan kontrolü
+          if (!name || !rating || !text) {
+            messageBox.classList.add("alert-error");
+            messageBox.textContent =
+              "Lütfen ad, puan ve yorum alanlarını eksiksiz doldurun.";
+            messageBox.style.display = "block";
+            return;
+          }
+
+          const lowerContent = (name + " " + text).toLocaleLowerCase("tr");
+
+          // Küfür / hakaret filtresi
+          const hasBanned = bannedWords.some(function (word) {
+            return lowerContent.includes(word);
+          });
+
+          if (hasBanned) {
+            messageBox.classList.add("alert-error");
+            messageBox.textContent =
+              "Lütfen küfür, hakaret veya terör içeren ifadeler kullanmayın.";
+            messageBox.style.display = "block";
+            return;
+          }
+
+          // Firebase db kontrolü
+          if (typeof db === "undefined") {
+            messageBox.classList.add("alert-error");
+            messageBox.textContent =
+              "Sunucu bağlantısı kurulamadı (db tanımlı değil). Lütfen daha sonra tekrar deneyin.";
+            messageBox.style.display = "block";
+            console.error("Firebase 'db' tanımlı değil, yorum kaydedilemedi.");
+            return;
+          }
+
+          // 🔥 YORUMU FIRESTORE'A KAYDETME
+          db.collection("comments")
+            .add({
+              name: name,
+              rating: Number(rating),
+              text: text,
+              createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+              approved: false // admin onayına düşsün
+            })
+            .then(() => {
+              form.reset();
+              messageBox.classList.add("alert-success");
+              messageBox.textContent =
+                "Teşekkürler! Yorumunuz alındı, yönetici onayından sonra yayına girecek.";
+              messageBox.style.display = "block";
+            })
+            .catch((err) => {
+              messageBox.classList.add("alert-error");
+              messageBox.textContent = "Hata oluştu: " + err.message;
+              messageBox.style.display = "block";
+            });
+        });
+      }
+
+      // 🔁 Sayfa açıldığında üst bar + foto + video galerisini yükle
+      loadAnnouncement();
+      loadPhotos();
+      loadVideos();
+      loadApprovedComments();
+
+      // 🌐 Dil seçici butonları
+      const langButtons = document.querySelectorAll(".lang-btn");
+      const currentLang = (document.documentElement.getAttribute("lang") || "tr").toLowerCase();
+
+      langButtons.forEach(function (btn) {
+        if (btn.getAttribute("data-lang") === currentLang) {
+          btn.classList.add("active");
+        }
+
+        btn.addEventListener("click", function () {
+          const lang = btn.getAttribute("data-lang") || "tr";
+          if (lang === "tr") {
+            window.location.href = "index.html";
+          } else if (lang === "en") {
+            window.location.href = "index-en.html";
+          } else if (lang === "ar") {
+            window.location.href = "index-ar.html";
+          }
+        });
+      });
+    });
+  </script>
+
+  <!-- Firebase CDN -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <!-- Firebase config ve init -->
+  <script src="firebase-init.js"></script>
 </body>
-</html> 
+</html>
