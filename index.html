@@ -672,9 +672,48 @@
         align-items: flex-start;
       }
     }
-  </style>
+ 
+  .lang-switcher {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 9999;
+    display: flex;
+    gap: 6px;
+  }
+
+  .lang-btn {
+    padding: 6px 10px;
+    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 6px;
+    color: #fff;
+    font-size: 0.75rem;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: 0.2s;
+  }
+
+  .lang-btn:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  .lang-btn.active {
+    background: #facc15;
+    color: #000;
+    border-color: #facc15;
+  }
+</style>
+
 </head>
 <body>
+
+  <div class="lang-switcher">
+  <div class="lang-btn" data-lang="tr">TR</div>
+  <div class="lang-btn" data-lang="en">EN</div>
+  <div class="lang-btn" data-lang="de">DE</div>
+  <div class="lang-btn" data-lang="ar">AR</div>
+</div>
 
       <!-- Üst duyuru alanı (Firebase'den okunacak) -->
   <div class="announcement-bar">
@@ -1482,6 +1521,42 @@
     loadPhotos();
     loadVideos();
     loadApprovedComments();
+  });
+
+  // Dil seçimini kaydet
+  function setLanguage(lang) {
+    localStorage.setItem("siteLang", lang);
+    applyLanguage(lang);
+  }
+
+  // Mevcut dile göre metinleri değiştir
+  function applyLanguage(lang) {
+    const btns = document.querySelectorAll(".lang-btn");
+    btns.forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.lang === lang);
+    });
+
+    if (window.i18n && window.i18n[lang]) {
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (window.i18n[lang][key]) {
+          el.textContent = window.i18n[lang][key];
+        }
+      });
+    }
+  }
+
+  // Dil butonlarına tıklama
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".lang-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        setLanguage(btn.dataset.lang);
+      });
+    });
+
+    // Varsayılan dil
+    const saved = localStorage.getItem("siteLang") || "tr";
+    applyLanguage(saved);
   });
 </script>
 
