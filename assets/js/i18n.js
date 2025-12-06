@@ -89,6 +89,144 @@ translations.en.blog_mirra = "Mırra and Sıra Night Culture";
 translations.ar.blog_mirra = "المِرّة وثقافة سهرة السيرة";
 translations.de.blog_mirra = "Mırra und die Kultur der Sıra-Nacht";
 
+/* ===========================
+   HERO / ÜST ALAN
+=========================== */
+
+translations.tr.call_now = "Rezervasyon için hemen arayın";
+translations.en.call_now = "Call now for reservation";
+translations.ar.call_now = "اتصل الآن للحجز";
+translations.de.call_now = "Jetzt für Reservierung anrufen";
+
+
+/* ===========================
+   VİDEO GALERİSİ
+=========================== */
+
+translations.tr.video_gallery = "Video Galerisi";
+translations.en.video_gallery = "Video Gallery";
+translations.ar.video_gallery = "معرض الفيديو";
+translations.de.video_gallery = "Videogalerie";
+
+translations.tr.video_empty = "Henüz video eklenmemiştir. Yönetici panelinden video yüklediğinizde burada görünecektir.";
+translations.en.video_empty = "No videos uploaded yet. They will appear here once added.";
+translations.ar.video_empty = "لا توجد فيديوهات بعد. ستظهر هنا عند رفعها.";
+translations.de.video_empty = "Noch keine Videos. Sie erscheinen hier nach dem Hochladen.";
+
+translations.tr.video_title = "Sahne performanslarımız";
+translations.en.video_title = "Our stage performances";
+translations.ar.video_title = "عروضنا على المسرح";
+translations.de.video_title = "Unsere Bühnenauftritte";
+
+translations.tr.video_desc = "Farklı mekanlardaki sıra gecesi performanslarımızı izleyerek ekibimizi daha yakından tanıyabilirsiniz.";
+translations.en.video_desc = "Watch our performances in different venues and get to know our team better.";
+translations.ar.video_desc = "شاهد عروضنا في أماكن مختلفة وتعرف على فريقنا أكثر.";
+translations.de.video_desc = "Sehen Sie unsere Auftritte an verschiedenen Orten und lernen Sie unser Team besser kennen.";
+
+translations.tr.video_button = "Video Galerisini Gör";
+translations.en.video_button = "View Video Gallery";
+translations.ar.video_button = "عرض معرض الفيديو";
+translations.de.video_button = "Videogalerie ansehen";
+
+
+/* ===========================
+   FOTOĞRAF GALERİSİ
+=========================== */
+
+translations.tr.photo_gallery = "Fotoğraf Galerisi";
+translations.en.photo_gallery = "Photo Gallery";
+translations.ar.photo_gallery = "معرض الصور";
+translations.de.photo_gallery = "Fotogalerie";
+
+translations.tr.photo_empty = "Henüz fotoğraf eklenmemiştir. Yönetici panelinden fotoğraf yüklediğinizde burada görünecektir.";
+translations.en.photo_empty = "No photos added yet. They will appear here once uploaded.";
+translations.ar.photo_empty = "لا توجد صور بعد. ستظهر هنا عند رفعها.";
+translations.de.photo_empty = "Noch keine Fotos. Sie erscheinen hier nach dem Hochladen.";
+
+translations.tr.photo_title = "Renkli kareler";
+translations.en.photo_title = "Colorful moments";
+translations.ar.photo_title = "لقطات ملونة";
+translations.de.photo_title = "Bunte Momente";
+
+translations.tr.photo_desc = "Kına geceleri, düğünler, özel geceler ve mekan performanslarından seçili fotoğraflar.";
+translations.en.photo_desc = "Selected photos from henna nights, weddings and special events.";
+translations.ar.photo_desc = "صور مختارة من حفلات الحناء والأعراس والفعاليات الخاصة.";
+translations.de.photo_desc = "Ausgewählte Fotos von Henna-Abenden, Hochzeiten und Events.";
+
+translations.tr.photo_button = "Fotoğraf Galerisini Gör";
+translations.en.photo_button = "View Photo Gallery";
+translations.ar.photo_button = "عرض معرض الصور";
+translations.de.photo_button = "Fotogalerie ansehen";
+
+
+/* ===========================
+   İLETİŞİM & REZERVASYON
+=========================== */
+
+translations.tr.contact_title = "İletişim & Rezervasyon";
+translations.en.contact_title = "Contact & Reservation";
+translations.ar.contact_title = "التواصل والحجز";
+translations.de.contact_title = "Kontakt & Reservierung";
+
+translations.tr.contact_desc = "Hayati İşler ve Urfa Sıra Gecesi ekibini davet etmek için hemen bizimle iletişime geçin.";
+translations.en.contact_desc = "Contact us to invite Hayati İşler & Urfa Sıra Gecesi team.";
+translations.ar.contact_desc = "تواصل معنا لدعوة فريق حياتي إشلر وسهرة أورفا.";
+translations.de.contact_desc = "Kontaktieren Sie uns, um das Hayati İşler-Team einzuladen.";
+
+translations.tr.label_phone = "Telefon";
+translations.en.label_phone = "Phone";
+translations.ar.label_phone = "هاتف";
+translations.de.label_phone = "Telefon";
+
+translations.tr.label_whatsapp = "WhatsApp";
+translations.en.label_whatsapp = "WhatsApp";
+translations.ar.label_whatsapp = "واتساب";
+translations.de.label_whatsapp = "WhatsApp";
+
+translations.tr.whatsapp_text = "WhatsApp üzerinden yazın";
+translations.en.whatsapp_text = "Message via WhatsApp";
+translations.ar.whatsapp_text = "راسلنا عبر واتساب";
+translations.de.whatsapp_text = "Über WhatsApp schreiben";
+
+translations.tr.label_instagram = "Instagram";
+translations.en.label_instagram = "Instagram";
+translations.ar.label_instagram = "إنستغرام";
+translations.de.label_instagram = "Instagram";
+
+translations.tr.label_tiktok = "TikTok";
+translations.en.label_tiktok = "TikTok";
+translations.ar.label_tiktok = "تيك توك";
+translations.de.label_tiktok = "TikTok";
+
+translations.tr.label_youtube = "YouTube";
+translations.en.label_youtube = "YouTube";
+translations.ar.label_youtube = "يوتيوب";
+translations.de.label_youtube = "YouTube";
+
+translations.tr.youtube_text = "Kanala göz atın";
+translations.en.youtube_text = "Visit the channel";
+translations.ar.youtube_text = "شاهد القناة";
+translations.de.youtube_text = "Kanal ansehen";
+
+translations.tr.contact_note = "Lütfen rezervasyonunuz için tarih, şehir ve mekan bilgisi ile birlikte kişi sayısını iletin.";
+translations.en.contact_note = "Please provide date, city, venue and number of guests.";
+translations.ar.contact_note = "يرجى تزويدنا بالتاريخ والمدينة والمكان وعدد الضيوف.";
+translations.de.contact_note = "Bitte geben Sie Datum, Stadt, Ort und Personenzahl an.";
+
+
+/* ===========================
+   MİSAFİR YORUMLARI BAŞLIKLARI
+=========================== */
+
+translations.tr.reviews_title = "Misafir Yorumları";
+translations.en.reviews_title = "Guest Reviews";
+translations.ar.reviews_title = "آراء الضيوف";
+translations.de.reviews_title = "Gästebewertungen";
+
+translations.tr.reviews_subtitle = "Gece sonunda misafirlerimizden gelen gerçek geri bildirimler. Siz de yorum bırakabilirsiniz.";
+translations.en.reviews_subtitle = "Real feedback from our guests. You can also leave a comment.";
+translations.ar.reviews_subtitle = "آراء حقيقية من ضيوفنا. يمكنك أيضًا ترك تعليق.";
+translations.de.reviews_subtitle = "Echtes Feedback unserer Gäste. Sie können ebenfalls kommentieren.";
 
 // ===========================
 //  Dil değiştirme fonksiyonu
