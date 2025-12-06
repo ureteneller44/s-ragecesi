@@ -14,10 +14,39 @@
     p { margin-bottom:14px; }
     a { color:#facc15; text-decoration:none; }
     ul { margin-bottom:18px; }
+
+    /* Dil seçici */
+    .lang-select {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 9999;
+    }
+    .lang-select select {
+      padding: 6px 10px;
+      background: #222;
+      color: #fff;
+      border: 1px solid #444;
+      border-radius: 6px;
+      font-size: 14px;
+    }
   </style>
 </head>
 
 <body>
+
+<!-- ==========================
+     DİL SEÇİMİ DROPDOWN
+=========================== -->
+<div class="lang-select">
+  <select id="langSelect">
+    <option value="tr">🇹🇷 Türkçe</option>
+    <option value="en">🇬🇧 English</option>
+    <option value="ar">🇸🇦 العربية</option>
+    <option value="de">🇩🇪 Deutsch</option>
+  </select>
+</div>
+
 
 <h1 data-i18n="blog_cig_h1">Çiğ Köfte Gelenekleri</h1>
 
@@ -139,6 +168,16 @@ Sanki tarih o an yeniden yazılıyordu.”
 <script>
   const saved = localStorage.getItem("siteLang") || "tr";
   applyLanguage(saved);
+
+  // dropdown başlangıç dilini yükle
+  document.getElementById("langSelect").value = saved;
+
+  // değişiklikte dili uygula
+  document.getElementById("langSelect").addEventListener("change", function () {
+    const lang = this.value;
+    localStorage.setItem("siteLang", lang);
+    applyLanguage(lang);
+  });
 </script>
 
 </body>
