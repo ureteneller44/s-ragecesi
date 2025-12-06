@@ -228,6 +228,87 @@ translations.en.reviews_subtitle = "Real feedback from our guests. You can also 
 translations.ar.reviews_subtitle = "آراء حقيقية من ضيوفنا. يمكنك أيضًا ترك تعليق.";
 translations.de.reviews_subtitle = "Echtes Feedback unserer Gäste. Sie können ebenfalls kommentieren.";
 
+// YORUM FORMU — ÇEVİRİLER
+translations.tr.review_form_title = "Yorum Yapın";
+translations.en.review_form_title = "Leave a Comment";
+translations.ar.review_form_title = "اترك تعليقًا";
+translations.de.review_form_title = "Kommentar hinterlassen";
+
+translations.tr.review_form_note = "Yorumunuz, yönetici onayından sonra yayınlanacaktır. Lütfen saygı çerçevesinde yazınız.";
+translations.en.review_form_note = "Your comment will be published after admin approval. Please be respectful.";
+translations.ar.review_form_note = "سيتم نشر تعليقك بعد موافقة الإدارة. يرجى الكتابة باحترام.";
+translations.de.review_form_note = "Ihr Kommentar wird nach Freigabe veröffentlicht. Bitte respektvoll schreiben.";
+
+translations.tr.form_name_label = "Adınız (kısaltılmış da yazabilirsiniz)";
+translations.en.form_name_label = "Your Name (you may shorten it)";
+translations.ar.form_name_label = "اسمك (يمكنك اختصاره)";
+translations.de.form_name_label = "Ihr Name (kann abgekürzt werden)";
+
+translations.tr.form_name_placeholder = "Örn: Ayşe K.";
+translations.en.form_name_placeholder = "E.g: Ayşe K.";
+translations.ar.form_name_placeholder = "مثال: Ayşe K.";
+translations.de.form_name_placeholder = "Z.B.: Ayşe K.";
+
+translations.tr.form_name_helper = "Tam isminizi yazmak zorunda değilsiniz.";
+translations.en.form_name_helper = "You don't have to use your full name.";
+translations.ar.form_name_helper = "لا تحتاج إلى كتابة اسمك الكامل.";
+translations.de.form_name_helper = "Ihr voller Name ist nicht erforderlich.";
+
+translations.tr.form_rating_label = "Puanınız";
+translations.en.form_rating_label = "Your Rating";
+translations.ar.form_rating_label = "تقييمك";
+translations.de.form_rating_label = "Ihre Bewertung";
+
+translations.tr.form_select_option = "Seçiniz";
+translations.en.form_select_option = "Select";
+translations.ar.form_select_option = "اختر";
+translations.de.form_select_option = "Wählen";
+
+translations.tr.rating_5 = "5 - Mükemmel";
+translations.en.rating_5 = "5 - Excellent";
+translations.ar.rating_5 = "5 - ممتاز";
+translations.de.rating_5 = "5 - Ausgezeichnet";
+
+translations.tr.rating_4 = "4 - Çok iyi";
+translations.en.rating_4 = "4 - Very good";
+translations.ar.rating_4 = "4 - جيد جدًا";
+translations.de.rating_4 = "4 - Sehr gut";
+
+translations.tr.rating_3 = "3 - İyi";
+translations.en.rating_3 = "3 - Good";
+translations.ar.rating_3 = "3 - جيد";
+translations.de.rating_3 = "3 - Gut";
+
+translations.tr.rating_2 = "2 - Fena değil";
+translations.en.rating_2 = "2 - Not bad";
+translations.ar.rating_2 = "2 - لا بأس";
+translations.de.rating_2 = "2 - Nicht schlecht";
+
+translations.tr.rating_1 = "1 - Zayıf";
+translations.en.rating_1 = "1 - Poor";
+translations.ar.rating_1 = "1 - ضعيف";
+translations.de.rating_1 = "1 - Schwach";
+
+translations.tr.form_comment_label = "Yorumunuz";
+translations.en.form_comment_label = "Your Comment";
+translations.ar.form_comment_label = "تعليقك";
+translations.de.form_comment_label = "Ihr Kommentar";
+
+translations.tr.form_comment_placeholder = "Gece hakkında düşüncelerinizi yazın...";
+translations.en.form_comment_placeholder = "Write your thoughts about the night...";
+translations.ar.form_comment_placeholder = "اكتب رأيك حول الحفل...";
+translations.de.form_comment_placeholder = "Schreiben Sie Ihre Meinung über den Abend...";
+
+translations.tr.form_comment_helper = "Küfür, hakaret ve uygunsuz içerikler yayınlanmaz.";
+translations.en.form_comment_helper = "Offensive or abusive content will not be published.";
+translations.ar.form_comment_helper = "لن يتم نشر المحتوى المسيء أو البذيء.";
+translations.de.form_comment_helper = "Anstößige Inhalte werden nicht veröffentlicht.";
+
+translations.tr.form_submit = "Yorumu Gönder";
+translations.en.form_submit = "Submit Comment";
+translations.ar.form_submit = "إرسال التعليق";
+translations.de.form_submit = "Kommentar senden";
+
 // ===========================
 //  Dil değiştirme fonksiyonu
 // ===========================
