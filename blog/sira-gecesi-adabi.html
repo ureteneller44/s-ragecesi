@@ -22,10 +22,39 @@
     p { margin-bottom: 14px; }
     a { color: #facc15; text-decoration: none; }
     ul { margin-bottom: 18px; }
+
+    /* Dil seçim kutusu */
+    .lang-select {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 9999;
+    }
+    .lang-select select {
+      padding: 6px 10px;
+      background: #222;
+      color: #fff;
+      border: 1px solid #444;
+      border-radius: 6px;
+      font-size: 14px;
+    }
   </style>
 </head>
 
 <body>
+
+<!-- ==========================
+     DİL SEÇİMİ DROPDOWN
+=========================== -->
+<div class="lang-select">
+  <select id="langSelect">
+    <option value="tr">🇹🇷 Türkçe</option>
+    <option value="en">🇬🇧 English</option>
+    <option value="ar">🇸🇦 العربية</option>
+    <option value="de">🇩🇪 Deutsch</option>
+  </select>
+</div>
+
 
 <h1 data-i18n="adab_h1">Sıra Gecesi Adabı</h1>
 
@@ -172,6 +201,15 @@ Sözün yerini bilmeyen mecliste yer bulamaz.”
 <script>
   const saved = localStorage.getItem("siteLang") || "tr";
   applyLanguage(saved);
+
+  // dil dropdown seçimini yükle
+  document.getElementById("langSelect").value = saved;
+
+  document.getElementById("langSelect").addEventListener("change", function () {
+    const lang = this.value;
+    localStorage.setItem("siteLang", lang);
+    applyLanguage(lang);
+  });
 </script>
 
 </body>
