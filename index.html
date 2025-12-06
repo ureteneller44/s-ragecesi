@@ -766,7 +766,7 @@
         <div class="hero-img-inner">
           <img src="/foto.png.jpg" class="hero-main-photo">
         </div>
-        <div class="hero-img-ribbon">
+        <div class="hero-img-ribbon" data-i18n="call_now">
           Rezervasyon için hemen arayın
         </div>
       </div>
@@ -777,16 +777,17 @@
 
   <!-- Video Galerisi -->
   <article class="section-card">
-    <div class="section-tag">Video Galerisi</div>
+    <div class="section-tag" data-i18n="video_gallery">Video Galerisi</div>
 
-    <div id="videoEmpty" class="gallery-empty">
+    <div id="videoEmpty" class="gallery-empty" data-i18n="video_empty">
       Henüz video eklenmemiştir. Yönetici panelinden video yüklediğinizde burada görünecektir.
     </div>
 
     <div id="videoGallery" class="gallery-grid"></div>
 
-    <h2>Sahne performanslarımız</h2>
-    <p>
+    <h2 data-i18n="video_title">Sahne performanslarımız</h2>
+
+    <p data-i18n="video_desc">
       Farklı mekanlardaki sıra gecesi performanslarımızı izleyerek ekibimizi daha yakından tanıyabilirsiniz.
     </p>
 
@@ -795,6 +796,7 @@
       class="btn-submit"
       onclick="window.location.href='galeri.html';"
       style="margin: 12px 0 18px;"
+      data-i18n="video_button"
     >
       Video Galerisini Gör
     </button>
@@ -802,16 +804,17 @@
 
   <!-- Fotoğraf Galerisi -->
   <article class="section-card">
-    <div class="section-tag">Fotoğraf Galerisi</div>
+    <div class="section-tag" data-i18n="photo_gallery">Fotoğraf Galerisi</div>
 
-    <div id="photoEmpty" class="gallery-empty">
+    <div id="photoEmpty" class="gallery-empty" data-i18n="photo_empty">
       Henüz fotoğraf eklenmemiştir. Yönetici panelinden fotoğraf yüklediğinizde burada görünecektir.
     </div>
 
     <div id="photoGallery" class="gallery-grid"></div>
 
-    <h2>Renkli kareler</h2>
-    <p>
+    <h2 data-i18n="photo_title">Renkli kareler</h2>
+
+    <p data-i18n="photo_desc">
       Kına geceleri, düğünler, özel geceler ve mekan performanslarından seçili fotoğraflar.
     </p>
 
@@ -820,6 +823,7 @@
       class="btn-submit"
       onclick="window.location.href='galeri.html';"
       style="margin: 12px 0 18px;"
+      data-i18n="photo_button"
     >
       Fotoğraf Galerisini Gör
     </button>
@@ -829,56 +833,68 @@
 </main>
 
     <!-- İletişim / Rezervasyon Bölümü -->
-    <section class="contact-section">
-      <h2 class="contact-title">İletişim & Rezervasyon</h2>
-      <p class="contact-subtitle">
-        Hayati İşler ve Urfa Sıra Gecesi ekibini davet etmek için hemen bizimle iletişime geçin.
-      </p>
+<section class="contact-section">
+  <h2 class="contact-title" data-i18n="contact_title">İletişim & Rezervasyon</h2>
 
-      <div class="contact-card">
-        <div class="contact-items">
-          <a href="tel:+905373839345" class="contact-item">
-            <span class="contact-item-label">Telefon</span>
-            <span>+90 537 383 93 45</span>
-          </a>
+  <p class="contact-subtitle" data-i18n="contact_desc">
+    Hayati İşler ve Urfa Sıra Gecesi ekibini davet etmek için hemen bizimle iletişime geçin.
+  </p>
 
-          <a href="https://wa.me/905373839345?text=Merhaba%2C%20Hayati%20%C4%B0%C5%9Fler%20ve%20Urfa%20S%C4%B1ra%20Gecesi%20ekibine%20ula%C5%9Ft%C4%B1m.%20Etkinli%C4%9Fim%20i%C3%A7in%20bilgi%20ve%20rezervasyon%20almak%20istiyorum." target="_blank" class="contact-item">
-            <span class="contact-item-label">WhatsApp</span>
-            <span>WhatsApp üzerinden yazın</span>
-          </a>
+  <div class="contact-card">
+    <div class="contact-items">
 
-          <a href="https://www.instagram.com/hayatislerofficial?igsh=aWxubHJrMmF3bGIx" target="_blank" class="contact-item">
-            <span class="contact-item-label">Instagram</span>
-            <span>@hayatislerofficial</span>
-          </a>
+      <a href="tel:+905373839345" class="contact-item">
+        <span class="contact-item-label" data-i18n="label_phone">Telefon</span>
+        <span>+90 537 383 93 45</span>
+      </a>
 
-          <a href="https://www.tiktok.com/@urfa_sira_gecesi.hayati?_r=1&_t=ZS-91avCXfPbDp" target="_blank" class="contact-item">
-            <span class="contact-item-label">TikTok</span>
-            <span>@urfa_sira_gecesi.hayati</span>
-          </a>
+      <a href="https://wa.me/905373839345?text=Merhaba%2C%20Hayati%20İşler%20ve%20Urfa%20Sıra%20Gecesi..."
+         target="_blank"
+         class="contact-item">
+        <span class="contact-item-label" data-i18n="label_whatsapp">WhatsApp</span>
+        <span data-i18n="whatsapp_text">WhatsApp üzerinden yazın</span>
+      </a>
 
-          <a href="https://youtube.com/@hayatiislerurfasiragecesi6601?si=ML0h-cbFn8LEIHcV" target="_blank" class="contact-item">
-            <span class="contact-item-label">YouTube</span>
-            <span>Kanala göz atın</span>
-          </a>
-        </div>
+      <a href="https://www.instagram.com/hayatislerofficial?igsh=aWxubHJrMmF3bGIx"
+         target="_blank"
+         class="contact-item">
+        <span class="contact-item-label" data-i18n="label_instagram">Instagram</span>
+        <span>@hayatislerofficial</span>
+      </a>
 
-        <div class="contact-note">
-          Lütfen rezervasyonunuz için tarih, şehir ve mekan bilgisi ile birlikte kişi sayısını iletin.
-        </div>
-      </div>
-    </section>
+      <a href="https://www.tiktok.com/@urfa_sira_gecesi.hayati"
+         target="_blank"
+         class="contact-item">
+        <span class="contact-item-label" data-i18n="label_tiktok">TikTok</span>
+        <span>@urfa_sira_gecesi.hayati</span>
+      </a>
 
-    <!-- Yorumlar Bölümü -->
-    <section class="reviews" id="yorumlar">
-      <h2 class="reviews-title">Misafir Yorumları</h2>
-      <p class="reviews-subtitle">
-        Gece sonunda misafirlerimizden gelen gerçek geri bildirimler. Siz de yorum bırakabilirsiniz.
-      </p>
+      <a href="https://youtube.com/@hayatiislerurfasiragecesi6601"
+         target="_blank"
+         class="contact-item">
+        <span class="contact-item-label" data-i18n="label_youtube">YouTube</span>
+        <span data-i18n="youtube_text">Kanala göz atın</span>
+      </a>
 
-      <div class="reviews-layout">
-        <!-- Sol: Yorum listesi -->
-        <div class="reviews-list" aria-label="Misafir yorumları">
+    </div>
+
+    <div class="contact-note" data-i18n="contact_note">
+      Lütfen rezervasyonunuz için tarih, şehir ve mekan bilgisi ile birlikte kişi sayısını iletin.
+    </div>
+  </div>
+</section>
+
+<!-- Yorumlar Bölümü -->
+<section class="reviews" id="yorumlar">
+  <h2 class="reviews-title" data-i18n="reviews_title">Misafir Yorumları</h2>
+
+  <p class="reviews-subtitle" data-i18n="reviews_subtitle">
+    Gece sonunda misafirlerimizden gelen gerçek geri bildirimler. Siz de yorum bırakabilirsiniz.
+  </p>
+
+  <div class="reviews-layout">
+    <div class="reviews-list" aria-label="Misafir yorumları">
+
           <!-- Örnek, sahte ama organik duran yorumlar -->
           <article class="review-card" data-rating="5">
             <div class="review-header">
@@ -1147,49 +1163,79 @@
 
         <!-- Sağ: Yorum formu -->
         <aside class="review-form-card">
-          <h3>Yorum Yapın</h3>
-          <p class="review-form-note">
-            Yorumunuz, yönetici onayından sonra yayınlanacaktır. Lütfen saygı çerçevesinde, küfür ve hakaret içermeyen ifadeler kullanın.
-          </p>
+    <h3 data-i18n="review_form_title">Yorum Yapın</h3>
 
-          <form id="reviewForm" novalidate>
-            <div class="form-group">
-              <label class="form-label" for="reviewName">Adınız (kısaltılmış da yazabilirsiniz)</label>
-              <input type="text" id="reviewName" class="form-input" placeholder="Örn: Ayşe K.">
-              <div class="form-helper">Tam isminizi yazmak zorunda değilsiniz.</div>
-            </div>
+    <p class="review-form-note" data-i18n="review_form_note">
+      Yorumunuz, yönetici onayından sonra yayınlanacaktır. Lütfen saygı çerçevesinde, küfür ve hakaret içermeyen ifadeler kullanın.
+    </p>
 
-            <div class="form-group">
-              <label class="form-label" for="reviewRating">Puanınız</label>
-              <select id="reviewRating" class="form-select">
-                <option value="">Seçiniz</option>
-                <option value="5">5 - Mükemmel</option>
-                <option value="4">4 - Çok iyi</option>
-                <option value="3">3 - İyi</option>
-                <option value="2">2 - Fena değil</option>
-                <option value="1">1 - Zayıf</option>
-              </select>
-            </div>
+    <form id="reviewForm" novalidate>
 
-            <div class="form-group">
-              <label class="form-label" for="reviewText">Yorumunuz</label>
-              <textarea id="reviewText" class="form-textarea" placeholder="Gece hakkında düşüncelerinizi yazın..."></textarea>
-              <div class="form-helper">
-                Küfür, hakaret, ayrımcılık, terör övgüsü vb. içerikler kesinlikle yayınlanmaz.
-              </div>
-            </div>
+      <div class="form-group">
+        <label class="form-label" for="reviewName" data-i18n="form_name_label">
+          Adınız (kısaltılmış da yazabilirsiniz)
+        </label>
 
-            <button type="submit" class="btn-submit">Yorumu Gönder</button>
+        <input 
+          type="text" 
+          id="reviewName" 
+          class="form-input"
+          placeholder="Örn: Ayşe K."
+          data-i18n-placeholder="form_name_placeholder"
+        >
 
-            <div id="reviewMessage" class="alert" style="display:none;"></div>
-          </form>
-        </aside>
+        <div class="form-helper" data-i18n="form_name_helper">
+          Tam isminizi yazmak zorunda değilsiniz.
+        </div>
       </div>
-    </section>
-  </main>
 
-  <footer>
-    © <span id="year"></span> Hayati İşler & Urfa Sıra Gecesi Ekibi. Tüm hakları saklıdır.
+      <div class="form-group">
+        <label class="form-label" for="reviewRating" data-i18n="form_rating_label">
+          Puanınız
+        </label>
+
+        <select id="reviewRating" class="form-select">
+          <option value="" data-i18n="form_select_option">Seçiniz</option>
+          <option value="5" data-i18n="rating_5">5 - Mükemmel</option>
+          <option value="4" data-i18n="rating_4">4 - Çok iyi</option>
+          <option value="3" data-i18n="rating_3">3 - İyi</option>
+          <option value="2" data-i18n="rating_2">2 - Fena değil</option>
+          <option value="1" data-i18n="rating_1">1 - Zayıf</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="reviewText" data-i18n="form_comment_label">
+          Yorumunuz
+        </label>
+
+        <textarea 
+          id="reviewText" 
+          class="form-textarea"
+          placeholder="Gece hakkında düşüncelerinizi yazın..."
+          data-i18n-placeholder="form_comment_placeholder"
+        ></textarea>
+
+        <div class="form-helper" data-i18n="form_comment_helper">
+          Küfür, hakaret, ayrımcılık, terör övgüsü vb. içerikler kesinlikle yayınlanmaz.
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit" data-i18n="form_submit">
+        Yorumu Gönder
+      </button>
+
+      <div id="reviewMessage" class="alert" style="display:none;"></div>
+
+    </form>
+  </aside>
+</div>
+</section>
+</main>
+
+<footer>
+  © <span id="year"></span> Hayati İşler & Urfa Sıra Gecesi Ekibi. 
+  <span data-i18n="footer_rights">Tüm hakları saklıdır.</span>
 
     <div class="social-bar">
       <a href="https://wa.me/905373839345?text=Merhaba%2C%20Hayati%20İ%C5%9Fler%20ve%20Urfa%20S%C4%B1ra%20Gecesi%20ekibi.%20Etkinli%C4%9Fim%20i%C3%A7in%20rezervasyon%20yapmak%20istiyorum.%20M%C3%BCsaitlik%2C%20fiyat%20ve%20program%20detaylar%C4%B1n%C4%B1%20%C3%B6%C4%9Frenebilir%20miyim%3F" 
