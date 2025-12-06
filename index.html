@@ -1495,14 +1495,26 @@
 
 <!-- Firebase config ve init -->
 <script src="firebase-init.js"></script>
-   <!-- Dil Seçimi Dropdown -->
-<div class="lang-switcher">
-  <select id="langSelect" class="lang-select">
+  <!-- Dil Seçimi (Sağ Üst) -->
+<div class="lang-switcher" style="
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 9999;
+">
+  <select id="langSelect" class="lang-select" style="
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: rgba(15,23,42,0.9);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+  ">
     <option value="tr">🇹🇷 Türkçe</option>
     <option value="en">🇬🇧 English</option>
     <option value="ar">🇸🇦 العربية</option>
     <option value="de">🇩🇪 Deutsch</option>
   </select>
 </div>
+
 </body>
 </html> 
