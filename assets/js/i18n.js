@@ -49,6 +49,46 @@ const translations = {
   },
 };
 
+translations.tr.blog_title = "Blog Yazıları";
+translations.en.blog_title = "Blog Articles";
+translations.ar.blog_title = "مقالات المدونة";
+translations.de.blog_title = "Blogartikel";
+
+translations.tr.blog_adabi = "Sıra Gecesi Adabı";
+translations.en.blog_adabi = "Etiquette of the Sıra Night";
+translations.ar.blog_adabi = "آداب سهرة السيرة";
+translations.de.blog_adabi = "Etikette der Sıra-Nacht";
+
+translations.tr.blog_tarihcesi = "Sıra Gecesi Tarihçesi";
+translations.en.blog_tarihcesi = "History of Sıra Night";
+translations.ar.blog_tarihcesi = "تاريخ سهرة السيرة";
+translations.de.blog_tarihcesi = "Geschichte der Sıra-Nacht";
+
+translations.tr.blog_isimler = "Türkülerde Geçen İsimler & Hikâyeleri";
+translations.en.blog_isimler = "Names in Folk Songs & Their Stories";
+translations.ar.blog_isimler = "الأسماء في الأغاني الشعبية وقصصها";
+translations.de.blog_isimler = "Namen in Volksliedern & ihre Geschichten";
+
+translations.tr.blog_hikayeler = "Türkülerin Hikâyeleri";
+translations.en.blog_hikayeler = "Stories Behind the Folk Songs";
+translations.ar.blog_hikayeler = "قصص الأغاني الشعبية";
+translations.de.blog_hikayeler = "Geschichten hinter den Volksliedern";
+
+translations.tr.blog_cigkofte = "Çiğköfte Gelenekleri";
+translations.en.blog_cigkofte = "Çiğköfte Traditions";
+translations.ar.blog_cigkofte = "تقاليد الجيغ كفتة";
+translations.de.blog_cigkofte = "Traditionen der Çiğköfte";
+
+translations.tr.blog_mendil = "Sıra Gecesinde Mendil Sallama Anlamları";
+translations.en.blog_mendil = "Meanings of Handkerchief Waving in Sıra Night";
+translations.ar.blog_mendil = "معاني التلويح بالمنديل في سهرة السيرة";
+translations.de.blog_mendil = "Bedeutungen des Taschentuchschwenkens in der Sıra-Nacht";
+
+translations.tr.blog_mirra = "Mırra ve Sıra Gecesi Kültürü";
+translations.en.blog_mirra = "Mırra and Sıra Night Culture";
+translations.ar.blog_mirra = "المِرّة وثقافة سهرة السيرة";
+translations.de.blog_mirra = "Mırra und die Kultur der Sıra-Nacht";
+
 
 // ===========================
 //  Dil değiştirme fonksiyonu
