@@ -1515,6 +1515,19 @@
     <option value="de">🇩🇪 Deutsch</option>
   </select>
 </div>
+  <script src="assets/js/i18n.js"></script>
+<script>
+  document.getElementById("langSelect").addEventListener("change", function () {
+      const lang = this.value;
+      localStorage.setItem("lang", lang);
+      applyLanguage(lang);
+  });
+
+  // Sayfa ilk açıldığında kaydedilen dili yükle
+  const saved = localStorage.getItem("lang") || "tr";
+  document.getElementById("langSelect").value = saved;
+  applyLanguage(saved);
+</script>
 
 </body>
 </html> 
