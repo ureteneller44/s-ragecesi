@@ -1,136 +1,83 @@
-// --------------------------------------------
-//  LANGUAGE DATA
-// --------------------------------------------
-const i18nData = {
+// ===========================
+//  Çok Dilli Sistem – i18n.js
+// ===========================
+
+// Tüm çeviri metinleri burada
+const translations = {
   tr: {
-    nav: {
-      home: "Ana Sayfa",
-      blog: "Blog",
-      contact: "İletişim",
-      lang: "Dil"
-    },
-    index: {
-      heroTitle: "El emeği & yerel lezzetler tek platformda",
-      heroDesc: "Kadın üreticilerden el işi ürünler ve yerel tatlar.",
-      searchPlaceholder: "Ürün, kategori, ilçe ara…",
-      login: "Giriş Yap",
-      register: "Kayıt Ol"
-    },
-    blogs: {
-      turkuHikayeleri: {
-        title: "Türkülerin Hikâyeleri",
-        intro1: "Türküler Anadolu insanının sevinci, acısı, kavgası, aşkı ve kaderiyle yoğrulmuş sözlü tarih belgeleridir.",
-        intro2: "Bu sayfada en bilinen Urfa türkülerinin ardındaki gerçek hikâyeleri bulacaksınız.",
-        // buraya diğer tüm bölümlerin Türkçe karşılıkları tek tek işlenecek
-      }
-      // diğer bloglar buraya eklenecek
-    }
+    label_today: "BUGÜN NEREDEYİZ?",
+    hero_title_main: "Hayati İşler & Urfa Sıra Gecesi",
+    hero_desc:
+      "Urfa türküleri, davul-zurna, saz ve renkli mendillerle tam bir sıra gecesi atmosferini sahneye taşıyoruz. Düğün, kına, kurumsal etkinlik ve özel gecelerinizde misafirlerinize unutulmaz bir gece yaşatıyoruz.",
+    tag_live: "Canlı müzik",
+    tag_stage: "Otantik sahne",
+    tag_urfa: "Urfa & doğu ezgileri",
+    tag_special: "Özel konsept",
   },
 
-  // ---------------------- ENGLISH ----------------------
   en: {
-    nav: {
-      home: "Home",
-      blog: "Blog",
-      contact: "Contact",
-      lang: "Language"
-    },
-    index: {
-      heroTitle: "Handmade goods & local flavors in one platform",
-      heroDesc: "Handmade crafts and traditional foods from women producers.",
-      searchPlaceholder: "Search: product, category, district…",
-      login: "Login",
-      register: "Register"
-    },
-    blogs: {
-      turkuHikayeleri: {
-        title: "Stories Behind the Folk Songs",
-        intro1: "Folk songs are emotional historical records shaped by the joy, sadness and struggles of Anatolian people.",
-        intro2: "Here you will find the true stories behind the most famous Urfa folk songs.",
-      }
-      // diğer blog çevirileri buraya gelecek
-    }
+    label_today: "WHERE ARE WE TODAY?",
+    hero_title_main: "Hayati İşler & Urfa Night Event",
+    hero_desc:
+      "We bring the authentic Urfa night atmosphere with traditional music, drums, saz, and colorful scarves. Perfect for weddings, henna nights, corporate events, and special celebrations.",
+    tag_live: "Live music",
+    tag_stage: "Authentic stage",
+    tag_urfa: "Urfa & eastern tunes",
+    tag_special: "Special concept",
   },
 
-  // ---------------------- ARABIC ----------------------
   ar: {
-    nav: {
-      home: "الرئيسية",
-      blog: "المدونة",
-      contact: "اتصل بنا",
-      lang: "اللغة"
-    },
-    index: {
-      heroTitle: "المنتجات اليدوية والنكهات المحلية في منصة واحدة",
-      heroDesc: "منتجات وحرف يدوية من النساء المنتجّات.",
-      searchPlaceholder: "ابحث: منتج، فئة، منطقة…",
-      login: "تسجيل الدخول",
-      register: "إنشاء حساب"
-    },
-    blogs: {
-      turkuHikayeleri: {
-        title: "قصص الأغاني الشعبية",
-        intro1: "الأغاني الشعبية هي سجلات شفوية شكّلها فرح وحزن ونضال أهل الأناضول.",
-        intro2: "هنا ستجد القصص الحقيقية وراء أشهر أغاني أورفا.",
-      }
-    }
+    label_today: "أين نحن اليوم؟",
+    hero_title_main: "حياتي إشلر & سهرة أورفا",
+    hero_desc:
+      "نقدم لكم أجواء سهرة أورفا الأصيلة مع الموسيقى، الطبل، الساز، والمناديل الملونة. مناسب للأعراس، ليالي الحناء، الفعاليات الشركات والمناسبات الخاصة.",
+    tag_live: "موسيقى حية",
+    tag_stage: "منصة تقليدية",
+    tag_urfa: "أغاني أورفا الشرقية",
+    tag_special: "عرض خاص",
   },
 
-  // ---------------------- GERMAN ----------------------
   de: {
-    nav: {
-      home: "Startseite",
-      blog: "Blog",
-      contact: "Kontakt",
-      lang: "Sprache"
-    },
-    index: {
-      heroTitle: "Handgemachte Produkte & lokale Spezialitäten auf einer Plattform",
-      heroDesc: "Handarbeiten und lokale Speisen von Frauenproduzenten.",
-      searchPlaceholder: "Suche: Produkt, Kategorie, Bezirk…",
-      login: "Anmelden",
-      register: "Registrieren"
-    },
-    blogs: {
-      turkuHikayeleri: {
-        title: "Geschichten der Volkslieder",
-        intro1: "Volkslieder sind mündliche historische Aufzeichnungen, die von den Gefühlen der anatolischen Menschen geprägt wurden.",
-        intro2: "Hier findest du die wahren Geschichten hinter den bekanntesten Urfa-Liedern.",
-      }
-    }
-  }
+    label_today: "WO SIND WIR HEUTE?",
+    hero_title_main: "Hayati İşler & Urfa Nachtshow",
+    hero_desc:
+      "Wir bringen die authentische Urfa-Abendatmosphäre mit traditioneller Musik, Trommeln, Saz und farbigen Tüchern auf die Bühne. Ideal für Hochzeiten, Henna-Abende, Firmenfeiern und besondere Veranstaltungen.",
+    tag_live: "Live-Musik",
+    tag_stage: "Authentische Bühne",
+    tag_urfa: "Urfa & östliche Melodien",
+    tag_special: "Spezielles Konzept",
+  },
 };
 
-// --------------------------------------------
-//  APPLY TRANSLATION
-// --------------------------------------------
-function applyTranslations(lang) {
-  document.documentElement.lang = lang;
 
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const keys = el.getAttribute("data-i18n").split(".");
-    let text = i18nData[lang];
+// ===========================
+//  Dil değiştirme fonksiyonu
+// ===========================
+function applyLanguage(lang) {
+  const dict = translations[lang] || translations["tr"];
 
-    keys.forEach(k => {
-      if (text && text[k] !== undefined) text = text[k];
-    });
+  // Tüm data-i18n alanlarını bul
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
 
-    if (typeof text === "string") el.innerHTML = text;
+    if (dict[key]) {
+      el.innerHTML = dict[key];
+    }
   });
+
+  // Arapça ise sağdan sola yazı yönü
+  if (lang === "ar") {
+    document.documentElement.setAttribute("dir", "rtl");
+  } else {
+    document.documentElement.setAttribute("dir", "ltr");
+  }
 }
 
-// --------------------------------------------
-//  LANGUAGE SWITCH HANDLER
-// --------------------------------------------
-function changeLanguage(lang) {
-  localStorage.setItem("lang", lang);
-  applyTranslations(lang);
-}
 
-// --------------------------------------------
-//  INIT
-// --------------------------------------------
+// ===========================
+//  İlk çalıştırma (sayfa açılınca)
+// ===========================
 document.addEventListener("DOMContentLoaded", () => {
-  const savedLang = localStorage.getItem("lang") || "tr";
-  applyTranslations(savedLang);
+  const saved = localStorage.getItem("lang") || "tr";
+  applyLanguage(saved);
 });
