@@ -373,6 +373,63 @@ adab: {
   back: "← Ana Sayfaya Dön",
 }
 
+tarihce: {
+  title: "Sıra Gecesi Tarihçesi | Urfa Kültürü",
+  desc: "Sıra Gecesi'nin gerçek tarihçesi, rivayetler, ilk ezgiler, Urfa'nın meclis kültürü, hoyratlar ve bu geleneğin kökeni.",
+
+  h1: "Sıra Gecesi Tarihçesi",
+
+  p1: "Sıra gecesi, Şanlıurfa’nın asırlardır yaşattığı en köklü geleneklerden biridir. Kesin bir çıkış yılı bilinmese de en az 150–200 yıldır Urfa’da oturmuş bir yapıya sahiptir. Kökleri ise daha eskidir ve yârân meclisleri ile ahilik kültürüne dayanır.",
+
+  p2: "Sıra gecesi sadece bir eğlence değil; dostluğun, dayanışmanın, terbiyenin ve sohbetin yaşatıldığı bir meclistir. Erkek arkadaş grupları kış gecelerinde her hafta başka bir evde 'sıra ile' toplanır, bu nedenle adı 'sıra gecesi'dir.",
+
+  h2_1: "Gecenin Başlangıcı: Divan, Hoyrat ve İlk Ezgiler",
+
+  p3: "Tarihteki ilk sıra gecesinde söylenen belirli bir türkü yoktur ancak rivayetler gecelerin ağır bir divan veya hoyrat ile başladığını söyler. Divan, meclisin ciddiyet ve kültürel derinlik sembolüdür.",
+
+  p4: "Rivayetlere göre eski sıra gecelerinde ilk söylenen türküler:",
+
+  li1: "Urfalıyam Ezelden",
+  li2: "Kara Üzüm Habbesi",
+  li3: "Çiğköfte Başım Tacı",
+  li4: "Urfa’nın Etrafı Dumanlı Dağlar",
+
+  p5: "Kesin bir ilk türkü bilinmez; ancak sıra gecesinin ruhuna en çok divanlar, hoyratlar ve uzun havalar yakışır.",
+
+  h2_2: "Sıra Gecesinin Amacı",
+
+  p6: "Sıra gecesi; yemek ve müzikten önce bir 'meclis adabı'dır. Bu gecelerde:",
+
+  li5: "Misafirperverlik ve ahlak öğretilir,",
+  li6: "Gençler büyüklerden görgü öğrenir,",
+  li7: "Dostluk bağları güçlenir,",
+  li8: "Müzik, sohbet ve ikram ile gece derinleşir.",
+
+  p7: "Bazı önemli kararların, hatta Milli Mücadele dönemindeki bazı toplantıların sıra gecelerinde yapıldığı rivayet edilir.",
+
+  h2_3: "Gecenin Yapısı ve Akışı",
+
+  p8: "Klasik bir sıra gecesinde akış şöyledir:",
+
+  li9: "Misafirler içeri girer, büyükler baş köşeye oturur.",
+  li10: "Ev sahibi kapıya yakın mütevazı yere oturur.",
+  li11: "Sohbet açılır; şiir, memleket ve günlük hâller konuşulur.",
+  li12: "Sazlar hazırlanır: bağlama, ud, cümbüş, keman…",
+  li13: "İlk olarak ağır bir divan veya hoyrat okunur.",
+  li14: "Sonra türküler, uzun havalar ve halaylar gelir.",
+  li15: "Gece sonunda çiğköfte yoğrulur; usta kişi hazırlar.",
+
+  h2_4: "Neden Bu Kadar Değerli Bir Gelenek?",
+
+  p9: "Sıra gecesi, Urfa toplumunda sadece eğlence değil; kimlik, kültür, kardeşlik ve bir arada yaşama geleneğinin sembolüdür.",
+
+  h2_5: "Rivayet Tadında Bir Anlatı",
+
+  p10: "Soğuk bir Urfa kış gecesinde küçük bir oda dolar. Sazlar, bakır siniler, çay kokusu... Oda sessizleşir. Usta bir âşık divan okur. Ardından hoyratlar ve uzun havalar başlar. Belki de ilk sıra gecesinde söylenen türküler bugün hâlâ dillerimizdedir.",
+
+  back: "← Ana Sayfaya Dön",
+}
+
 // ===========================
 //  Dil değiştirme fonksiyonu
 // ===========================
