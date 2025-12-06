@@ -674,39 +674,39 @@
     }
   </style>
 </head>
-<body>
+ <body>
 
-      <!-- Üst duyuru alanı (Firebase'den okunacak) -->
-  <div class="announcement-bar">
-    <div class="announcement-inner">
-      <span class="announcement-label">BUGÜN NEREDEYİZ?</span>
-      <!-- Üst ana satırı boş bırakıyoruz, kullanmayacağız -->
-      <span id="announcementText" class="announcement-text"></span>
-      <!-- Sadece admin panelindeki "Alt açıklama" burada görünecek -->
-      <span id="announcementSub" class="announcement-sub">
-        <!-- Varsayılan boş; panelden gelen yazı ile dolacak -->
-      </span>
-    </div>
+     <!-- Üst duyuru alanı (Firebase'den okunacak) -->
+<div class="announcement-bar">
+  <div class="announcement-inner">
+    <span class="announcement-label" data-i18n="label_today">BUGÜN NEREDEYİZ?</span>
+
+    <span id="announcementText" class="announcement-text"></span>
+
+    <span id="announcementSub" class="announcement-sub">
+      <!-- Varsayılan boş; panelden gelen yazı ile dolacak -->
+    </span>
   </div>
+</div>
 
-  <main class="page">
-    <!-- Hero Alanı -->
-    <section class="hero">
-      <div class="hero-text">
-        <h1>
-          <span>Hayati İşler</span> Urfa Sıra Gecesi ve Ekibi
-        </h1>
-        <p>
-          Urfa türküleri, davul-zurna, saz ve renkli mendillerle tam bir sıra gecesi
-          atmosferini sahneye taşıyoruz. Düğün, kına, kurumsal etkinlik ve özel gecelerinizde
-          misafirlerinize unutulmaz bir gece yaşatıyoruz.
-        </p>
+<main class="page">
+  <!-- Hero Alanı -->
+  <section class="hero">
+    <div class="hero-text">
+     <h1 data-i18n="hero_title_main"></h1>
 
-        <div class="hero-tags">
-  <div class="tag">Canlı müzik</div>
-  <div class="tag">Otantik sahne</div>
-  <div class="tag">Urfa & doğu ezgileri</div>
-  <div class="tag">Özel konsept</div>
+      <p data-i18n="hero_desc">
+        Urfa türküleri, davul-zurna, saz ve renkli mendillerle tam bir sıra gecesi
+        atmosferini sahneye taşıyoruz. Düğün, kına, kurumsal etkinlik ve özel gecelerinizde
+        misafirlerinize unutulmaz bir gece yaşatıyoruz.
+      </p>
+
+      <div class="hero-tags">
+        <div class="tag" data-i18n="tag_live">Canlı müzik</div>
+        <div class="tag" data-i18n="tag_stage">Otantik sahne</div>
+        <div class="tag" data-i18n="tag_urfa">Urfa & doğu ezgileri</div>
+        <div class="tag" data-i18n="tag_special">Özel konsept</div>
+      </div>
 
   <div style="margin-top:28px;">
     <h2 style="color:#facc15; margin-bottom:12px; font-size:1.3rem;">Blog Yazıları</h2>
@@ -743,56 +743,60 @@
     </section>
 
     <!-- Galeri Bölümleri (JSON'dan dinamik) -->
-    <section class="sections">
-      <!-- Video Galerisi -->
-      <article class="section-card">
-        <div class="section-tag">Video Galerisi</div>
-<div id="videoEmpty" class="gallery-empty">Henüz video eklenmemiştir. Yönetici panelinden video yüklediğinizde burada görünecektir.</div>
-<div id="videoGallery" class="video-grid"></div>
-        <h2>Sahne performanslarımız</h2>
-        <p>
-          Farklı mekanlardaki sıra gecesi performanslarımızı izleyerek ekibimizi daha yakından tanıyabilirsiniz.
-        </p>
+<section class="sections">
 
-        <button
-          type="button"
-          class="btn-submit"
-          onclick="window.location.href='galeri.html';"
-          style="margin: 12px 0 18px;"
-        >
-          Video Galerisini Gör
-        </button>
+  <!-- Video Galerisi -->
+  <article class="section-card">
+    <div class="section-tag">Video Galerisi</div>
 
-        <div id="videoGallery" class="gallery-grid"></div>
-        <div id="videoEmpty" class="section-placeholder">
-        </div>
-      </article>
+    <div id="videoEmpty" class="gallery-empty">
+      Henüz video eklenmemiştir. Yönetici panelinden video yüklediğinizde burada görünecektir.
+    </div>
 
-      <!-- Fotoğraf Galerisi -->
-      <article class="section-card">
-        <div class="section-tag">Fotoğraf Galerisi</div>
-<div id="photoEmpty" class="gallery-empty">Henüz fotoğraf eklenmemiştir. Yönetici panelinden fotoğraf yüklediğinizde burada görünecektir.</div>
-<div id="photoGallery" class="gallery-grid"></div>
-        <h2>Renkli kareler</h2>
-        <p>
-          Kına geceleri, düğünler, özel geceler ve mekan performanslarından seçili fotoğraflar.
-        </p>
-        
-        <button
-          type="button"
-          class="btn-submit"
-          onclick="window.location.href='galeri.html';"
-          style="margin: 12px 0 18px;"
-        >
-          Fotoğraf Galerisini Gör
-        </button>
+    <div id="videoGallery" class="gallery-grid"></div>
 
-        <div id="photoGallery" class="gallery-grid"></div>
-        <div id="photoEmpty" class="section-placeholder">
-        </div>
-      </article>
-    </section>
-  </main>
+    <h2>Sahne performanslarımız</h2>
+    <p>
+      Farklı mekanlardaki sıra gecesi performanslarımızı izleyerek ekibimizi daha yakından tanıyabilirsiniz.
+    </p>
+
+    <button
+      type="button"
+      class="btn-submit"
+      onclick="window.location.href='galeri.html';"
+      style="margin: 12px 0 18px;"
+    >
+      Video Galerisini Gör
+    </button>
+  </article>
+
+  <!-- Fotoğraf Galerisi -->
+  <article class="section-card">
+    <div class="section-tag">Fotoğraf Galerisi</div>
+
+    <div id="photoEmpty" class="gallery-empty">
+      Henüz fotoğraf eklenmemiştir. Yönetici panelinden fotoğraf yüklediğinizde burada görünecektir.
+    </div>
+
+    <div id="photoGallery" class="gallery-grid"></div>
+
+    <h2>Renkli kareler</h2>
+    <p>
+      Kına geceleri, düğünler, özel geceler ve mekan performanslarından seçili fotoğraflar.
+    </p>
+
+    <button
+      type="button"
+      class="btn-submit"
+      onclick="window.location.href='galeri.html';"
+      style="margin: 12px 0 18px;"
+    >
+      Fotoğraf Galerisini Gör
+    </button>
+  </article>
+
+</section>
+</main>
 
     <!-- İletişim / Rezervasyon Bölümü -->
     <section class="contact-section">
@@ -1491,5 +1495,14 @@
 
 <!-- Firebase config ve init -->
 <script src="firebase-init.js"></script>
+   <!-- Dil Seçimi Dropdown -->
+<div class="lang-switcher">
+  <select id="langSelect" class="lang-select">
+    <option value="tr">🇹🇷 Türkçe</option>
+    <option value="en">🇬🇧 English</option>
+    <option value="ar">🇸🇦 العربية</option>
+    <option value="de">🇩🇪 Deutsch</option>
+  </select>
+</div>
 </body>
 </html> 
