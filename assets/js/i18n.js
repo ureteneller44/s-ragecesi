@@ -309,6 +309,70 @@ translations.en.form_submit = "Submit Comment";
 translations.ar.form_submit = "إرسال التعليق";
 translations.de.form_submit = "Kommentar senden";
 
+adab: {
+  title: "Sıra Gecesi Adabı",
+  desc: "Sıra gecesi adabı, meclis kuralları, büyük–küçük ilişkileri, saz düzeni ve geleneksel davranış kuralları.",
+
+  h1: "Sıra Gecesi Adabı",
+  p1: "Sıra gecesi, Şanlıurfa’nın en köklü geleneklerinden biridir ve kendi içinde ciddi bir edep–görgü sistemi barındırır. Sadece türkü söylenen bir eğlence değil; saygı, kardeşlik ve terbiye meclisidir.",
+  p2: "Bu yazıda klasik bir Urfa sıra gecesinin adabını ve gece boyunca davranış biçimlerini bulacaksınız.",
+
+  h2_1: "1. Büyükler Baş Köşeye Geçer",
+  p3: "Sıra gecesinde 'yol' vardır. En yaşlı kişi baş köşeye oturur.",
+  p4: "Ev sahibi ise kapıya yakın mütevazı bir yerde oturur.",
+
+  h2_2: "2. Selam ve Dua ile Başlar",
+  p5: "Gelen herkes odaya selam vererek girer, meclis dua ile açılır.",
+
+  h2_3: "3. Ayak Uzatmak, Yüksek Sesle Konuşmak Yasaktır",
+  p6: "Sıra gecesinde herkes edepli oturur:",
+  li1: "Bacak uzatılmaz,",
+  li2: "Yüksek sesle konuşulmaz,",
+  li3: "Söz kesilmez,",
+  li4: "Saygı sınırı aşılmaz.",
+  p7: "Bu meclis hem sohbet hem terbiye yeridir.",
+
+  h2_4: "4. Sohbet Sırası ile Konuşulur",
+  p8: "Mecliste söz büyüğün işaretiyle kişiden kişiye geçer.",
+
+  h2_5: "5. Saz Düzeni",
+  p9: "Saz sessizce hazırlanır.",
+  li5: "Önce büyüklere selam verilir,",
+  li6: "Sonra ağır bir uzun hava ile başlanır.",
+  p10: "Gece asla hızlı türküyle başlamaz.",
+
+  h2_6: "6. Türkü Seçimi Adabı",
+  p11: "Türkü seçmenin de adabı vardır:",
+  li7: "İlk türkü divan/hoyrat olmalıdır,",
+  li8: "Orta bölümde oyun havaları,",
+  li9: "Son bölümde halaylar.",
+  p12: "Kişisel istekler söylenmez.",
+
+  h2_7: "7. Çiğköfte Adabı",
+  p13: "Çiğköfteyi yoğuran kişi meclisin en ustasıdır.",
+  p14: "Yoğurma sırasında sessizlik ve hoyratlar olur.",
+
+  h2_8: "8. Misafir Baş Tacıdır",
+  p15: "İkramlar önce misafire uzatılır, misafir en değerli kişidir.",
+
+  h2_9: "9. Kavga, Tartışma, Siyaset Yasaktır",
+  p16: "Bu meclis tartışma yeri değildir:",
+  li10: "Kardeşlik,",
+  li11: "Sohbet,",
+  li12: "Güleryüz,",
+  li13: "Muhabbet.",
+  p17: "Meclisin amacı budur.",
+
+  h2_10: "10. Sonunda Dua Edilir",
+  p18: "Gecenin sonunda dua edilir ve meclis sessizce dağılır.",
+
+  h2_11: "Rivayete Göre İlk Öğüt",
+  p19: "Eski bir Urfalı aşığın gençlere öğüdü:",
+  quote1: "“Meclisin ölçüsü edep, sazın sesi terbiyedir.”",
+
+  back: "← Ana Sayfaya Dön",
+}
+
 // ===========================
 //  Dil değiştirme fonksiyonu
 // ===========================
