@@ -666,139 +666,176 @@
       }
 
       /* --- FOTOĞRAF --- */
-      const photoForm = document.getElementById("photoForm");
-      const photosList = document.getElementById("photosList");
+const photoForm = document.getElementById("photoForm");
+const photosList = document.getElementById("photosList");
 
-      photoForm.onsubmit = async e => {
-        e.preventDefault();
-        const file = document.getElementById("photoFile").files[0];
-        if (!file) return alert("Fotoğraf seç");
+photoForm.onsubmit = async e => {
+  e.preventDefault();
+  const file = document.getElementById("photoFile").files[0];
+  if (!file) return alert("Fotoğraf seç");
 
-        const url = await uploadToCloudinary(file, "image");
+  const url = await uploadToCloudinary(file, "image");
 
-        await db.collection("photos").add({
-          url,
-          title: document.getElementById("photoTitle").value,
-          desc: document.getElementById("photoDesc").value,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-
-        photoForm.reset();
-        loadPhotos();
-      };
-
-      function loadPhotos() {
-  db.collection("photos").orderBy("createdAt", "desc").get().then(snap => {
-    let html = "";
-    snap.forEach(doc => {
-      const d = doc.data();
-      html += `
-        <div style="border:1px solid #334;padding:6px;border-radius:10px;background:#020617;position:relative;">
-          
-          <!-- Sil Butonu -->
-          <button onclick="deletePhoto('${doc.id}')"
-            style="
-              position:absolute;
-              top:8px;
-              right:8px;
-              background:#b91c1c;
-              color:white;
-              border:none;
-              padding:4px 10px;
-              font-size:12px;
-              border-radius:6px;
-              cursor:pointer;
-            ">
-            Sil
-          </button>
-
-          <img src="${d.url}" style="width:100%;border-radius:10px;">
-          <div style="padding:4px 0;font-size:0.8rem;">
-            <b>${d.title || ""}</b><br>
-            <span>${d.desc || ""}</span>
-          </div>
-        </div>`;
-    });
-
-    photosList.innerHTML = html || "<div class='comment-empty'>Fotoğraf yok</div>";
+  await db.collection("photos").add({
+    url,
+    title: document.getElementById("photoTitle").value,
+    desc: document.getElementById("photoDesc").value,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
   });
+
+  photoForm.reset();
+  loadPhotos();
+};
+
+
+function loadPhotos() {
+  db.collection("photos")
+    .orderBy("createdAt", "desc")
+    .get()
+    .then(snap => {
+      let html = "";
+      snap.forEach(doc => {
+        const d = doc.data();
+
+        html += `
+          <div style="
+            border:1px solid #334;
+            padding:6px;
+            border-radius:10px;
+            background:#020617;
+            position:relative;
+          ">
+
+            <!-- Sil Butonu -->
+            <button onclick="deletePhoto('${doc.id}')"
+              style="
+                position:absolute;
+                top:8px;
+                right:8px;
+                background:#dc2626;
+                color:white;
+                border:none;
+                padding:6px 12px;
+                font-size:13px;
+                border-radius:6px;
+                cursor:pointer;
+                z-index:10;
+              ">
+              ✖ Sil
+            </button>
+
+            <img src="${d.url}" style="width:100%;border-radius:10px;">
+
+            <div style="padding:4px 0;font-size:0.8rem;">
+              <b>${d.title || ""}</b><br>
+              <span>${d.desc || ""}</span>
+            </div>
+          </div>`;
+      });
+
+      photosList.innerHTML =
+        html || "<div class='comment-empty'>Fotoğraf yok</div>";
+    });
 }
 
-// Fotoğraf Silme
 window.deletePhoto = id => {
   if (!confirm("Bu fotoğrafı silmek istiyor musun?")) return;
-  db.collection("photos").doc(id).delete().then(loadPhotos);
+
+  db.collection("photos")
+    .doc(id)
+    .delete()
+    .then(loadPhotos);
 };
-      loadPhotos();
 
-      /* --- VİDEO --- */
-      const videoForm = document.getElementById("videoForm");
-      const videosList = document.getElementById("videosList");
+loadPhotos();
 
-      videoForm.onsubmit = async e => {
-        e.preventDefault();
-        const file = document.getElementById("videoFile").files[0];
-        if (!file) return alert("Video seç");
 
-        const url = await uploadToCloudinary(file, "video");
 
-        await db.collection("videos").add({
-          url,
-          title: document.getElementById("videoTitle").value,
-          desc: document.getElementById("videoDesc").value,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
+/* --- VİDEO --- */
+const videoForm = document.getElementById("videoForm");
+const videosList = document.getElementById("videosList");
 
-        videoForm.reset();
-        loadVideos();
-      };
+videoForm.onsubmit = async e => {
+  e.preventDefault();
+  const file = document.getElementById("videoFile").files[0];
+  if (!file) return alert("Video seç");
 
-      function loadVideos() {
-  db.collection("videos").orderBy("createdAt", "desc").get().then(snap => {
-    let html = "";
-    snap.forEach(doc => {
-      const d = doc.data();
-      html += `
-        <div style="border:1px solid #334;padding:6px;border-radius:10px;background:#020617;position:relative;">
+  const url = await uploadToCloudinary(file, "video");
 
-          <!-- Sil Butonu -->
-          <button onclick="deleteVideo('${doc.id}')"
-            style="
-              position:absolute;
-              top:8px;
-              right:8px;
-              background:#b91c1c;
-              color:white;
-              border:none;
-              padding:4px 10px;
-              font-size:12px;
-              border-radius:6px;
-              cursor:pointer;
-            ">
-            Sil
-          </button>
-
-          <video controls style="width:100%;border-radius:10px;max-height:230px;object-fit:contain;">
-            <source src="${d.url}">
-          </video>
-          <div style="padding:4px 0;font-size:0.8rem;">
-            <b>${d.title || ""}</b><br>
-            <span>${d.desc || ""}</span>
-          </div>
-        </div>`;
-    });
-
-    videosList.innerHTML = html || "<div class='comment-empty'>Video yok</div>";
+  await db.collection("videos").add({
+    url,
+    title: document.getElementById("videoTitle").value,
+    desc: document.getElementById("videoDesc").value,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
   });
+
+  videoForm.reset();
+  loadVideos();
+};
+
+
+function loadVideos() {
+  db.collection("videos")
+    .orderBy("createdAt", "desc")
+    .get()
+    .then(snap => {
+      let html = "";
+      snap.forEach(doc => {
+        const d = doc.data();
+
+        html += `
+          <div style="
+            border:1px solid #334;
+            padding:6px;
+            border-radius:10px;
+            background:#020617;
+            position:relative;
+          ">
+
+            <!-- Sil Butonu -->
+            <button onclick="deleteVideo('${doc.id}')"
+              style="
+                position:absolute;
+                top:8px;
+                right:8px;
+                background:#dc2626;
+                color:white;
+                border:none;
+                padding:6px 12px;
+                font-size:13px;
+                border-radius:6px;
+                cursor:pointer;
+                z-index:10;
+              ">
+              ✖ Sil
+            </button>
+
+            <video controls style="width:100%;border-radius:10px;max-height:230px;object-fit:contain;">
+              <source src="${d.url}">
+            </video>
+
+            <div style="padding:4px 0;font-size:0.8rem;">
+              <b>${d.title || ""}</b><br>
+              <span>${d.desc || ""}</span>
+            </div>
+          </div>`;
+      });
+
+      videosList.innerHTML =
+        html || "<div class='comment-empty'>Video yok</div>";
+    });
 }
 
-// Video Silme
 window.deleteVideo = id => {
   if (!confirm("Bu videoyu silmek istiyor musun?")) return;
-  db.collection("videos").doc(id).delete().then(loadVideos);
-};
-      loadVideos();
 
+  db.collection("videos")
+    .doc(id)
+    .delete()
+    .then(loadVideos);
+};
+
+loadVideos();
 
       /* --- YORUMLAR (ADMIN) --- */
       function loadComments() {
