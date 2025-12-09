@@ -688,22 +688,47 @@
       };
 
       function loadPhotos() {
-        db.collection("photos").orderBy("createdAt", "desc").get().then(snap => {
-          let html = "";
-          snap.forEach(doc => {
-            const d = doc.data();
-            html += `
-              <div style="border:1px solid #334;padding:6px;border-radius:10px;background:#020617;">
-                <img src="${d.url}" style="width:100%;border-radius:10px;">
-                <div style="padding:4px 0;font-size:0.8rem;">
-                  <b>${d.title || ""}</b><br>
-                  <span>${d.desc || ""}</span>
-                </div>
-              </div>`;
-          });
-          photosList.innerHTML = html || "<div class='comment-empty'>Fotoğraf yok</div>";
-        });
-      }
+  db.collection("photos").orderBy("createdAt", "desc").get().then(snap => {
+    let html = "";
+    snap.forEach(doc => {
+      const d = doc.data();
+      html += `
+        <div style="border:1px solid #334;padding:6px;border-radius:10px;background:#020617;position:relative;">
+          
+          <!-- Sil Butonu -->
+          <button onclick="deletePhoto('${doc.id}')"
+            style="
+              position:absolute;
+              top:8px;
+              right:8px;
+              background:#b91c1c;
+              color:white;
+              border:none;
+              padding:4px 10px;
+              font-size:12px;
+              border-radius:6px;
+              cursor:pointer;
+            ">
+            Sil
+          </button>
+
+          <img src="${d.url}" style="width:100%;border-radius:10px;">
+          <div style="padding:4px 0;font-size:0.8rem;">
+            <b>${d.title || ""}</b><br>
+            <span>${d.desc || ""}</span>
+          </div>
+        </div>`;
+    });
+
+    photosList.innerHTML = html || "<div class='comment-empty'>Fotoğraf yok</div>";
+  });
+}
+
+// Fotoğraf Silme
+window.deletePhoto = id => {
+  if (!confirm("Bu fotoğrafı silmek istiyor musun?")) return;
+  db.collection("photos").doc(id).delete().then(loadPhotos);
+};
       loadPhotos();
 
       /* --- VİDEO --- */
@@ -729,24 +754,49 @@
       };
 
       function loadVideos() {
-        db.collection("videos").orderBy("createdAt", "desc").get().then(snap => {
-          let html = "";
-          snap.forEach(doc => {
-            const d = doc.data();
-            html += `
-              <div style="border:1px solid #334;padding:6px;border-radius:10px;background:#020617;">
-                <video controls style="width:100%;border-radius:10px;max-height:230px;object-fit:contain;">
-                  <source src="${d.url}">
-                </video>
-                <div style="padding:4px 0;font-size:0.8rem;">
-                  <b>${d.title || ""}</b><br>
-                  <span>${d.desc || ""}</span>
-                </div>
-              </div>`;
-          });
-          videosList.innerHTML = html || "<div class='comment-empty'>Video yok</div>";
-        });
-      }
+  db.collection("videos").orderBy("createdAt", "desc").get().then(snap => {
+    let html = "";
+    snap.forEach(doc => {
+      const d = doc.data();
+      html += `
+        <div style="border:1px solid #334;padding:6px;border-radius:10px;background:#020617;position:relative;">
+
+          <!-- Sil Butonu -->
+          <button onclick="deleteVideo('${doc.id}')"
+            style="
+              position:absolute;
+              top:8px;
+              right:8px;
+              background:#b91c1c;
+              color:white;
+              border:none;
+              padding:4px 10px;
+              font-size:12px;
+              border-radius:6px;
+              cursor:pointer;
+            ">
+            Sil
+          </button>
+
+          <video controls style="width:100%;border-radius:10px;max-height:230px;object-fit:contain;">
+            <source src="${d.url}">
+          </video>
+          <div style="padding:4px 0;font-size:0.8rem;">
+            <b>${d.title || ""}</b><br>
+            <span>${d.desc || ""}</span>
+          </div>
+        </div>`;
+    });
+
+    videosList.innerHTML = html || "<div class='comment-empty'>Video yok</div>";
+  });
+}
+
+// Video Silme
+window.deleteVideo = id => {
+  if (!confirm("Bu videoyu silmek istiyor musun?")) return;
+  db.collection("videos").doc(id).delete().then(loadVideos);
+};
       loadVideos();
 
 
