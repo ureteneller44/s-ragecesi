@@ -288,16 +288,18 @@ async function loadPhotos() {
   const snap = await db.collection("photos").orderBy("createdAt","desc").get();
 
   let html = "";
-  snap.forEach(doc => {
-    const p = doc.data();
+snap.forEach(doc => {
+  const p = doc.data();
 html += `
-<div class="comment-box">
-  <img src="${p.url}" style="width:100%;border-radius:10px;">
-  ${p.title ? `<strong>${p.title}</strong><br>`:""}
-  ${p.desc ? `<span>${p.desc}</span><br>`:""}
-  <button class="btn" onclick="deletePhoto('${doc.id}')">Sil</button>
+<div class="comment-box" style="margin-bottom:16px;">
+  <img src="${p.url}" style="width:100%;border-radius:10px; margin-bottom:10px;">
+
+  ${p.title ? `<strong>${p.title}</strong><br>` : ""}
+  ${p.desc ? `<span>${p.desc}</span><br><br>` : ""}
+
+  <button class="btn" style="margin-top:10px;" onclick="deletePhoto('${doc.id}')">Sil</button>
 </div>`;
-  });
+});
 
   el.innerHTML = html;
 }
@@ -335,18 +337,20 @@ async function loadVideos() {
   const snap = await db.collection("videos").orderBy("createdAt","desc").get();
 
   let html = "";
-  snap.forEach(doc => {
-    const v = doc.data();
+snap.forEach(doc => {
+  const v = doc.data();
 html += `
-<div class="comment-box">
-  <video controls style="width:100%;border-radius:10px;">
+<div class="comment-box" style="margin-bottom:16px;">
+  <video controls style="width:100%;border-radius:10px; margin-bottom:10px;">
     <source src="${v.url}">
   </video>
-  ${v.title ? `<strong>${v.title}</strong><br>`:""}
-  ${v.desc ? `<span>${v.desc}</span><br>`:""}
-  <button class="btn" onclick="deleteVideo('${doc.id}')">Sil</button>
+
+  ${v.title ? `<strong>${v.title}</strong><br>` : ""}
+  ${v.desc ? `<span>${v.desc}</span><br><br>` : ""}
+
+  <button class="btn" style="margin-top:10px;" onclick="deleteVideo('${doc.id}')">Sil</button>
 </div>`;
-  });
+});
 
   el.innerHTML = html;
 }
