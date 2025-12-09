@@ -268,7 +268,7 @@ document.getElementById("uploadPhotoBtn").onclick = async () => {
   const file = document.getElementById("photoFile").files[0];
   if (!file) return alert("Fotoğraf seç!");
 
-  const url = await cloudUpload(file,"image");
+  const url = await cloudUpload(file, "image");
 
   await db.collection("photos").add({
     url,
@@ -281,34 +281,67 @@ document.getElementById("uploadPhotoBtn").onclick = async () => {
   alert("Fotoğraf yüklendi!");
 };
 
+
+/* ---------------------------------------------------
+   FOTOĞRAF LİSTELEME — ÜSTTE SİL BUTONU İLE
+--------------------------------------------------- */
 async function loadPhotos() {
   const el = document.getElementById("photosList");
   el.innerHTML = "Yükleniyor...";
 
-  const snap = await db.collection("photos").orderBy("createdAt","desc").get();
+  const snap = await db.collection("photos")
+    .orderBy("createdAt", "desc").get();
 
   let html = "";
-snap.forEach(doc => {
-  const p = doc.data();
-html += `
-<div class="comment-box" style="margin-bottom:16px;">
-  <img src="${p.url}" style="width:100%;border-radius:10px; margin-bottom:10px;">
+  snap.forEach(doc => {
+    const p = doc.data();
 
-  ${p.title ? `<strong>${p.title}</strong><br>` : ""}
-  ${p.desc ? `<span>${p.desc}</span><br><br>` : ""}
+    html += `
+<div class="comment-box" style="margin-bottom:20px; padding:12px; border-radius:14px; position:relative;">
 
-  <button class="btn" style="margin-top:10px;" onclick="deletePhoto('${doc.id}')">Sil</button>
-</div>`;
-});
+  <!-- FOTOĞRAF + ÜSTTE SİL BUTONU -->
+  <div style="position:relative; margin-bottom:10px;">
+    <img src="${p.url}" style="width:100%; border-radius:12px;">
+
+    <button
+      onclick="deletePhoto('${doc.id}')"
+      style="
+        position:absolute;
+        top:10px;
+        right:10px;
+        background:#ef4444;
+        color:white;
+        padding:6px 12px;
+        font-size:14px;
+        border-radius:8px;
+        border:none;
+        cursor:pointer;
+      ">
+      Sil
+    </button>
+  </div>
+
+  <!-- BAŞLIK VE AÇIKLAMA -->
+  ${p.title ? `<strong style="font-size:15px;">${p.title}</strong><br>` : ""}
+  ${p.desc ? `<span style="font-size:14px; opacity:0.8;">${p.desc}</span><br>` : ""}
+</div>
+    `;
+  });
 
   el.innerHTML = html;
 }
 
+
+/* ---------------------------------------------------
+   FOTOĞRAF SİLME
+--------------------------------------------------- */
 async function deletePhoto(id) {
+  const ok = confirm("Bu fotoğrafı silmek istiyor musun?");
+  if (!ok) return;
+
   await db.collection("photos").doc(id).delete();
   loadPhotos();
 }
-
 
 /* ---------------------------------------------------
    VİDEO YÜKLEME
@@ -317,7 +350,7 @@ document.getElementById("uploadVideoBtn").onclick = async () => {
   const file = document.getElementById("videoFile").files[0];
   if (!file) return alert("Video seç!");
 
-  const url = await cloudUpload(file,"video");
+  const url = await cloudUpload(file, "video");
 
   await db.collection("videos").add({
     url,
@@ -330,36 +363,69 @@ document.getElementById("uploadVideoBtn").onclick = async () => {
   alert("Video yüklendi!");
 };
 
+
+/* ---------------------------------------------------
+   VİDEO LİSTELEME — ÜSTTE SİL BUTONU İLE
+--------------------------------------------------- */
 async function loadVideos() {
   const el = document.getElementById("videosList");
   el.innerHTML = "Yükleniyor...";
 
-  const snap = await db.collection("videos").orderBy("createdAt","desc").get();
+  const snap = await db.collection("videos")
+    .orderBy("createdAt", "desc").get();
 
   let html = "";
-snap.forEach(doc => {
-  const v = doc.data();
-html += `
-<div class="comment-box" style="margin-bottom:16px;">
-  <video controls style="width:100%;border-radius:10px; margin-bottom:10px;">
-    <source src="${v.url}">
-  </video>
+  snap.forEach(doc => {
+    const v = doc.data();
 
-  ${v.title ? `<strong>${v.title}</strong><br>` : ""}
-  ${v.desc ? `<span>${v.desc}</span><br><br>` : ""}
+    html += `
+<div class="comment-box" style="margin-bottom:20px; padding:12px; border-radius:14px; position:relative;">
 
-  <button class="btn" style="margin-top:10px;" onclick="deleteVideo('${doc.id}')">Sil</button>
-</div>`;
-});
+  <!-- VİDEO + ÜSTTE SİL BUTONU -->
+  <div style="position:relative; margin-bottom:10px;">
+    <video controls style="width:100%; border-radius:12px;">
+      <source src="${v.url}">
+    </video>
+
+    <button
+      onclick="deleteVideo('${doc.id}')"
+      style="
+        position:absolute;
+        top:10px;
+        right:10px;
+        background:#ef4444;
+        color:white;
+        padding:6px 12px;
+        font-size:14px;
+        border-radius:8px;
+        border:none;
+        cursor:pointer;
+      ">
+      Sil
+    </button>
+  </div>
+
+  <!-- BAŞLIK VE AÇIKLAMA -->
+  ${v.title ? `<strong style="font-size:15px;">${v.title}</strong><br>` : ""}
+  ${v.desc ? `<span style="font-size:14px; opacity:0.8;">${v.desc}</span><br>` : ""}
+</div>
+    `;
+  });
 
   el.innerHTML = html;
 }
 
+
+/* ---------------------------------------------------
+   VİDEO SİLME
+--------------------------------------------------- */
 async function deleteVideo(id) {
+  const ok = confirm("Bu videoyu silmek istiyor musun?");
+  if (!ok) return;
+
   await db.collection("videos").doc(id).delete();
   loadVideos();
 }
-
 
 /* ---------------------------------------------------
    YORUM LİSTELE — ONAY / SİL
