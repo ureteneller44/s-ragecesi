@@ -43,7 +43,6 @@
       border-radius: 16px;
       border: 1px solid rgba(148, 163, 184, 0.5);
     }
-    .form-group { margin-bottom: 8px; }
     .form-input, .form-textarea {
       width: 100%; padding: 7px 9px;
       border-radius: 10px; background: rgba(15,23,42,0.98);
@@ -56,19 +55,14 @@
       border: none; cursor: pointer;
       color: #0f172a; font-weight: bold;
     }
-
     .preview-bar {
       background: rgba(60,0,0,0.6);
       padding: 14px; border-radius: 14px; margin-top: 12px;
     }
 
-    /* Yorum Listesi */
     .comment-box {
       background: #0f172a; padding: 12px; border-radius: 14px;
       border: 1px solid rgba(148,163,184,0.4); margin-bottom: 12px;
-    }
-    .comment-actions button {
-      margin-right: 8px; margin-top: 6px;
     }
   </style>
 </head>
@@ -169,7 +163,7 @@
       <div id="videosList"></div>
     </section>
 
-    <!-- YORUMLAR SEKME -->
+    <!-- YORUMLAR -->
     <section id="tab-comments" class="tab-section">
       <h3>Bekleyen Yorumlar</h3>
       <div id="commentsList"></div>
@@ -200,7 +194,7 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
 });
 
 /* ---------------------------------------------------
-   DUYURU - FIRESTORE
+   DUYURU
 --------------------------------------------------- */
 const ANN_ID = "QEYYxEpClLZ5yKZVLxeS";
 
@@ -208,24 +202,21 @@ async function loadAnnouncement() {
   const snap = await db.collection("announcements").doc(ANN_ID).get();
   const data = snap.data() || {};
 
-  document.getElementById("cityInput").value = data.city || "";
-  document.getElementById("venueInput").value = data.venue || "";
-  document.getElementById("timeInput").value = data.time || "";
-  document.getElementById("dayTextInput").value = data.day || "";
-  document.getElementById("subTextInput").value = data.sub || "";
+  cityInput.value = data.city || "";
+  venueInput.value = data.venue || "";
+  timeInput.value = data.time || "";
+  dayTextInput.value = data.day || "";
+  subTextInput.value = data.sub || "";
 
   updatePreview();
 }
 
 function updatePreview() {
-  document.getElementById("previewMain").innerHTML =
-    `${cityInput.value} • ${venueInput.value} • ${timeInput.value}`;
-
-  document.getElementById("previewSub").innerText =
-    subTextInput.value;
+  previewMain.innerHTML = `${cityInput.value} • ${venueInput.value} • ${timeInput.value}`;
+  previewSub.innerText = subTextInput.value;
 }
 
-document.getElementById("saveBtn").onclick = async () => {
+saveBtn.onclick = async () => {
   await db.collection("announcements").doc(ANN_ID).set({
     city: cityInput.value,
     venue: venueInput.value,
@@ -242,9 +233,8 @@ document.getElementById("saveBtn").onclick = async () => {
   document.getElementById(id).addEventListener("input", updatePreview);
 });
 
-
 /* ---------------------------------------------------
-   CLOUDINARY AYAR
+   CLOUDINARY
 --------------------------------------------------- */
 const CLOUD = "dqwpwghbx";
 const PRESET = "unsigned_upload";
@@ -260,12 +250,11 @@ async function cloudUpload(file, type="image") {
   return data.secure_url;
 }
 
-
 /* ---------------------------------------------------
-   FOTOĞRAF YÜKLEME
+   FOTOĞRAF YÜKLE
 --------------------------------------------------- */
-document.getElementById("uploadPhotoBtn").onclick = async () => {
-  const file = document.getElementById("photoFile").files[0];
+uploadPhotoBtn.onclick = async () => {
+  const file = photoFile.files[0];
   if (!file) return alert("Fotoğraf seç!");
 
   const url = await cloudUpload(file, "image");
@@ -281,13 +270,11 @@ document.getElementById("uploadPhotoBtn").onclick = async () => {
   alert("Fotoğraf yüklendi!");
 };
 
-
 /* ---------------------------------------------------
-   FOTOĞRAF LİSTELEME — ÜSTTE SİL BUTONU İLE
+   FOTOĞRAF LİSTELEME (SİL BUTONU ÜSTTE)
 --------------------------------------------------- */
 async function loadPhotos() {
-  const el = document.getElementById("photosList");
-  el.innerHTML = "Yükleniyor...";
+  photosList.innerHTML = "Yükleniyor...";
 
   const snap = await db.collection("photos")
     .orderBy("createdAt", "desc").get();
@@ -299,7 +286,6 @@ async function loadPhotos() {
     html += `
 <div class="comment-box" style="margin-bottom:20px; padding:12px; border-radius:14px; position:relative;">
 
-  <!-- FOTOĞRAF + ÜSTTE SİL BUTONU -->
   <div style="position:relative; margin-bottom:10px;">
     <img src="${p.url}" style="width:100%; border-radius:12px;">
 
@@ -321,33 +307,25 @@ async function loadPhotos() {
     </button>
   </div>
 
-  <!-- BAŞLIK VE AÇIKLAMA -->
-  ${p.title ? `<strong style="font-size:15px;">${p.title}</strong><br>` : ""}
-  ${p.desc ? `<span style="font-size:14px; opacity:0.8;">${p.desc}</span><br>` : ""}
-</div>
-    `;
+  ${p.title ? `<strong>${p.title}</strong><br>` : ""}
+  ${p.desc ? `<span>${p.desc}</span><br>` : ""}
+</div>`;
   });
 
-  el.innerHTML = html;
+  photosList.innerHTML = html;
 }
 
-
-/* ---------------------------------------------------
-   FOTOĞRAF SİLME
---------------------------------------------------- */
 async function deletePhoto(id) {
-  const ok = confirm("Bu fotoğrafı silmek istiyor musun?");
-  if (!ok) return;
-
+  if (!confirm("Fotoğraf silinsin mi?")) return;
   await db.collection("photos").doc(id).delete();
   loadPhotos();
 }
 
 /* ---------------------------------------------------
-   VİDEO YÜKLEME
+   VİDEO YÜKLE
 --------------------------------------------------- */
-document.getElementById("uploadVideoBtn").onclick = async () => {
-  const file = document.getElementById("videoFile").files[0];
+uploadVideoBtn.onclick = async () => {
+  const file = videoFile.files[0];
   if (!file) return alert("Video seç!");
 
   const url = await cloudUpload(file, "video");
@@ -363,13 +341,11 @@ document.getElementById("uploadVideoBtn").onclick = async () => {
   alert("Video yüklendi!");
 };
 
-
 /* ---------------------------------------------------
-   VİDEO LİSTELEME — ÜSTTE SİL BUTONU İLE
+   VİDEO LİSTELEME (SİL BUTONU ÜSTTE)
 --------------------------------------------------- */
 async function loadVideos() {
-  const el = document.getElementById("videosList");
-  el.innerHTML = "Yükleniyor...";
+  videosList.innerHTML = "Yükleniyor...";
 
   const snap = await db.collection("videos")
     .orderBy("createdAt", "desc").get();
@@ -381,7 +357,6 @@ async function loadVideos() {
     html += `
 <div class="comment-box" style="margin-bottom:20px; padding:12px; border-radius:14px; position:relative;">
 
-  <!-- VİDEO + ÜSTTE SİL BUTONU -->
   <div style="position:relative; margin-bottom:10px;">
     <video controls style="width:100%; border-radius:12px;">
       <source src="${v.url}">
@@ -405,34 +380,25 @@ async function loadVideos() {
     </button>
   </div>
 
-  <!-- BAŞLIK VE AÇIKLAMA -->
-  ${v.title ? `<strong style="font-size:15px;">${v.title}</strong><br>` : ""}
-  ${v.desc ? `<span style="font-size:14px; opacity:0.8;">${v.desc}</span><br>` : ""}
-</div>
-    `;
+  ${v.title ? `<strong>${v.title}</strong><br>` : ""}
+  ${v.desc ? `<span>${v.desc}</span><br>` : ""}
+</div>`;
   });
 
-  el.innerHTML = html;
+  videosList.innerHTML = html;
 }
 
-
-/* ---------------------------------------------------
-   VİDEO SİLME
---------------------------------------------------- */
 async function deleteVideo(id) {
-  const ok = confirm("Bu videoyu silmek istiyor musun?");
-  if (!ok) return;
-
+  if (!confirm("Video silinsin mi?")) return;
   await db.collection("videos").doc(id).delete();
   loadVideos();
 }
 
 /* ---------------------------------------------------
-   YORUM LİSTELE — ONAY / SİL
+   YORUM YÖNETİMİ
 --------------------------------------------------- */
 async function loadComments() {
-  const el = document.getElementById("commentsList");
-  el.innerHTML = "Yükleniyor...";
+  commentsList.innerHTML = "Yükleniyor...";
 
   const snap = await db.collection("comments")
     .where("approved","==",false)
@@ -448,21 +414,20 @@ async function loadComments() {
   <small>${c.venue}</small><br><br>
   ${c.text}<br>
 
-  <div class="comment-actions">
+  <div style="margin-top:10px;">
     <button class="btn" onclick="approveComment('${doc.id}')">Onayla</button>
     <button class="btn" onclick="deleteComment('${doc.id}')">Sil</button>
   </div>
 </div>`;
   });
 
-  el.innerHTML = html;
+  commentsList.innerHTML = html;
 }
 
 async function approveComment(id) {
   await db.collection("comments").doc(id).set({
     approved: true
   },{ merge:true });
-
   loadComments();
 }
 
@@ -471,9 +436,8 @@ async function deleteComment(id) {
   loadComments();
 }
 
-
 /* ---------------------------------------------------
-   SAYFA AÇILINCA TÜM VERİLERİ YÜKLE
+   SAYFA AÇILINCA YÜKLE
 --------------------------------------------------- */
 loadAnnouncement();
 loadPhotos();
