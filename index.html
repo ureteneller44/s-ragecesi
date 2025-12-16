@@ -1565,13 +1565,14 @@
   });
 </script>
 
-   <!-- Firebase CDN -->
+  <!-- Firebase CDN -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
 <!-- Firebase config ve init -->
 <script src="firebase-init.js"></script>
-  <!-- Dil Seçimi (Sağ Üst) -->
+
+<!-- Dil Seçimi (Sağ Üst) -->
 <div class="lang-switcher" style="
   position: fixed;
   top: 12px;
@@ -1591,19 +1592,98 @@
     <option value="de">🇩🇪 Deutsch</option>
   </select>
 </div>
-  <script src="assets/js/i18n.js"></script>
+
+<script src="assets/js/i18n.js"></script>
+
 <script>
   document.getElementById("langSelect").addEventListener("change", function () {
-      const lang = this.value;
-      localStorage.setItem("lang", lang);
-      applyLanguage(lang);
+    const lang = this.value;
+    localStorage.setItem("lang", lang);
+    applyLanguage(lang);
   });
 
-  // Sayfa ilk açıldığında kaydedilen dili yükle
   const saved = localStorage.getItem("lang") || "tr";
   document.getElementById("langSelect").value = saved;
   applyLanguage(saved);
 </script>
 
+<!-- ================== ÜRETEN ELLER SABİT ALT BANNER ================== -->
+<a href="https://www.xn--reteneller-8db.com/" target="_blank" class="ue-banner">
+  <img id="ueBannerImg" src="reklam/1762015311033.jpg" alt="Üreten Eller">
+  <span id="ueBannerText">Ev kadınlarının el emeği ürünleri • ÜretenEller.com</span>
+</a>
+
+<style>
+.ue-banner{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  background: rgba(15,23,42,0.95);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  box-sizing: border-box;
+  z-index: 9998;
+  text-decoration: none;
+  backdrop-filter: blur(6px);
+}
+
+.ue-banner img{
+  height: 70px;
+  width: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.ue-banner span{
+  color: #f8fafc;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+@media(max-width:768px){
+  .ue-banner{
+    height: 80px;
+  }
+  .ue-banner img{
+    height: 60px;
+  }
+  .ue-banner span{
+    font-size: 14px;
+  }
+}
+</style>
+
+<script>
+const ueSlides = [
+  { img: "reklam/1762015311033.jpg", text: "Ev kadınlarının el emeği ürünleri • ÜretenEller.com" },
+  { img: "reklam/1762015311041.jpg", text: "Güvenli ödeme • Gerçek üretici • PayTR güvencesi" },
+  { img: "reklam/1764511308378.jpg", text: "El işi • Ev yapımı • Yerel üreticiye destek" },
+  { img: "reklam/1764511308382.jpg", text: "Üreten Eller • Üret, sat, kazan" }
+];
+
+let ueIndex = 0;
+const imgEl = document.getElementById("ueBannerImg");
+const textEl = document.getElementById("ueBannerText");
+
+setInterval(() => {
+  ueIndex = (ueIndex + 1) % ueSlides.length;
+  imgEl.style.opacity = 0;
+  textEl.style.opacity = 0;
+
+  setTimeout(() => {
+    imgEl.src = ueSlides[ueIndex].img;
+    textEl.textContent = ueSlides[ueIndex].text;
+    imgEl.style.opacity = 1;
+    textEl.style.opacity = 1;
+  }, 300);
+}, 3500);
+</script>
+<!-- ================================================================ -->
+
 </body>
-</html> 
+</html>
